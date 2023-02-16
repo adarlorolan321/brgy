@@ -103,5 +103,4 @@ class User extends Authenticatable
                 return 'Not mentioned';
         }
     }
-
 }

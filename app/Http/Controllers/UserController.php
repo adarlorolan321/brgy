@@ -69,26 +69,9 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
 
-        $user                       = new User;
-        $user->first_name           = $request->input('first_name');
-        $user->middle_name          = $request->input('middle_name');
-        $user->family_name          = $request->input('family_name');
-        $user->type                 = $request->input('type');
-        $user->email                = $request->input('email');
-        $user->email_verified_at    = $request->input('email_verified_at');
-        $user->password             = $request->input('password');
-        $user->photo                = ($request->hasfile('photo') ? $request->file('photo')->store('public/uploads') : NULL);
-        $user->gender               = $request->input('gender');
-        $user->user_agreement       = $request->input('user_agreement');
-        $user->privacy_policy       = $request->input('privacy_policy');
-
+        $user = User::create($request->validated());
+        $user->photo = ($request->hasfile('photo') ? $request->file('photo')->store('public/uploads') : NULL);
         
-        
-        $user->address              = $request->input('address');
-        $user->mobile_number       = $request->input('mobile_number');
-        $user->birthdate             = $request->input('birthdate');
-        $user->active               = $request->input('active') ? $request->input('active') : 1;
-
         if ($user->save()) {
             UserResource::withoutWrapping();
             $userResource = new UserResource($user);
@@ -135,85 +118,33 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, Int $id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
+        $user->update($request->validated());
 
-        if ($user) {
-            if ($request->has('first_name')) {
-                $user->first_name    = $request->get('first_name');
+        if ($request->hasfile('photo')) {
+            // Remove the old image if any
+            if ($user->photo && Storage::exists($user->photo)) {
+                Storage::delete($user->photo);
             }
 
-            if ($request->has('middle_name')) {
-                $user->middle_name   = $request->get('middle_name');
-            }
+            $user->photo = $request->file('photo')->store('public/uploads');
+        }
 
-            if ($request->has('family_name')) {
-                $user->family_name     = $request->get('family_name');
-            }
+        if ($user->save()) {
+            UserResource::withoutWrapping();
+            $userResource = new UserResource($user);
 
-            if ($request->has('type')) {
-                $user->type   = $request->get('type');
-            }
-
-            if ($request->has('email')) {
-                $user->email   = $request->get('email');
-            }
-            
-            if ($request->hasfile('photo')) {
-                // Remove the old image if any
-                if ($user->photo && Storage::exists($user->photo)) {
-                    Storage::delete($user->photo);
-                }
-
-                $user->photo = $request->file('photo')->store('public/uploads');
-            }
-
-            if ($request->has('gender')) {
-                $user->gender   = $request->get('gender');
-            }
-            
-            if ($request->has('address')) {
-                $user->address   = $request->get('address');
-            }
-
-            if ($request->has('mobile_number')) {
-                $user->mobile_number   = $request->get('mobile_number');
-            };
-
-            if ($request->has('birthdate')) {
-                $user->birthdate   = $request->get('birthdate');
-            }
-
-            if ($request->has('active')) {
-                $user->active   = $request->get('active');
-            }
-
-            if ($user->save()) {
-                UserResource::withoutWrapping();
-                $userResource = new UserResource($user);
-
-                return response()->json($userResource, 200);
-            } else {
-                return response()->json(
-                    [
-                        'errors' => [
-                            'message' => [
-                                'Unable to edit User ID '.$id
-                            ]
-                        ]
-                    ],
-                    422
-                );    
-            }
+            return response()->json($userResource, 200);
         } else {
             return response()->json(
                 [
                     'errors' => [
                         'message' => [
-                            'User ID '.$id.' not found.'
+                            'Unable to edit User ID '.$id
                         ]
                     ]
                 ],
-                404
+                422
             );    
         }
     }

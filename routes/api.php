@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::prefix('dryver-app')->group(function () {
-    Route::get('users', 'UserController@index');
-    Route::post('users', 'UserController@store');
-    Route::put('users/{id}', 'UserController@update');
-    Route::get('users/{id}', 'UserController@show');
-    Route::delete('users/{id}', 'UserController@destroy');
-    Route::post('users/avatar/{id}', 'UserController@uploadPhoto');
+Route::prefix('v1')->group(function () {
+    Route::resources([
+        'users' => UserController::class,
+        'rescue-services' => RescueServiceController::class,
+        'rescuers' => RescuerController::class,
+        'cars' => CarController::class,
+        'blowbagets' => \v1\BlowbagetsController::class,
+    ]);
 });
 
 Route::group(['prefix' => 'auth'], function () {

@@ -33,8 +33,8 @@ class StoreUserRequest extends FormRequest
         'photo'             => 'image|nullable',                    
         'gender'            => 'sometimes|string|nullable|max:1',                                 
         'address'           => 'sometimes|string|nullable',           
-        'mobile_number'    => 'sometimes|string|nullable|unique:users',       
-        'birthdate'          => 'sometimes|date|nullable',             
+        'mobile_number'     => 'sometimes|string|nullable|unique:users',       
+        'birthdate'         => 'sometimes|date|nullable',             
         'active'            => 'sometimes|boolean|nullable',
         ];
     }
