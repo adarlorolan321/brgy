@@ -2,17 +2,28 @@
 
 namespace App\Models;
 
+use App\Models\User\UserScope;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-//use Laravel\Sanctum\HasApiTokens;//I don't know yet how to use this package, maybe we can replace Laravel Passport next time with this one?
-use Laravel\Passport\HasApiTokens;
-use Illuminate\Support\Facades\Hash;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use InteractsWithMedia;
+    use HasFactory;
+    // use HasProfilePhoto;
+    use Notifiable;
+    use HasRoles;
+    use UserScope;
+    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,19 +31,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'name',
         'first_name',
-        'middle_name',
-        'family_name',
-        'type',
+        'last_name',
         'email',
-        'email_verified_at',
-        'password',
-        'photo',
-        'gender',
-        'address',
-        'mobile_number',
-        'birthdate',
-        'active',
+        'phone',
+        'status',
+        'password'
     ];
 
     /**
@@ -43,6 +48,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
+        "roles",
+        'media'
     ];
 
     /**
@@ -53,54 +62,36 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
-    public function setPasswordAttribute($value)
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'profile_photo','role', 'profile_photo_url'
+    ];
+
+    public function getRoleAttribute()
     {
-        $this->attributes['password'] = Hash::make($value);
+        return $this->getRoleNames()->implode(', ');
     }
 
-    public function getAvatarAttribute()
+    public function getProfilePhotoAttribute()
     {
-        $findStr = "public";
-        $replaceWith = "storage";
-        $str = $this->photo;
-
-        $imageLink = preg_replace('/' . $findStr . '/', $replaceWith, $str, 1);
-
-        return env('APP_URL').'/'.$imageLink;
+        $media = $this->getMedia('profile_photo')->first();
+        return $media ? array_merge($media->toArray(), [
+            'url' => $media->getUrl(),
+            'src' => $media->getUrl(),
+            'path' => $media->getUrl(),
+            'preview_url' => $media->getUrl(),
+        ]) : null;
     }
 
-    public function getTypeTextAttribute()
+    public function getProfilePhotoUrlAttribute()
     {
-        switch ($this->type) {
-            case 'A':
-                return 'Admin';
-                break;
-            case 'CD':
-                return 'Company Driver';
-                break;
-            case 'PD':
-                return 'Personal Driver';
-                break;
-            default:
-                return 'User type not found';
-        }
+        $media = $this->getMedia('profile_photo')->first();
+        return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name='. $this->name .'&color=8176f2&background=F8F7FA';
     }
-    
-    public function getSexTextAttribute()
-    {
-        switch ($this->gender) {
-            case 'M':
-                return 'Male';
-                break;
-            case 'F':
-                return 'Female';
-                break;
-            case 'R':
-                return 'Rather Not Say';
-                break;
-            default:
-                return 'Not mentioned';
-        }
-    }
+
 }
