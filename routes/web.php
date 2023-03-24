@@ -33,6 +33,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['role:Admin'])->group(function () {
         Route::get('/', function () {
             return Inertia::render('Welcome', []);
-        });
+        })->name('welcome');
     });
 });
