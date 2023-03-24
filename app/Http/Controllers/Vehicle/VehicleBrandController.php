@@ -128,6 +128,8 @@ class VehicleBrandController extends Controller
                 ->update([
                     'model_id' => $data->id
                 ]);
+        } else {
+            $data->clearMediaCollection('brand_icon');
         }
         sleep(1);
 

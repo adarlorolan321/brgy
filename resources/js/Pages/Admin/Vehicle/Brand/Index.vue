@@ -100,7 +100,7 @@ let {
                         </div>
 
                         <div class="form-group mb-4 dropzone-profile-photo">
-                            <label for="name">Profile Photo</label>
+                            <label for="name">Brand Icon</label>
                             <dropzone
                                 collection="brand_icon"
                                 v-if="isLoadingComponents"
