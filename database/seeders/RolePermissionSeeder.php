@@ -18,93 +18,7 @@ class RolePermissionSeeder extends Seeder
     public function run()
     {
         $roles = [
-            'OrgAdmin' => [
-                'access service',
-                'create service',
-                'store service',
-                'edit service',
-                'update service',
-                'destroy service',
-                'show service',
-            ],
-            'Admin' => [
-                'access service',
-                'create service',
-                'store service',
-                'edit service',
-                'update service',
-                'destroy service',
-                'show service',
-
-                'access user',
-                'create user',
-                'store user',
-                'edit user',
-                'update user',
-                'destroy user',
-                'show user',
-
-                'access venue',
-                'create venue',
-                'store venue',
-                'edit venue',
-                'update venue',
-                'destroy venue',
-                'show venue',
-
-                'access class',
-                'create class',
-                'store class',
-                'edit class',
-                'update class',
-                'destroy class',
-                'show class',
-
-                'access student',
-                'create student',
-                'store student',
-                'edit student',
-                'update student',
-                'destroy student',
-                'show student',
-
-            ],
-            'Coach' => [
-                'access user',
-                'create user',
-                'store user',
-                'edit user',
-                'update user',
-                'destroy user',
-                'show user',
-            ],
-            'Staff' => [
-                'access user',
-                'create user',
-                'store user',
-                'edit user',
-                'update user',
-                'destroy user',
-                'show user',
-            ],
-            'Client' => [
-                'access user',
-                'create user',
-                'store user',
-                'edit user',
-                'update user',
-                'destroy user',
-                'show user',
-            ],
-            'Student' => [
-                'access user',
-                'create user',
-                'store user',
-                'edit user',
-                'update user',
-                'destroy user',
-                'show user',
-            ],
+            'Admin' => [],
         ];
 
         foreach ($roles as $role => $permissions) {
@@ -128,6 +42,8 @@ class RolePermissionSeeder extends Seeder
         }
         // ASSIGN SUPER ADMIN ROLE
         $user = User::where('email', 'admin@admin.com')->first();
-        $user->assignRole('Admin'); // SUPER ADMIN
+        if ($user) {
+            $user->assignRole('Admin'); // SUPER ADMIN
+        }
     }
 }
