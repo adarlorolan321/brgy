@@ -74,11 +74,7 @@
                             v-if="!menu.sub_menu"
                             class="menu-item"
                             :class="{
-                                active:
-                                    route().current(menu.route) ||
-                                    route().current(
-                                        menu.route.replace(/[^.]*$/, '*')
-                                    ),
+                                active: route().current(menu.route),
                             }"
                         >
                             <inertia-link
@@ -157,7 +153,7 @@
             <div class="layout-page">
                 <!-- Navbar -->
                 <nav
-                    class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                     id="layout-navbar"
                 >
                     <div
@@ -316,7 +312,7 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
-                    <div class="container-fluid flex-grow-1 container-p-y">
+                    <div class="container-xxl flex-grow-1 container-p-y">
                         <slot></slot>
                     </div>
                     <!-- / Content -->

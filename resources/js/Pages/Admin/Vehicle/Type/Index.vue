@@ -1,21 +1,20 @@
 <script>
-import AdminLayout from "@/Layouts/AdminLayout.vue"; 
+import AdminLayout from "@/Layouts/AdminLayout.vue";
 export default {
     layout: AdminLayout,
 };
 </script>
 
 <script setup>
-import { useCrud } from "@/Composables/Crud.js"; 
+import { useCrud } from "@/Composables/Crud.js";
 import { useValidateForm } from "@/Composables/Validate.js";
 import { usePage, Head } from "@inertiajs/vue3";
 const { props } = usePage();
 const formObject = {
     name: null,
-    code: null,
 };
 const { validateForm } = useValidateForm();
-const routeName = "settings.services";
+const routeName = "vehicle_types";
 let {
     paginatedData,
     form,
@@ -31,11 +30,11 @@ let {
 </script>
 
 <template>
-    <Head title="Services"></Head>
+    <Head title="Vehicle Types"></Head>
     <div class="card card-action">
         <div class="card-header">
             <div class="card-action-title align-items-center">
-                <h5 class="card-title">SERVICES</h5>
+                <h5 class="card-title">Vehicle Types</h5>
             </div>
             <div class="card-action-element">
                 <button
@@ -46,7 +45,7 @@ let {
                     data-bs-target="#offCanvasForm"
                     aria-controls="offCanvasForm"
                 >
-                    Add Service
+                    Add Vehicle Type
                 </button>
                 <div
                     class="offcanvas offcanvas-end"
@@ -58,7 +57,7 @@ let {
                     <div class="offcanvas-header">
                         <h5 id="offCanvasFormLabel" class="offcanvas-title">
                             {{ formState == "create" ? "Add" : "Update" }}
-                            Service
+                            Vehicle Type
                         </h5>
                         <button
                             type="button"
@@ -70,15 +69,24 @@ let {
                     </div>
                     <div class="offcanvas-body mt-4 mx-0 flex-grow-0">
                         <div class="form-group mb-3">
-                            <label for="">Service Name <span class="required">*</span></label>
+                            <label for=""
+                                >Name <span class="required">*</span></label
+                            >
                             <input
                                 type="text"
                                 class="form-control"
                                 v-model="form.name"
-                                @input="($event) => {
-                                    form.clearErrors('name'); 
-                                    validateForm(['required'], form, $event.target.value, 'name');
-                                }" 
+                                @input="
+                                    ($event) => {
+                                        form.clearErrors('name');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'name'
+                                        );
+                                    }
+                                "
                                 placeholder="Enter name"
                                 :class="{
                                     'is-invalid': form.errors.name,
@@ -86,22 +94,6 @@ let {
                             />
                             <div class="invalid-feedback">
                                 {{ form.errors.name }}
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="">Code</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Enter code"
-                                v-model="form.code"
-                                :class="{
-                                    'is-invalid': form.errors.code,
-                                }"
-                                @input="form.clearErrors('code')"
-                            />
-                            <div class="invalid-feedback">
-                                {{ form.errors.code }}
                             </div>
                         </div>
                         <button
@@ -190,20 +182,13 @@ let {
                 <thead class="table-light">
                     <tr>
                         <table-header
+                            style="width: 90%"
                             @click="handleServerQuery('sort', 'name')"
                             :serverQuery="serverQuery"
                             serverQueryKey="name"
                         >
-                            Service Name
+                            Name
                         </table-header>
-                        <table-header
-                            @click="handleServerQuery('sort', 'code')"
-                            :serverQuery="serverQuery"
-                            serverQueryKey="code"
-                        >
-                            Code
-                        </table-header>
-                        <th>Embed Code</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -218,15 +203,6 @@ let {
                         :key="tableData"
                     >
                         <td style="width: 60%">{{ tableData.name }}</td>
-                        <td>{{ tableData.code }}</td>
-                        <td class="">
-                            <a href="#"
-                                ><i
-                                    class="fa-regular fa-copy ms-4"
-                                    style="font-size: 22px"
-                                ></i
-                            ></a>
-                        </td>
                         <td>
                             <div class="d-flex gap-2">
                                 <a

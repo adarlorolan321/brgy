@@ -8,6 +8,18 @@ export function useMenu() {
             icon: "ti ti-users",
             only: ["data", "params"],
         },
+        {
+            label: "Vehicle Types",
+            route: "vehicle_types.index",
+            icon: "ti ti-users",
+            only: ["data", "params"],
+        },
+        {
+            label: "Vehicle Brands",
+            route: "vehicle_brands.index",
+            icon: "ti ti-users",
+            only: ["data", "params"],
+        },
         // {
         //     label: "Settings",
         //     route: "settings.*",

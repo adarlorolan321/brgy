@@ -18,7 +18,25 @@ class RolePermissionSeeder extends Seeder
     public function run()
     {
         $roles = [
-            'Admin' => [],
+            'Admin' => [
+                'access vehicle_type',
+                'create vehicle_type',
+                'store vehicle_type',
+                'edit vehicle_type',
+                'update vehicle_type',
+                'destroy vehicle_type',
+                'show vehicle_type',
+
+                'access vehicle_brand',
+                'create vehicle_brand',
+                'store vehicle_brand',
+                'edit vehicle_brand',
+                'update vehicle_brand',
+                'destroy vehicle_brand',
+                'show vehicle_brand',
+
+
+            ],
         ];
 
         foreach ($roles as $role => $permissions) {
