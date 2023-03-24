@@ -1,5 +1,3 @@
-
-
 <script setup>
 // import Swal from "sweetalert2";
 import { Head, useForm } from "@inertiajs/vue3";
@@ -13,7 +11,6 @@ const form = useForm({
     email: "",
 });
 
-
 const submit = () => {
     form.post(route("password.email"), {
         onSuccess: () => {
@@ -21,22 +18,15 @@ const submit = () => {
         },
         onError: () => {
             // Swal.fire("Email not sent!", "Incorrect email address /Invalid email address","error" )
-        }
+        },
     });
-    
 };
 
 const { validateForm } = useValidateForm();
 </script>
 
-
-
-
-
 <template>
     <div class="container-xxl">
-
-
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner py-4">
                 <!-- Forgot Password -->
@@ -83,7 +73,7 @@ const { validateForm } = useValidateForm();
                                 </span>
                                 <span
                                     class="app-brand-text demo text-body fw-bold"
-                                    >SportSaas</span
+                                    >Dryvr</span
                                 >
                             </a>
                         </div>
@@ -94,29 +84,37 @@ const { validateForm } = useValidateForm();
                             reset your password
                         </p>
 
-
-                        <div v-if="status" class="alert alert-success"> 
+                        <div v-if="status" class="alert alert-success">
                             {{ status }}
                         </div>
                         <form @submit.prevent="submit">
                             <div class="form-group mb-3">
                                 <label for="">Email</label>
                                 <input
-                                    @input="($event) => {
-                                        form.clearErrors('email'); 
-                                        validateForm(['required', 'email'], form, $event.target.value, 'email');
-                                    }"
+                                    @input="
+                                        ($event) => {
+                                            form.clearErrors('email');
+                                            validateForm(
+                                                ['required', 'email'],
+                                                form,
+                                                $event.target.value,
+                                                'email'
+                                            );
+                                        }
+                                    "
                                     class="form-control"
                                     type="text"
-                                    
                                     v-model="form.email"
                                     :class="{
-                                    'is-invalid': form.errors.email,
-                                }"
+                                        'is-invalid': form.errors.email,
+                                    }"
                                 />
-                                <div v-if="form.errors.email"   class="invalid-feedback">{{
-                                    form.errors.email
-                                }}</div>
+                                <div
+                                    v-if="form.errors.email"
+                                    class="invalid-feedback"
+                                >
+                                    {{ form.errors.email }}
+                                </div>
                             </div>
                             <button
                                 type="submit"
@@ -143,4 +141,3 @@ const { validateForm } = useValidateForm();
         </div>
     </div>
 </template>
-

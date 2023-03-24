@@ -1,13 +1,12 @@
 <script setup>
 import { useLogin } from "../../Composables/Login";
-import { Head } from '@inertiajs/vue3'
+import { Head } from "@inertiajs/vue3";
 import { ref } from "vue";
 const { login, form } = useLogin();
 const password = ref(true);
 defineProps({
     status: String,
 });
-
 </script>
 <template>
     <Head title="Login"></Head>
@@ -58,17 +57,17 @@ defineProps({
                                 </span>
                                 <span
                                     class="app-brand-text demo text-body fw-bold ms-1"
-                                    >SportSaas</span
+                                    >Dryvr</span
                                 >
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-1 pt-2">Welcome to SportSaas! 👋</h4>
+                        <h4 class="mb-1 pt-2">Welcome to Dryvr! 👋</h4>
                         <p class="mb-4">
                             Please sign-in to your account and start the
                             adventure
                         </p>
-                        <div v-if="status" class="alert alert-success"> 
+                        <div v-if="status" class="alert alert-success">
                             {{ status }}
                         </div>
                         <form
