@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Vehicle;
+namespace App\Http\Controllers\Rescue;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Vehicle\VehicleBrandListResource;
-use App\Models\Vehicle\VehicleBrand;
-use App\Http\Requests\Vehicle\StoreVehicleBrandRequest;
-use App\Http\Requests\Vehicle\UpdateVehicleBrandRequest;
+use App\Http\Resources\Rescue\RescueServiceListResource;
+use App\Models\Rescue\RescueService;
+use App\Http\Requests\Rescue\StoreRescueServiceRequest;
+use App\Http\Requests\Rescue\UpdateRescueServiceRequest;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class VehicleBrandController extends Controller
+class RescueServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,12 +25,12 @@ class VehicleBrandController extends Controller
         $sort = explode('.', $request->input('sort', 'id'));
         $order = $request->input('order', 'asc');
 
-        $data = VehicleBrand::query()
+        $data = RescueService::query()
             ->with([])
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {
                     // filter result
-                    // $query->where('column', 'like', '%' . $queryString . '%')
+                    $query->where('name', 'like', '%' . $queryString . '%');
                     //     ->orWhere('column', 'like', '%' . $queryString . '%');
                 }
             })
@@ -41,7 +41,7 @@ class VehicleBrandController extends Controller
             ->withQueryString();
 
         $props = [
-            'data' => VehicleBrandListResource::collection($data),
+            'data' => RescueServiceListResource::collection($data),
             'params' => $request->all(),
         ];
 
@@ -50,10 +50,10 @@ class VehicleBrandController extends Controller
         }
 
         if (count($data) <= 0 && $page > 1) {
-            return redirect()->route('vehicle_brands.index', ['page' => 1]);
+            return redirect()->route('rescue_services.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/Vehicle/Brand/Index', $props);
+        return Inertia::render('Admin/Rescue/Service/Index', $props);
     }
 
     /**
@@ -61,24 +61,23 @@ class VehicleBrandController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/VehicleBrand/Create');
+        return Inertia::render('Admin/RescueService/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVehicleBrandRequest $request)
+    public function store(StoreRescueServiceRequest $request)
     {
-        $data = VehicleBrand::create($request->validated());
-        //Upload Profile Photo
-        if (isset($request->input('brand_icon', [])['id'])) {
-            Media::where('id', $request->input('brand_icon', [])['id'])
+        $data = RescueService::create($request->validated());
+        if (isset($request->input('icon', [])['id'])) {
+            Media::where('id', $request->input('icon', [])['id'])
                 ->update([
                     'model_id' => $data->id
                 ]);
         }
         if ($request->wantsJson()) {
-            return new VehicleBrandListResource($data);
+            return new RescueServiceListResource($data);
         }
         return redirect()->back();
     }
@@ -88,11 +87,11 @@ class VehicleBrandController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        $data = VehicleBrand::findOrFail($id);
+        $data = RescueService::findOrFail($id);
         if ($request->wantsJson()) {
-            return new VehicleBrandListResource($data);
+            return new RescueServiceListResource($data);
         }
-        return Inertia::render('Admin/VehicleBrand/Show', [
+        return Inertia::render('Admin/RescueService/Show', [
             'data' => $data
         ]);
     }
@@ -102,11 +101,11 @@ class VehicleBrandController extends Controller
      */
     public function edit(Request $request, string $id)
     {
-        $data = VehicleBrand::findOrFail($id);
+        $data = RescueService::findOrFail($id);
         if ($request->wantsJson()) {
-            return new VehicleBrandListResource($data);
+            return new RescueServiceListResource($data);
         }
-        return Inertia::render('Admin/VehicleBrand/Edit', [
+        return Inertia::render('Admin/RescueService/Edit', [
             'data' => $data
         ]);
     }
@@ -114,24 +113,24 @@ class VehicleBrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVehicleBrandRequest $request, string $id)
+    public function update(UpdateRescueServiceRequest $request, string $id)
     {
-        $data = VehicleBrand::findOrFail($id);
+        $data = RescueService::findOrFail($id);
         $data->update($request->validated());
-        if (isset($request->input('brand_icon', [])['id'])) {
-            if ($request->input('brand_icon', [])['model_id'] != $data->id) {
-                $data->clearMediaCollection('brand_icon');
+        if (isset($request->input('icon', [])['id'])) {
+            if ($request->input('icon', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('icon');
             }
-            Media::where('id', $request->input('brand_icon', [])['id'])
+            Media::where('id', $request->input('icon', [])['id'])
                 ->update([
                     'model_id' => $data->id
                 ]);
         } else {
-            $data->clearMediaCollection('brand_icon');
+            $data->clearMediaCollection('icon');
         }
 
         if ($request->wantsJson()) {
-            return (new VehicleBrandListResource($data))
+            return (new RescueServiceListResource($data))
                 ->response()
                 ->setStatusCode(201);
         }
@@ -144,7 +143,7 @@ class VehicleBrandController extends Controller
      */
     public function destroy(Request $request, string $id)
     {
-        $data = VehicleBrand::findOrFail($id);
+        $data = RescueService::findOrFail($id);
         $data->delete();
 
         if ($request->wantsJson()) {

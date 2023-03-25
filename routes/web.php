@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Rescue\RescueServiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Vehicle\VehicleBrandController;
@@ -36,6 +37,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,
             'vehicle_types' => VehicleTypeController::class,
+            'rescue_services' => RescueServiceController::class,
         ]);
     });
 });

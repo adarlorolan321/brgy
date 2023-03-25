@@ -20,6 +20,13 @@ export function useMenu() {
             icon: "ti ti-users",
             only: ["data", "params"],
         },
+        {
+            label: "Rescue Services`",
+            route: "rescue_services.index",
+            icon: "ti ti-users",
+            only: ["data", "params"],
+        },
+
         // {
         //     label: "Settings",
         //     route: "settings.*",
