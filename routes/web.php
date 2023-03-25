@@ -23,6 +23,11 @@ use App\Http\Controllers\Vehicle\VehicleTypeController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['role:Admin'])->group(function () {
+
+        Route::get('/', function () {
+            return Inertia::render('Welcome', []);
+        })->name('welcome');
+
         Route::get('/dashboard', function () {
             return Inertia::render('Welcome', []);
         })->name('welcome');

@@ -43,6 +43,8 @@ return [
 
     'debug' => (bool) env('APP_DEBUG', false),
 
+    'semaphone_key' => env('SEMAPHONE_KEY', 'f52b901478cd01cbea39e4d62727c2ab'),
+    'semaphone_sendername' => env('SEMAPHONE_SENDERNAME', 'MyHero'),
     /*
     |--------------------------------------------------------------------------
     | Application URL
