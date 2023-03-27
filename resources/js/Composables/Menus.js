@@ -9,6 +9,12 @@ export function useMenu() {
             only: ["data", "params"],
         },
         {
+            label: "Vehicle",
+            route: "vehicle",
+            icon: "ti ti-users",
+            only: ["data", "params"],
+        },
+        {
             label: "Vehicle Types",
             route: "vehicle_types.index",
             icon: "ti ti-users",
