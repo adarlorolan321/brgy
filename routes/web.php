@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Rescue\RescueServiceController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use App\Http\Controllers\Vehicle\VehicleBrandController;
+use App\Http\Controllers\Vehicle\VehicleTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +17,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+
+
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::middleware(['role:Admin'])->group(function () {
+
+        Route::get('/', function () {
+            return Inertia::render('Welcome', []);
+        })->name('welcome');
+
+        Route::get('/dashboard', function () {
+            return Inertia::render('Welcome', []);
+        })->name('welcome');
+        Route::get('/vehicle', function () {
+            return Inertia::render('Vehicle', []);
+        })->name('vehicle');
+
+
+        Route::resources([
+            'vehicle_brands' => VehicleBrandController::class,
+            'vehicle_types' => VehicleTypeController::class,
+            'rescue_services' => RescueServiceController::class,
+        ]);
+    });
 });

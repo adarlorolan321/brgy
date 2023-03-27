@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MediaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,31 +11,19 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::prefix('v1')->group(function () {
-    Route::resources([
-        'users' => UserController::class,
-        'rescue-services' => RescueServiceController::class,
-        'rescuers' => RescuerController::class,
-        'cars' => CarController::class,
-        'blowbagets' => \v1\BlowbagetsController::class,
-    ]);
+
+// Public Route
+Route::prefix('v1')->name('api.')->group(function () {
+    Route::post('/login-request-otp', [AuthController::class, 'loginRequestOtp'])->name('login-request-otp');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
 });
+// End of Public Route
 
-Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', 'UserController@login');
-    //Route::post('signup', 'UserController@store');
-    Route::post('change_password', 'UserController@change_password');
 
-    Route::group(['middleware' => 'auth:api'], function() {
-        Route::get('logout', 'UserController@logout');
-        //Route::get('user', 'AuthController@user');
-    });
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function () {
+    Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
 });
