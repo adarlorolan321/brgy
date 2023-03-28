@@ -32,6 +32,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/dashboard', function () {
             return Inertia::render('Welcome', []);
         })->name('welcome');
+        Route::get('/vehicle', function () {
+            return Inertia::render('Vehicle', []);
+        })->name('vehicle');
 
 
         Route::resources([
