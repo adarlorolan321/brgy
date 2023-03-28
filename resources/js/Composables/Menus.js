@@ -5,31 +5,31 @@ export function useMenu() {
         {
             label: "Dashboard",
             route: "welcome",
-            icon: "ti ti-users",
+            icon: "ti ti-dashboard",
             only: ["data", "params"],
         },
         {
             label: "Vehicle",
-            route: "vehicle",
-            icon: "ti ti-users",
+            route: "vehicles.index",
+            icon: "ti ti-car",
             only: ["data", "params"],
         },
         {
             label: "Vehicle Types",
             route: "vehicle_types.index",
-            icon: "ti ti-users",
+            icon: "ti ti-car",
             only: ["data", "params"],
         },
         {
             label: "Vehicle Brands",
             route: "vehicle_brands.index",
-            icon: "ti ti-users",
+            icon: "ti ti-tag",
             only: ["data", "params"],
         },
         {
-            label: "Rescue Services`",
+            label: "Rescue Services",
             route: "rescue_services.index",
-            icon: "ti ti-users",
+            icon: "ti ti-bandage",
             only: ["data", "params"],
         },
 
