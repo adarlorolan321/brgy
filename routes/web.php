@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Vehicle\VehicleBrandController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
+use App\Http\Controllers\Vehicle\VehicleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
             return Inertia::render('Welcome', []);
         })->name('welcome');
 
+        // Route::get('/vehicle-index', function () {
+        //     return Inertia::render('Admin/Vehicle/Index', []);
+        // })->name('vehicle.index');
+
         Route::get('/dashboard', function () {
             return Inertia::render('Welcome', []);
         })->name('welcome');
@@ -40,6 +45,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,
             'vehicle_types' => VehicleTypeController::class,
+            'vehicles' => VehicleController::class,
             'rescue_services' => RescueServiceController::class,
         ]);
     });
