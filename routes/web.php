@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Vehicle\VehicleBrandController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
 use App\Http\Controllers\Vehicle\VehicleController;
+use App\Http\Controllers\Rescue\RescueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,
             'vehicle_types' => VehicleTypeController::class,
+            'rescuers' => RescueController::class,
             'vehicles' => VehicleController::class,
             'rescue_services' => RescueServiceController::class,
         ]);
