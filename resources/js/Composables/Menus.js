@@ -27,6 +27,12 @@ export function useMenu() {
             only: ["data", "params"],
         },
         {
+            label: "Rescuer",
+            route: "rescuers.index",
+            icon: "ti ti-truck",
+            only: ["data", "params"],
+        },
+        {
             label: "Rescue Services",
             route: "rescue_services.index",
             icon: "ti ti-bandage",
