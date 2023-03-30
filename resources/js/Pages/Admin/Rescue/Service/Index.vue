@@ -47,6 +47,7 @@ let {
                     data-bs-target="#offCanvasForm"
                     aria-controls="offCanvasForm"
                 >
+                    <i class="ti ti-plus ti-xs me-1"></i>
                     Add Rescue Service
                 </button>
                 <div

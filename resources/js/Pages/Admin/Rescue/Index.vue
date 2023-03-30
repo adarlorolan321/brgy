@@ -39,7 +39,7 @@ let {
             <div class="card-action-element">
                 <button class="btn btn-primary" type="button" @click="handleCreate" data-bs-toggle="offcanvas"
                     data-bs-target="#offCanvasForm" aria-controls="offCanvasForm">
-                    <i class="ti ti-user-plus ti-xs me-1"></i>
+                    <i class="ti ti-plus ti-xs me-1"></i>
                     Add Rescuer
                 </button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvasForm" data-bs-backdrop="static"

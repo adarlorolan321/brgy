@@ -7,6 +7,7 @@ use App\Http\Controllers\Vehicle\VehicleBrandController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
 use App\Http\Controllers\Vehicle\VehicleController;
 use App\Http\Controllers\Rescue\RescueController;
+use App\Http\Controllers\Dryver\DryverController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'vehicle_types' => VehicleTypeController::class,
             'rescuers' => RescueController::class,
             'vehicles' => VehicleController::class,
+            'dryver' => DryverController::class,
             'rescue_services' => RescueServiceController::class,
         ]);
     });
