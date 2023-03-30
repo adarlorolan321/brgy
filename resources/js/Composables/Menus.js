@@ -9,9 +9,9 @@ export function useMenu() {
             only: ["data", "params"],
         },
         {
-            label: "Vehicle",
-            route: "vehicles.index",
-            icon: "ti ti-car",
+            label: "Dryver",
+            route: "dryver.index",
+            icon: "ti ti-user",
             only: ["data", "params"],
         },
         {

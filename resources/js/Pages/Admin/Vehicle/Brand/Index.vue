@@ -47,6 +47,7 @@ let {
                     data-bs-target="#offCanvasForm"
                     aria-controls="offCanvasForm"
                 >
+                    <i class="ti ti-plus ti-xs me-1"></i>
                     Add Vehicle Brand
                 </button>
                 <div
@@ -69,7 +70,7 @@ let {
                             v-if="!form.processing"
                         ></button>
                     </div>
-                    <div class="offcanvas-body mt-4 mx-0 flex-grow-0">
+                    <div class="offcanvas-body pt-0 mx-0 flex-grow-0">
                         <div class="form-group mb-3">
                             <label for=""
                                 >Name <span class="required">*</span></label
