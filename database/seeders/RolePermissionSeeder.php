@@ -43,6 +43,14 @@ class RolePermissionSeeder extends Seeder
                 'destroy rescue_service',
                 'show rescue_service',
 
+                'access rescuer',
+                'create rescuer',
+                'store rescuer',
+                'edit rescuer',
+                'update rescuer',
+                'destroy rescuer',
+                'show rescuer',
+
 
             ],
         ];

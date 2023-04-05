@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Dryver\DryverController;
 use App\Http\Controllers\MediaController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Rescue\RescuerController;
+use App\Http\Controllers\Rescue\RescueServiceController;
+use App\Http\Controllers\Vehicle\VehicleBrandController;
+use App\Http\Controllers\Vehicle\VehicleController;
+use App\Http\Controllers\Vehicle\VehicleTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +31,13 @@ Route::prefix('v1')->name('api.')->group(function () {
 
 Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function () {
     Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
+
+    Route::resources([
+        'vehicle_brands' => VehicleBrandController::class,
+        'vehicle_types' => VehicleTypeController::class,
+        'rescuers' => RescuerController::class,
+        'vehicles' => VehicleController::class,
+        'dryver' => DryverController::class,
+        'rescue_services' => RescueServiceController::class,
+    ]);
 });
