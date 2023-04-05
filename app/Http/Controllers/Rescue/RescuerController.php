@@ -26,7 +26,7 @@ class RescuerController extends Controller
         $order = $request->input('order', 'asc');
 
         $data = Rescuer::query()
-            ->with([])
+            ->with(['services'])
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {
                     // filter result

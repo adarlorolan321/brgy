@@ -51,6 +51,14 @@ class RolePermissionSeeder extends Seeder
                 'destroy rescuer',
                 'show rescuer',
 
+                'access vehicle',
+                'create vehicle',
+                'store vehicle',
+                'edit vehicle',
+                'update vehicle',
+                'destroy vehicle',
+                'show vehicle',
+
 
             ],
         ];
