@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('model');
             $table->string('year');
             $table->foreignId('vehicle_type_id')->constrained('vehicle_types');
-            $table->foreignId('assigned_to')->constrained('users');
+            $table->foreignId('assigned_to')->nullable()->constrained('users');
             $table->string('plate_number');
             $table->string('color');
             $table->timestamps();

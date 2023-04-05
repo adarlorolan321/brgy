@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DriveController;
 use App\Http\Controllers\Dryver\DryverController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\Rescue\RescuerController;
@@ -40,4 +41,6 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
         'dryver' => DryverController::class,
         'rescue_services' => RescueServiceController::class,
     ]);
+
+    Route::post('/drive/start/{id}', [DriveController::class, 'startDrive'])->name('drive.start');
 });
