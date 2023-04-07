@@ -33,10 +33,14 @@ class User extends Authenticatable implements HasMedia
         'name',
         'first_name',
         'last_name',
+        'middle_name',
+        'gender',
+        'province',
+        'city',
         'email',
-        'phone',
+        'mobile_number',
+        'password',
         'status',
-        'password'
     ];
 
     /**
@@ -70,6 +74,17 @@ class User extends Authenticatable implements HasMedia
     protected $appends = [
         'profile_photo', 'role', 'profile_photo_url'
     ];
+
+    protected static function  booted()
+    {
+        static::creating(function ($user) {
+            $user->name = $user->first_name . ' ' . $user->middle_name . ' ' . $user->last_name;
+        });
+
+        static::updating(function ($user) {
+            $user->name = $user->first_name . ' ' . $user->middle_name . ' ' . $user->last_name;
+        });
+    }
 
     public function getRoleAttribute()
     {

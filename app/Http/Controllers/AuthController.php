@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\RegisterOTPRequest;
+use App\Http\Requests\User\RegisterRequest;
 use App\Http\Traits\SMSHandler;
 use App\Models\Message;
 use App\Models\User;
@@ -73,5 +75,45 @@ class AuthController extends Controller
             }
         }
         return response("Authentication failed.", '401');
+    }
+
+    public function registerRequestOtp(RegisterOTPRequest $request)
+    {
+        $mobile_number = $request->input('mobile_number');
+        $message = Message::where('recipient', 'like', '%' . $mobile_number . '%')
+            ->where('created_at', '>=', now()->subMinutes(5))
+            ->where('status', true)
+            ->first();
+        // Check if message exists
+        if (!$message) {
+            if ($mobile_number != '') {
+                $message = $this->sendCode($mobile_number);
+                return response("OTP sent successfully", 201);
+            }
+        } else {
+            throw ValidationException::withMessages(['otp' => 'Kindly wait for 5 minute and try again later']);
+        }
+    }
+
+
+    public function register(RegisterRequest $request)
+    {
+        $mobile_number = $request->input('mobile_number');
+        $message = Message::where('recipient', 'like', '%' . $mobile_number . '%')
+            ->where('created_at', '>=', now()->subMinutes(5))
+            ->where('status', true)
+            ->first();
+        if ($message) {
+            if ((string) $request->input('otp', $message->code) == $message->code) {
+                $user = User::create(array_merge($request->validated(), ['password' => bcrypt($request->input('password'))]));
+                $token = $user->createToken('dryver');
+                $user['token'] = $token->plainTextToken;
+                return json_encode($user);
+            } else {
+                throw ValidationException::withMessages(['otp' => 'Invalid Verification Code.']);
+            }
+        } else {
+            throw ValidationException::withMessages(['otp' => 'Verification code expired. Kindly resend for new verification code.']);
+        }
     }
 }

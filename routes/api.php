@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->name('api.')->group(function () {
     Route::post('/login-request-otp', [AuthController::class, 'loginRequestOtp'])->name('login-request-otp');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/register-request-otp', [AuthController::class, 'registerRequestOtp'])->name('register-request-otp');
+    Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
 // End of Public Route
 

@@ -31,12 +31,23 @@ trait SMSHandler
         $messageData = json_decode($output, true);
         $message = null;
         foreach ($messageData as $message) {
-            $message = Message::create([
-                'message_id' => $message['message_id'],
-                'recipient' => $message['recipient'],
-                'code' => $message['code'],
-                'data' => $message
-            ]);
+            if (isset($message['code'])) {
+                $message = Message::create([
+                    'message_id' => $message['message_id'],
+                    'recipient' => $message['recipient'],
+                    'code' => $message['code'],
+                    'data' => $message
+                ]);
+            }
+
+            if (config('app.debug')) {
+                $message = Message::create([
+                    'message_id' => 1,
+                    'recipient' => $mobile_number,
+                    'code' => '123456',
+                    'data' => 'test'
+                ]);
+            }
         }
         return $message;
     }
