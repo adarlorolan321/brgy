@@ -107,6 +107,7 @@ class AuthController extends Controller
             if ((string) $request->input('otp', $message->code) == $message->code) {
                 $user = User::create(array_merge($request->validated(), ['password' => bcrypt($request->input('password'))]));
                 $token = $user->createToken('dryver');
+                $user->syncRoles([$request->input('role')]);
                 $user['token'] = $token->plainTextToken;
                 return json_encode($user);
             } else {

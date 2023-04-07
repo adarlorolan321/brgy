@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterOTPRequest extends FormRequest
 {
@@ -30,6 +31,7 @@ class RegisterOTPRequest extends FormRequest
             'city' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
             'mobile_number' => ['required', 'unique:users,mobile_number', 'regex:/^(9)\d{9}$/i'],
+            'role' => ['required', Rule::in(['Private Driver', 'Company Driver'])],
             'password' => ['required', 'confirmed'],
         ];
     }
