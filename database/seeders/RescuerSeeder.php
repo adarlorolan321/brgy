@@ -42,7 +42,7 @@ class RescuerSeeder extends Seeder
         foreach ($markers as $value) {
             $faker = Faker::create();
             $types = ["Business", "Individual"];
-            Rescuer::create([
+            $rescuer = Rescuer::create([
                 "type" => $faker->randomElement($types),
                 "name" => $faker->name,
                 "contact_number" => $faker->phoneNumber,
@@ -52,6 +52,8 @@ class RescuerSeeder extends Seeder
                 "latitude" => $value['lat'],
                 "longitude" => $value['lng'],
             ]);
+
+            $rescuer->sync([2, 4]);
         }
     }
 }
