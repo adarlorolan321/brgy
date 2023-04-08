@@ -32,7 +32,6 @@ class AuthController extends Controller
                 ->where('created_at', '>=', now()->subMinutes(5))
                 ->where('status', true)
                 ->first();
-            dd($message);
             // Check if message exists
             if (!$message) {
                 if ($user->mobile_number != '') {
