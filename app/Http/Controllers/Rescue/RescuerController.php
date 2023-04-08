@@ -25,6 +25,9 @@ class RescuerController extends Controller
         $sort = explode('.', $request->input('sort', 'id'));
         $order = $request->input('order', 'asc');
 
+
+        $markers = $this->getMarkersInRadius($request);
+        dd($markers);
         $data = Rescuer::query()
             ->with(['services'])
             ->where(function ($query) use ($queryString) {
@@ -38,6 +41,14 @@ class RescuerController extends Controller
                         ->orWhere('latitude', 'like', '%' . $queryString . '%')
                         ->orWhere('longitude', 'like', '%' . $queryString . '%')
                         ->orWhere('name', 'like', '%' . $queryString . '%');
+                }
+            })
+            ->where(function ($query) use ($request) {
+                if ($request->has('radius') && $request->has('lat') && $request->has('lng')) {
+                    $markers = $this->getMarkersInRadius($request);
+                    dd($markers["max_lng"]);
+                    $query->whereBetween('latitude', [$markers["min_lat"], $markers["max_lat"]])
+                        ->whereBetween('longitude', [$markers["min_lng"], $markers["max_lng"]]);
                 }
             })
             ->when(count($sort) == 1, function ($query) use ($sort, $order) {
@@ -148,5 +159,22 @@ class RescuerController extends Controller
             return response(null, 204);
         }
         return redirect()->back();
+    }
+
+    private function getMarkersInRadius(Request $request)
+    {
+
+        $lat = 13.1718621;
+        $lng = 121.2799433;
+        $radius = 50;
+        // Convert radius from kilometers to miles
+        $radius = $radius * 0.621371;
+        // Calculate the maximum and minimum latitudes and longitudes based on the center point and the radius
+        $maxLat = $lat + ($radius / 69);
+        $minLat = $lat - ($radius / 69);
+        $maxLng = $lng + ($radius / (69 * cos(deg2rad($lat))));
+        $minLng = $lng - ($radius / (69 * cos(deg2rad($lat))));
+
+        return ['min_lat' => $minLat,    'max_lat' => $maxLat,    'min_lng' => $minLng,    'max_lng' => $maxLng,];
     }
 }
