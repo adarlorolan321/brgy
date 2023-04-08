@@ -27,7 +27,6 @@ class RescuerController extends Controller
 
 
         $markers = $this->getMarkersInRadius($request);
-        dd($markers);
         $data = Rescuer::query()
             ->with(['services'])
             ->where(function ($query) use ($queryString) {
@@ -46,7 +45,6 @@ class RescuerController extends Controller
             ->where(function ($query) use ($request) {
                 if ($request->has('radius') && $request->has('lat') && $request->has('lng')) {
                     $markers = $this->getMarkersInRadius($request);
-                    dd($markers["max_lng"]);
                     $query->whereBetween('latitude', [$markers["min_lat"], $markers["max_lat"]])
                         ->whereBetween('longitude', [$markers["min_lng"], $markers["max_lng"]]);
                 }
