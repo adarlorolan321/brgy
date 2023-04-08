@@ -53,7 +53,7 @@ class RescuerSeeder extends Seeder
                 "longitude" => $value['lng'],
             ]);
 
-            $rescuer->sync([2, 4]);
+            $rescuer->services()->sync([2, 4]);
         }
     }
 }
