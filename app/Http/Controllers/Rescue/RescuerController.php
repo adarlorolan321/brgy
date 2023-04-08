@@ -164,9 +164,9 @@ class RescuerController extends Controller
     private function getMarkersInRadius(Request $request)
     {
 
-        $lat = 13.1718621;
-        $lng = 121.2799433;
-        $radius = 50;
+        $lat = $request->float('lat', 0);
+        $lng = $request->float('lng', 0);
+        $radius = $request->float('radius', 0);
         // Convert radius from kilometers to miles
         $radius = $radius * 0.621371;
         // Calculate the maximum and minimum latitudes and longitudes based on the center point and the radius

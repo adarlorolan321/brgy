@@ -14,17 +14,17 @@ class RescuerSeeder extends Seeder
      */
     public function run(): void
     {
-        $lat = 13.1718621;
-        $lng = 121.2799433;
+        $lat = 6.230521852145857;
+        $lng = 124.7135861210559;
 
         // Radius in meters
-        $radius = 1000;
+        $radius = 20000;
 
         // List to hold the marker coordinates
         $markers = array();
 
         // Generate 50 random points around the center within the radius
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 500; $i++) {
             // Convert radius from meters to degrees
             $r = $radius / 111300.0;
 
@@ -48,7 +48,7 @@ class RescuerSeeder extends Seeder
                 "contact_number" => $faker->phoneNumber,
                 "is_contact_number_verified" => true,
                 "email" => $faker->email,
-                "messenger_link" => $faker->url('https', 'facebook.com') . '/' . $faker->userName,
+                "messenger_link" => $faker->url('https', 'm.me') . '/' . $faker->userName,
                 "latitude" => $value['lat'],
                 "longitude" => $value['lng'],
             ]);
