@@ -14,8 +14,8 @@ class RescuerSeeder extends Seeder
      */
     public function run(): void
     {
-        $lat = 6.230521852145857;
-        $lng = 124.7135861210559;
+        $lat = 6.835910;
+        $lng = 126.088627;
 
         // Radius in meters
         $radius = 20000;
