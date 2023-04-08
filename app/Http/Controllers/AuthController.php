@@ -109,6 +109,7 @@ class AuthController extends Controller
                 $token = $user->createToken('dryver');
                 $user->syncRoles([$request->input('role')]);
                 $user['token'] = $token->plainTextToken;
+                $message->update(['status' => false]);
                 return json_encode($user);
             } else {
                 throw ValidationException::withMessages(['otp' => 'Invalid Verification Code.']);
