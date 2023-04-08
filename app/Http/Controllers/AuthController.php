@@ -65,6 +65,7 @@ class AuthController extends Controller
             if ($message) {
                 if ((string) $request->input('otp', $message->code) == $message->code) {
                     $token = $user->createToken('dryver');
+                    $message->update(['status' => false]);
                     $user['token'] = $token->plainTextToken;
                     return json_encode($user);
                 } else {
