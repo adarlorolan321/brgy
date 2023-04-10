@@ -30,24 +30,24 @@ let {
 </script>
 
 <template>
-    <Head title="Rescuer"></Head>
+    <Head title="Driver"></Head>
     <div class="card card-action custom-container-card">
         <div class="card-header">
             <div class="card-action-title align-items-center">
-                <h5 class="card-title">Rescuer</h5>
+                <h5 class="card-title">Driver</h5>
             </div>
             <div class="card-action-element">
                 <button class="btn btn-primary" type="button" @click="handleCreate" data-bs-toggle="offcanvas"
                     data-bs-target="#offCanvasForm" aria-controls="offCanvasForm">
-                    <i class="ti ti-plus ti-xs me-1"></i>
-                    Add Rescuer
+                    <i class="ti ti-user-plus ti-xs me-1"></i>
+                    Add Driver
                 </button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvasForm" data-bs-backdrop="static"
                     aria-labelledby="offCanvasFormLabel">
                     <div class="offcanvas-header">
                         <h5 id="offCanvasFormLabel" class="offcanvas-title">
                             {{ formState == "create" ? "Add" : "Update" }}
-                            Rescuer
+                            Driver
                         </h5>
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
                             v-if="!form.processing"></button>
@@ -134,29 +134,19 @@ let {
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Gender <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
-                                ($event) => {
-                                    form.clearErrors('name');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'name'
-                                    );
-                                }
-                            " placeholder="Enter Gender" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
-                            <div class="invalid-feedback">
-                                {{ form.errors.name }}
-                            </div>
+                            <label for="">Select Gender <span class="required">*</span></label>
+                            <select class="form-select" id="basic-default-country" required>
+                                <option value="" hidden>Select Gender</option>
+                                <option value="usa">Male</option>
+                                <option value="uk">Female</option>
+                                <option value="france">Prefer not to say</option>
+                            </select>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Select Province <span class="required">*</span></label>
                             <select class="form-select" id="basic-default-country" required>
-                                <option value="">Select Province</option>
+                                <option value="" hidden>Select Province</option>
                                 <option value="usa">USA</option>
                                 <option value="uk">UK</option>
                                 <option value="france">France</option>
@@ -168,19 +158,7 @@ let {
                         <div class="form-group mb-3">
                             <label for="">Select City <span class="required">*</span></label>
                             <select class="form-select" id="basic-default-country" required>
-                                <option value="">Select City</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
-                                <option value="france">France</option>
-                                <option value="australia">Australia</option>
-                                <option value="spain">Spain</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Service <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="">Select Service</option>
+                                <option value="" hidden>Select City</option>
                                 <option value="usa">USA</option>
                                 <option value="uk">UK</option>
                                 <option value="france">France</option>
@@ -254,8 +232,7 @@ let {
                                 <i class="ti ti-dots-vertical text-muted"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0);">Activity Logs</a></li>
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>
@@ -277,7 +254,7 @@ let {
 
                         <div class="d-flex align-items-center justify-content-center">
                             <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"><i
-                                    class="ti-xs me-1 ti ti-truck me-1"></i>Manage Rescuer</a>
+                                    class="ti-xs me-1 ti ti-truck me-1"></i>Manage Driver</a>
                             <a href="javascript:;" class="btn btn-label-secondary btn-icon"><i
                                     class="ti ti-mail ti-sm"></i></a>
                         </div>
