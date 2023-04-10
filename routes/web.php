@@ -48,7 +48,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,
             'vehicle_types' => VehicleTypeController::class,
-            'rescuers' => RescuerController::class,
+            'rescuers' => RescueController::class,
             'vehicles' => VehicleController::class,
             'dryver' => DryverController::class,
             'rescue_services' => RescueServiceController::class,

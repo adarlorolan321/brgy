@@ -245,7 +245,7 @@ let {
             <div class="col-xl-4 col-lg-4 col-md-4" v-for="n in 3" :key="n">
                 <div class="card custom-card__hero" >
                     <div class="user-profile-header-banner">
-                        <img src="../../../../../public/assets/img/pages/auth-car3-login-illustration-black.png" alt="">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124202.94479554158!2d121.12289103286562!3d13.391135706669152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bce8d27f6f844d%3A0xf7cc1b1c943ab71b!2sCalapan%2C%20Oriental%20Mindoro!5e0!3m2!1sen!2sph!4v1681094441544!5m2!1sen!2sph" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div class="card-body text-center">
                         <div class="dropdown btn-pinned">
