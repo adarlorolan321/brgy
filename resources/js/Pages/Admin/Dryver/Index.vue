@@ -30,24 +30,24 @@ let {
 </script>
 
 <template>
-    <Head title="Rescuer"></Head>
+    <Head title="Driver"></Head>
     <div class="card card-action custom-container-card">
         <div class="card-header">
             <div class="card-action-title align-items-center">
-                <h5 class="card-title">Rescuer</h5>
+                <h5 class="card-title">Driver</h5>
             </div>
             <div class="card-action-element">
                 <button class="btn btn-primary" type="button" @click="handleCreate" data-bs-toggle="offcanvas"
                     data-bs-target="#offCanvasForm" aria-controls="offCanvasForm">
-                    <i class="ti ti-plus ti-xs me-1"></i>
-                    Add Rescuer
+                    <i class="ti ti-user-plus ti-xs me-1"></i>
+                    Add Driver
                 </button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvasForm" data-bs-backdrop="static"
                     aria-labelledby="offCanvasFormLabel">
                     <div class="offcanvas-header">
                         <h5 id="offCanvasFormLabel" class="offcanvas-title">
                             {{ formState == "create" ? "Add" : "Update" }}
-                            Rescuer
+                            Driver
                         </h5>
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
                             v-if="!form.processing"></button>
@@ -66,8 +66,8 @@ let {
                                     );
                                 }
                             " placeholder="Enter Email" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
+    'is-invalid': form.errors.name,
+}" />
                             <div class="invalid-feedback">
                                 {{ form.errors.name }}
                             </div>
@@ -86,8 +86,8 @@ let {
                                     );
                                 }
                             " placeholder="Enter First Name" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
+    'is-invalid': form.errors.name,
+}" />
                             <div class="invalid-feedback">
                                 {{ form.errors.name }}
                             </div>
@@ -106,8 +106,8 @@ let {
                                     );
                                 }
                             " placeholder="Enter Middle Name" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
+    'is-invalid': form.errors.name,
+}" />
                             <div class="invalid-feedback">
                                 {{ form.errors.name }}
                             </div>
@@ -126,37 +126,27 @@ let {
                                     );
                                 }
                             " placeholder="Enter Last Name" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
+    'is-invalid': form.errors.name,
+}" />
                             <div class="invalid-feedback">
                                 {{ form.errors.name }}
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Gender <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
-                                ($event) => {
-                                    form.clearErrors('name');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'name'
-                                    );
-                                }
-                            " placeholder="Enter Gender" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
-                            <div class="invalid-feedback">
-                                {{ form.errors.name }}
-                            </div>
+                            <label for="">Select Gender <span class="required">*</span></label>
+                            <select class="form-select" id="basic-default-country" required>
+                                <option value="" hidden>Select Gender</option>
+                                <option value="usa">Male</option>
+                                <option value="uk">Female</option>
+                                <option value="france">Prefer not to say</option>
+                            </select>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Select Province <span class="required">*</span></label>
                             <select class="form-select" id="basic-default-country" required>
-                                <option value="">Select Province</option>
+                                <option value="" hidden>Select Province</option>
                                 <option value="usa">USA</option>
                                 <option value="uk">UK</option>
                                 <option value="france">France</option>
@@ -168,19 +158,7 @@ let {
                         <div class="form-group mb-3">
                             <label for="">Select City <span class="required">*</span></label>
                             <select class="form-select" id="basic-default-country" required>
-                                <option value="">Select City</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
-                                <option value="france">France</option>
-                                <option value="australia">Australia</option>
-                                <option value="spain">Spain</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Service <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="">Select Service</option>
+                                <option value="" hidden>Select City</option>
                                 <option value="usa">USA</option>
                                 <option value="uk">UK</option>
                                 <option value="france">France</option>
@@ -245,7 +223,8 @@ let {
             <div class="col-xl-4 col-lg-4 col-md-4" v-for="n in 3" :key="n">
                 <div class="card custom-card__hero">
                     <div class="user-profile-header-banner">
-                        <img class="banner-custom-img" src="../../../../../public/assets/img/pages/auth-car4-login-illustration-black.png" alt="">
+                        <img class="banner-custom-img"
+                            src="../../../../../public/assets/img/pages/auth-car4-login-illustration-black.png" alt="">
                     </div>
                     <div class="card-body text-center">
                         <div class="dropdown btn-pinned">
@@ -254,8 +233,8 @@ let {
                                 <i class="ti ti-dots-vertical text-muted"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
+                                        data-bs-target="#editUser">Activity Logs</a></li>
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>
@@ -277,7 +256,7 @@ let {
 
                         <div class="d-flex align-items-center justify-content-center">
                             <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"><i
-                                    class="ti-xs me-1 ti ti-truck me-1"></i>Manage Rescuer</a>
+                                    class="ti-xs me-1 ti ti-truck me-1"></i>Manage Driver</a>
                             <a href="javascript:;" class="btn btn-label-secondary btn-icon"><i
                                     class="ti ti-mail ti-sm"></i></a>
                         </div>
@@ -309,6 +288,122 @@ let {
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+                <div class="modal-content p-1 p-md-2">
+                    <div class="modal-body">
+                        <h5 class="card-header">Driver's Activity Timeline</h5>
+                        <div class="card-body pb-0">
+                          <ul class="timeline mb-0">
+                            <li class="timeline-item timeline-item-transparent">
+                              <span class="timeline-point timeline-point-primary"></span>
+                              <div class="timeline-event">
+                                <div class="timeline-header mb-1">
+                                  <h6 class="mb-0">12 Invoices have been paid</h6>
+                                  <small class="text-muted">12 min ago</small>
+                                </div>
+                                <p class="mb-2">Invoices have been paid to the company</p>
+                                <div class="d-flex">
+                                  <a href="javascript:void(0)" class="me-3">
+                                    <!-- <img
+                                      src="../../assets/img/icons/misc/pdf.png"
+                                      alt="PDF image"
+                                      width="15"
+                                      class="me-2"
+                                    /> -->
+                                    <span class="fw-semibold text-heading">invoices.pdf</span>
+                                  </a>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="timeline-item timeline-item-transparent">
+                              <span class="timeline-point timeline-point-warning"></span>
+                              <div class="timeline-event">
+                                <div class="timeline-header mb-1">
+                                  <h6 class="mb-0">Client Meeting</h6>
+                                  <small class="text-muted">45 min ago</small>
+                                </div>
+                                <p class="mb-2">Project meeting with john @10:15am</p>
+                                <div class="d-flex flex-wrap">
+                                  <div class="avatar me-3">
+                                    <!-- <img src="../../assets/img/avatars/3.png" alt="Avatar" class="rounded-circle" /> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="timeline-item timeline-item-transparent">
+                              <span class="timeline-point timeline-point-info"></span>
+                              <div class="timeline-event">
+                                <div class="timeline-header mb-1">
+                                  <h6 class="mb-0">Create a new project for client</h6>
+                                  <small class="text-muted">2 Day Ago</small>
+                                </div>
+                                <p class="mb-2">5 team members in a project</p>
+                                <div class="d-flex align-items-center avatar-group">
+                                  <div
+                                    class="avatar pull-up"
+                                    data-bs-toggle="tooltip"
+                                    data-popup="tooltip-custom"
+                                    data-bs-placement="top"
+                                    title="Vinnie Mostowy"
+                                  >
+                                    <!-- <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" /> -->
+                                  </div>
+                                  <div
+                                    class="avatar pull-up"
+                                    data-bs-toggle="tooltip"
+                                    data-popup="tooltip-custom"
+                                    data-bs-placement="top"
+                                    title="Marrie Patty"
+                                  >
+                                    <!-- <img src="../../assets/img/avatars/12.png" alt="Avatar" class="rounded-circle" /> -->
+                                  </div>
+                                  <div
+                                    class="avatar pull-up"
+                                    data-bs-toggle="tooltip"
+                                    data-popup="tooltip-custom"
+                                    data-bs-placement="top"
+                                    title="Jimmy Jackson"
+                                  >
+                                    <!-- <img src="../../assets/img/avatars/9.png" alt="Avatar" class="rounded-circle" /> -->
+                                  </div>
+                                  <div
+                                    class="avatar pull-up"
+                                    data-bs-toggle="tooltip"
+                                    data-popup="tooltip-custom"
+                                    data-bs-placement="top"
+                                    title="Kristine Gill"
+                                  >
+                                    <!-- <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" /> -->
+                                  </div>
+                                  <div
+                                    class="avatar pull-up"
+                                    data-bs-toggle="tooltip"
+                                    data-popup="tooltip-custom"
+                                    data-bs-placement="top"
+                                    title="Nelson Wilson"
+                                  >
+                                    <!-- <img src="../../assets/img/avatars/4.png" alt="Avatar" class="rounded-circle" /> -->
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="timeline-item timeline-item-transparent border-0">
+                              <span class="timeline-point timeline-point-success"></span>
+                              <div class="timeline-event">
+                                <div class="timeline-header mb-1">
+                                  <h6 class="mb-0">Design Review</h6>
+                                  <small class="text-muted">5 days Ago</small>
+                                </div>
+                                <p class="mb-0">Weekly review of freshly prepared design for our new app.</p>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <style>
@@ -333,10 +428,12 @@ let {
 .card-text {
     text-align: left;
 }
+
 .banner-custom-img {
     object-fit: contain !important;
     height: 270px !important;
 }
+
 .small-text {
     font-size: 12px;
 }
