@@ -8,6 +8,7 @@ import flatPickr from 'vue-flatpickr-component';
 
 import Dropzone from "@/Components/Dropzone.vue";
 import Select2 from "@/Components/Select2.vue";
+import vSelect from "vue-select";
 import TableHeader from "@/Components/TableHeader.vue";
 
 let doc = window.document.getElementsByTagName("title")[0];
@@ -30,6 +31,7 @@ createInertiaApp({
             .component("TableHeader", TableHeader)
             .component("Dropzone", Dropzone)
             .component("inertia-link", Link)
+            .component("v-select", vSelect)
             .component("flat-pickr", flatPickr)
             .use(ZiggyVue, Ziggy)
             .mount(el);
