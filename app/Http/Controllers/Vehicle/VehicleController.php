@@ -144,4 +144,9 @@ class VehicleController extends Controller
         }
         return redirect()->back();
     }
+
+    public function getUserVehicle(){
+        $myVehicles = Vehicle::with(['brand:id,name', 'type:id,name', 'user:id,name'])->where('assigned_to', auth()->user()->id)->get();
+        return VehicleListResource::collection($myVehicles);
+    }
 }
