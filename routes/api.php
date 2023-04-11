@@ -30,6 +30,8 @@ Route::prefix('v1')->name('api.')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/register-request-otp', [AuthController::class, 'registerRequestOtp'])->name('register-request-otp');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
+    
+    Route::get('/provinces', [ProvinceController::class, 'index'])->name('provinces.index');
 });
 // End of Public Route
 
@@ -50,5 +52,4 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
     Route::post('/blowbagets', [BlowbagetsController::class, 'store'])->name('blowbagets.store');
     Route::get('/blowbagets/user-data', [BlowbagetsController::class, 'userData'])->name('blowbagets.userData');
 
-    Route::get('/provinces', [ProvinceController::class, 'index'])->name('provinces.index');
 });
