@@ -179,7 +179,7 @@ let {
 
                         <div class="form-group mb-3">
                             <label for="">Service <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required>
+                            <select class="select form-select" required multiple>
                                 <option value="">Select Service</option>
                                 <option value="usa">USA</option>
                                 <option value="uk">UK</option>
@@ -207,7 +207,7 @@ let {
         </div>
         <div class="card-body">
             <div class="row justify-content-between">
-                <div class="col-auto">
+                <div class="col-3 pr-0">
                     <div class="d-flex align-items-center gap-2">
                         <div class="w-auto">Show</div>
                         <div class="flex-1">
@@ -223,6 +223,18 @@ let {
                             </select>
                         </div>
                         <div class="w-auto">entries</div>
+                    </div>
+                </div>
+                <div class="col-5 pl-0">
+                    <div class="d-flex gap-2 align-items-center">
+                        <div class="w-auto">Filter by Address:</div>
+                        <div class="form-group" style="width: 65%">
+                            <select class="form-select" id="basic-default-country" required>
+                                <option value="" hidden>Select Address</option>
+                                <option value="usa">Private</option>
+                                <option value="uk">Public</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="col-auto">
@@ -242,10 +254,10 @@ let {
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-4" v-for="n in 3" :key="n">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-12" v-for="n in 3" :key="n">
                 <div class="card custom-card__hero" >
                     <div class="user-profile-header-banner">
-                        <img src="../../../../../public/assets/img/pages/auth-car3-login-illustration-black.png" alt="">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124202.94479554158!2d121.12289103286562!3d13.391135706669152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bce8d27f6f844d%3A0xf7cc1b1c943ab71b!2sCalapan%2C%20Oriental%20Mindoro!5e0!3m2!1sen!2sph!4v1681094441544!5m2!1sen!2sph" width="100%" height="250" style="border:0; border-top-left-radius: 5px; border-top-right-radius: 5px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                     <div class="card-body text-center">
                         <div class="dropdown btn-pinned">
@@ -269,11 +281,11 @@ let {
                         <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto hero-container">
                             <img src="../../../../../public/assets/img/avatars/4.png" alt="Avatar Image" class="d-block  ms-0 rounded-circle user-profile-img hero-profile" />
                         </div>
-                        <h4 class="mb-1 card-title card-text">Mark Gilbert</h4>
-                        <h6 class="mb-0 card-text" style="font-weight: 400">Open in Maps</h6> 
-                        <h6 class="mb-0 card-text" style="font-weight: 400">London UK</h6>
-                        <h6 class="mb-0 card-text" style="font-weight: 400">email@email.com</h6>
-                        <h6 class="pb-1 card-text">+63999132312312</h6>
+                        <h4 class="mb-1 card-title card-text">Jane Doe</h4>
+                        <h6 class="mb-0 card-text small-text" style="font-weight: 400"><a href="https://www.google.com/maps/" target="_blank">Open in Maps</a></h6> 
+                        <h6 class="mb-0 card-text small-text" style="font-weight: 400">London UK</h6>
+                        <h6 class="mb-0 card-text small-text" style="font-weight: 400">email@email.com</h6>
+                        <h6 class="pb-1 card-text small-text">+63999132312312</h6>
                         <div class="d-flex align-items-center justify-content-center my-3 gap-2">
                         </div>
     
@@ -332,5 +344,8 @@ let {
 }
 .card-text {
     text-align: left;
+}
+.small-text {
+    font-size: 12px;
 }
 </style>
