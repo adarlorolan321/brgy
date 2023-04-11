@@ -5,6 +5,7 @@ use App\Http\Controllers\BlowbagetsController;
 use App\Http\Controllers\DriveController;
 use App\Http\Controllers\Dryver\DryverController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\Rescue\RescuerController;
 use App\Http\Controllers\Rescue\RescueServiceController;
 use App\Http\Controllers\Vehicle\VehicleBrandController;
@@ -48,4 +49,6 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
     Route::post('/drive/start/{id}', [DriveController::class, 'startDrive'])->name('drive.start');
     Route::post('/blowbagets', [BlowbagetsController::class, 'store'])->name('blowbagets.store');
     Route::get('/blowbagets/user-data', [BlowbagetsController::class, 'userData'])->name('blowbagets.userData');
+
+    Route::get('/provinces', [ProvinceController::class, 'index'])->name('provinces.index');
 });
