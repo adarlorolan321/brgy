@@ -66,8 +66,8 @@ let {
                                     );
                                 }
                             " placeholder="Enter Email" :class="{
-    'is-invalid': form.errors.name,
-}" />
+                                'is-invalid': form.errors.name,
+                            }" />
                             <div class="invalid-feedback">
                                 {{ form.errors.name }}
                             </div>
@@ -86,8 +86,8 @@ let {
                                     );
                                 }
                             " placeholder="Enter First Name" :class="{
-    'is-invalid': form.errors.name,
-}" />
+                                'is-invalid': form.errors.name,
+                            }" />
                             <div class="invalid-feedback">
                                 {{ form.errors.name }}
                             </div>
@@ -106,8 +106,8 @@ let {
                                     );
                                 }
                             " placeholder="Enter Middle Name" :class="{
-    'is-invalid': form.errors.name,
-}" />
+                                'is-invalid': form.errors.name,
+                            }" />
                             <div class="invalid-feedback">
                                 {{ form.errors.name }}
                             </div>
@@ -126,8 +126,8 @@ let {
                                     );
                                 }
                             " placeholder="Enter Last Name" :class="{
-    'is-invalid': form.errors.name,
-}" />
+                                'is-invalid': form.errors.name,
+                            }" />
                             <div class="invalid-feedback">
                                 {{ form.errors.name }}
                             </div>
@@ -185,7 +185,7 @@ let {
         </div>
         <div class="card-body">
             <div class="row justify-content-between">
-                <div class="col-auto">
+                <div class="col-3">
                     <div class="d-flex align-items-center gap-2">
                         <div class="w-auto">Show</div>
                         <div class="flex-1">
@@ -201,6 +201,18 @@ let {
                             </select>
                         </div>
                         <div class="w-auto">entries</div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="d-flex gap-2 align-items-center">
+                        <div class="w-auto">Filter by Type:</div>
+                        <div class="form-group" style="width: 70%">
+                            <select class="form-select" id="basic-default-country" required>
+                                <option value="" hidden>Select Driver Type</option>
+                                <option value="usa">Private</option>
+                                <option value="uk">Public</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="col-auto">

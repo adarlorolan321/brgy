@@ -9,7 +9,7 @@ export function useMenu() {
             only: ["data", "params"],
         },
         {
-            label: "Dryver",
+            label: "Dryvers",
             route: "dryver.index",
             icon: "ti ti-user",
             only: ["data", "params"],
@@ -27,7 +27,7 @@ export function useMenu() {
             only: ["data", "params"],
         },
         {
-            label: "Rescuer",
+            label: "Rescuers",
             route: "rescuers.index",
             icon: "ti ti-truck",
             only: ["data", "params"],

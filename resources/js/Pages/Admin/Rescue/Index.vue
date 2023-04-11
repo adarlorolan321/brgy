@@ -207,7 +207,7 @@ let {
         </div>
         <div class="card-body">
             <div class="row justify-content-between">
-                <div class="col-auto">
+                <div class="col-3 pr-0">
                     <div class="d-flex align-items-center gap-2">
                         <div class="w-auto">Show</div>
                         <div class="flex-1">
@@ -223,6 +223,18 @@ let {
                             </select>
                         </div>
                         <div class="w-auto">entries</div>
+                    </div>
+                </div>
+                <div class="col-5 pl-0">
+                    <div class="d-flex gap-2 align-items-center">
+                        <div class="w-auto">Filter by Address:</div>
+                        <div class="form-group" style="width: 65%">
+                            <select class="form-select" id="basic-default-country" required>
+                                <option value="" hidden>Select Address</option>
+                                <option value="usa">Private</option>
+                                <option value="uk">Public</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="col-auto">
