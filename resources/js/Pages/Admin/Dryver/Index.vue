@@ -27,6 +27,17 @@ let {
     handleEdit,
     formState,
 } = useCrud(formObject, routeName);
+
+const gender = [
+    {
+        name: 'Private',
+        value: 'private'
+    },
+    {
+        name: 'Public',
+        value: 'public'
+    }
+]
 </script>
 
 <template>
@@ -135,36 +146,17 @@ let {
 
                         <div class="form-group mb-3">
                             <label for="">Select Gender <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="" hidden>Select Gender</option>
-                                <option value="usa">Male</option>
-                                <option value="uk">Female</option>
-                                <option value="france">Prefer not to say</option>
-                            </select>
+                            <v-select v-select :options="gender" label="name"></v-select> 
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Select Province <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="" hidden>Select Province</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
-                                <option value="france">France</option>
-                                <option value="australia">Australia</option>
-                                <option value="spain">Spain</option>
-                            </select>
+                            <v-select v-select :options="province"></v-select> 
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Select City <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="" hidden>Select City</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
-                                <option value="france">France</option>
-                                <option value="australia">Australia</option>
-                                <option value="spain">Spain</option>
-                            </select>
+                            <v-select v-select :options="city"></v-select> 
                         </div>
 
                         <button class="btn btn-primary" @click="createPromise" :disabled="form.processing || form.hasErrors"

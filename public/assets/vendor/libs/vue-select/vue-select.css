@@ -161,7 +161,7 @@
     opacity: 0;
 }
 .vs__clear {
-    fill: #ea5455;
+    fill: #6EC5F6;
     padding: 0;
     border: 0;
     background-color: transparent;
@@ -337,4 +337,7 @@
 }
 .vs--loading .vs__spinner {
     opacity: 1;
+}
+svg{
+    vertical-align: unset;
 }
