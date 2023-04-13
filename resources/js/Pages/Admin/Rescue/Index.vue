@@ -27,6 +27,28 @@ let {
     handleEdit,
     formState,
 } = useCrud(formObject, routeName);
+
+const service = [
+    {
+        name: 'Service  1',
+        value: 'service1'
+    },
+    {
+        name: 'Service  2',
+        value: 'service2'
+    }
+]
+
+const gender = [
+    {
+        name: 'Private',
+        value: 'private'
+    },
+    {
+        name: 'Public',
+        value: 'public'
+    }
+]
 </script>
 
 <template>
@@ -135,58 +157,22 @@ let {
 
                         <div class="form-group mb-3">
                             <label for="">Gender <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
-                                ($event) => {
-                                    form.clearErrors('name');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'name'
-                                    );
-                                }
-                            " placeholder="Enter Gender" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
-                            <div class="invalid-feedback">
-                                {{ form.errors.name }}
-                            </div>
+                            <v-select v-select :options="gender" label="name" placeholder="Select Gender"></v-select> 
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Select Province <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="">Select Province</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
-                                <option value="france">France</option>
-                                <option value="australia">Australia</option>
-                                <option value="spain">Spain</option>
-                            </select>
+                            <v-select v-select :options="service" label="name" placeholder="Select Province"></v-select>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Select City <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="">Select City</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
-                                <option value="france">France</option>
-                                <option value="australia">Australia</option>
-                                <option value="spain">Spain</option>
-                            </select>
+                            <v-select v-select :options="service" label="name" placeholder="Select City"></v-select>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Service <span class="required">*</span></label>
-                            <select class="select form-select" required multiple>
-                                <option value="">Select Service</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
-                                <option value="france">France</option>
-                                <option value="australia">Australia</option>
-                                <option value="spain">Spain</option>
-                            </select>
+                            <v-select v-select :options="service" label="name" placeholder="Select Service" multiple></v-select> 
                         </div>
 
                         <button class="btn btn-primary" @click="createPromise" :disabled="form.processing || form.hasErrors"
@@ -347,5 +333,6 @@ let {
 }
 .small-text {
     font-size: 12px;
+    color: rgba(123, 121, 128, 0.87);
 }
 </style>
