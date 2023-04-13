@@ -440,5 +440,6 @@ const gender = [
 
 .small-text {
     font-size: 12px;
+    color: rgba(123, 121, 128, 0.87);
 }
 </style>

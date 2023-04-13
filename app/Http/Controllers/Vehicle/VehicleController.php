@@ -58,7 +58,7 @@ class VehicleController extends Controller
             return redirect()->route('vehicles.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/Vehicle', $props);
+        return Inertia::render('Admin/Vehicle/Index', $props);
     }
 
     /**
