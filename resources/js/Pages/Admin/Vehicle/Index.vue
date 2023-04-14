@@ -1,6 +1,16 @@
 <script>
 import AdminLayout from "@/Layouts/AdminLayout.vue";
+import { ColorPicker } from 'vue-color-kit'
+import 'vue-color-kit/dist/vue-color-kit.css'
 export default {
+    components: {
+        ColorPicker,
+    },
+    props: {
+        data: Array,
+        brands: Object,
+        types: Object,
+    },
     layout: AdminLayout,
 };
 </script>
@@ -16,7 +26,7 @@ const formObject = {
     vehicle_type_id: null,
     color: null,
     year: null,
-    assigned_to: null,
+    assigned_to: 1,
     plate_number: null,
 };
 const { validateForm } = useValidateForm();
@@ -61,10 +71,11 @@ let {
                     <div class="offcanvas-body mx-0 flex-grow-0 pt-0">
                         <div class="form-group mb-3">
                             <label for="">Car Brand <span class="required">*</span></label>
-                            <input 
-                                type="text"     
-                                class="form-control" 
-                                v-model="form.vehicle_brand_id" 
+                            <v-select v-select 
+                                :options="brands" 
+                                v-model="form.vehicle_brand_id"
+                                :reduce="(vehicle_brand_id) => vehicle_brand_id.id"
+                                label="name" 
                                 @input="
                                 ($event) => {
                                     form.clearErrors('vehicle_brand_id');
@@ -73,13 +84,37 @@ let {
                                         form,
                                         $event.target.value,
                                         'vehicle_brand_id'
-                                    );
-                                }" 
-                                placeholder="Enter Car Brand" 
-                                :class="{'is-invalid': form.errors.vehicle_brand_id,}" 
-                            />
+                                    ); }"
+                                placeholder="Select Brand" 
+                            >
+                            </v-select> 
                             <div class="invalid-feedback">
                                 {{ form.errors.vehicle_brand_id }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Car Type <span class="required">*</span></label>
+                            <v-select v-select 
+                                :options="types" 
+                                v-model="form.vehicle_type_id"
+                                :reduce="(vehicle_type_id) => vehicle_type_id.id"
+                                label="name" 
+                                @input="
+                                    ($event) => {
+                                        form.clearErrors('vehicle_type_id');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'vehicle_type_id'
+                                        );
+                                    }"
+                                placeholder="Select Type" 
+                            >
+                            </v-select> 
+                            <div class="invalid-feedback">
+                                {{ form.errors.vehicle_type_id }}
                             </div>
                         </div>
 
@@ -104,30 +139,6 @@ let {
                             />
                             <div class="invalid-feedback">
                                 {{ form.errors.model }}
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Car Type <span class="required">*</span></label>
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                v-model="form.vehicle_type_id" 
-                                @input="
-                                ($event) => {
-                                    form.clearErrors('vehicle_type_id');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'vehicle_type_id'
-                                    );
-                                }" 
-                                placeholder="Enter Car Type" 
-                                :class="{'is-invalid': form.errors.vehicle_type_id,}" 
-                            />
-                            <div class="invalid-feedback">
-                                {{ form.errors.vehicle_type_id }}
                             </div>
                         </div>
 

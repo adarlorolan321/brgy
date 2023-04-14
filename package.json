@@ -27,9 +27,10 @@
         "select2": "^4.1.0-rc.0",
         "sweetalert2": "^11.4.8",
         "toastr": "^2.1.4",
+        "vue-color-kit": "^1.0.5",
         "vue-flatpickr-component": "^11.0.3",
         "vue-plugin-load-script": "^2.1.1",
-        "vue3-select2-component": "^0.1.7",
-        "vue-select": "^4.0.0-beta.6"
+        "vue-select": "^4.0.0-beta.6",
+        "vue3-select2-component": "^0.1.7"
     }
 }
