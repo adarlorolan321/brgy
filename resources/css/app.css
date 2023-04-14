@@ -101,3 +101,6 @@ body {
 .layout-menu-hover.layout-menu-collapsed .bg-menu-theme .menu-inner .menu-item:not(.active) .menu-link:hover {
     background: linear-gradient(72.47deg, #6EC5F6 22.16%, rgb(110, 197, 246, 0.7) 76.47%) !important;
 }
+.custom-card-title {
+    font-size: 20px;
+}

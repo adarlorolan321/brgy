@@ -7,11 +7,21 @@ export default {
         ColorPicker,
     },
     props: {
-        data: Array,
+        data: Object,
         brands: Object,
         types: Object,
     },
     layout: AdminLayout,
+    methods: {
+        getBrandName(brandId) {
+            const brand = this.brands.find(b => b.id === brandId)
+            return brand ? brand.name : 'Unknown brand'
+        },
+        getTypeName(typeId) {
+            const type = this.types.find(t => t.id === typeId)
+            return type ? type.name : 'Unknown brand'
+        }
+    }
 };
 </script>
 
@@ -268,40 +278,32 @@ let {
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-4" v-for="n in 3" :key="n">
+            <div class="col-xl-4 col-lg-4 col-md-4" v-for="(vehicle, index) in data.data" :key="index">
                 <div class="card custom-card__hero">
                     <div class="user-profile-header-banner">
-                        <img class="banner-custom-img"
-                            src="../../../../../public/assets/img/pages/auth-car4-login-illustration-black.png" alt="">
+                        <img class="banner-custom-img" src="../../../../../public/assets/img/pages/auth-car4-login-illustration-black.png" alt="">
                     </div>
-                    <div class="card-body text-center">
+                    <div class="card-body text-left">
                         <div class="dropdown btn-pinned">
-                            <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                            <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="ti ti-dots-vertical text-muted"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
-                                        data-bs-target="#editUser">Activity Logs</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editUser">Activity Logs</a></li>
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>
-                                <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
+                                <li><a class="dropdown-item text-danger" href="javascript:void(0);" @click="deletePromise(vehicle.id)">Delete</a></li>
                             </ul>
                         </div>
-                        <h4 class="mb-1 card-title card-text">Toyota</h4>
-                        <h6 class="mb-0 card-text small-text">Ascent Sport</h6>
-                        <h6 class="mb-0 card-text small-text"> Toyota Hybrid System and auto CVT</h6>
-                        <h6 class="mb-0 card-text small-text">SUNSTONE ORANGE</h6>
-                        <h6 class="pb-0 mb-0 card-text small-text">2018 </h6>
-                        <h6 class="pb-0 mb-0 card-text small-text">A3 B129 </h6>
-                        <!-- <span class="badge rounded-pill bg-label-warning pb-2" style="float:left">Driving..</span> -->
-                        <div class="d-flex align-items-center justify-content-center my-3 gap-2">
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"><i
-                                    class="ti-xs me-1 ti ti-truck me-1"></i>Manage Vehicle</a>
+                        <h4 class="mb-1 card-title card-text">{{ getBrandName(vehicle.vehicle_brand_id) }}</h4>
+                        <h6 class="mb-0 card-text small-text">{{ getTypeName(vehicle.vehicle_type_id) }}</h6>
+                        <h6 class="mb-0 card-text small-text">{{ vehicle.model }}</h6>
+                        <h6 class="mb-0 card-text small-text">{{ vehicle.color }}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.year }}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.plate_number }}</h6>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3" @click="handleEdit(vehicle)"><i class="ti-xs me-1 ti ti-truck me-1"></i>Manage Vehicle</a>
                         </div>
                     </div>
                 </div>
@@ -333,7 +335,7 @@ let {
         </div>
     </div>
 </template>
-<style>
+<style lang="scss">
 .custom-container-card {
     background: unset !important;
     box-shadow: unset !important;
@@ -342,7 +344,10 @@ let {
     margin: 10px;
 }
 .user-profile-header-banner img {
-    height: 180px !important;
+    height: 225px !important;
+    @media (max-width: 1200px) {
+        height: 180px !important;
+    }
 }
 .small-text {
     font-size: 12px;
