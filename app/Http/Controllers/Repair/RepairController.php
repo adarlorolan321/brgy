@@ -7,7 +7,7 @@ use App\Http\Resources\Repair\RepairListResource;
 use App\Models\Repair\Repair;
 use App\Http\Requests\Repair\StoreRepairRequest;
 use App\Http\Requests\Repair\UpdateRepairRequest;
-
+use App\Models\Media;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -72,6 +72,14 @@ class RepairController extends Controller
     public function store(StoreRepairRequest $request)
     {
         $data = Repair::create(array_merge($request->validated(), ['user_id' => auth()->user()->id]));
+
+        if($request->has('images')) {
+            Media::whereIn('id', data_get($request->input('images'), '*.id'))
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
+
         if ($request->wantsJson()) {
             return new RepairListResource($data);
         }
@@ -113,6 +121,13 @@ class RepairController extends Controller
     {
         $data = Repair::findOrFail($id);
         $data->update($request->validated());
+
+        
+        if($request->has('images')) {
+            $data->updateMedia($request->input('images', []), 'images');
+        }else {
+            $data->clearMediaCollection('images');
+        }
 
         if ($request->wantsJson()) {
             return (new RepairListResource($data))
