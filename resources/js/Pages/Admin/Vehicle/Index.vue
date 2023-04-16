@@ -289,10 +289,6 @@ let {
                                 <i class="ti ti-dots-vertical text-muted"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editUser">Activity Logs</a></li>
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
                                 <li><a class="dropdown-item text-danger" href="javascript:void(0);" @click="deletePromise(vehicle.id)">Delete</a></li>
                             </ul>
                         </div>

@@ -12,8 +12,8 @@ use App\Models\Rescue\RescueService;
 class RescueController extends Controller
 {
  public function index (Request $request) {
-        $page = $request->input('page', 1); // default 1
-        $perPage = $request->input('perPage', 50); // default 50
+        $page = $request->input('page', 1);
+        $perPage = $request->input('perPage', 50);
         $queryString = $request->input('query', null);
         $sort = explode('.', $request->input('sort', 'id'));
         $order = $request->input('order', 'asc');
@@ -22,9 +22,6 @@ class RescueController extends Controller
             ->with([])
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {
-                    // filter result
-                    // $query->where('column', 'like', '%' . $queryString . '%')
-                    //     ->orWhere('column', 'like', '%' . $queryString . '%');
                 }
             })
             ->when(count($sort) == 1, function ($query) use ($sort, $order) {
