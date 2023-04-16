@@ -40,6 +40,12 @@ class RescuerController extends Controller
                         ->orWhere('name', 'like', '%' . $queryString . '%');
                 }
             })
+            ->when($request->has('service_id'), function($query) use ($request){
+                $serviceId = $request->input('service_id');
+                $query->whereHas('services', function($query) use ($serviceId){
+                    $query->where('id', $serviceId);
+                });
+            })
             ->where(function ($query) use ($request) {
                 if ($request->has('radius') && $request->has('lat') && $request->has('lng')) {
                     $markers = $this->getMarkersInRadius($request);
