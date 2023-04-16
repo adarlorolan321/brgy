@@ -50,29 +50,29 @@ class AuthController extends Controller
         $request->validate([
             'email' => ['required', 'exists:users,email'],
             'password' => ['required'],
-            'otp' => ['required']
+            // 'otp' => ['required']
         ]);
         $user = User::where('email', $request->input('email'))->first();
         if (!$user) {
             throw ValidationException::withMessages(['email' => ['Invalid email or password.']]);
         }
         if (Hash::check($request->input('password'), $user->password)) {
-            $message = Message::where('recipient', 'like', '%' . $user->mobile_number . '%')
-                ->where('created_at', '>=', now()->subMinutes(5))
-                ->where('status', true)
-                ->first();
-            if ($message) {
-                if ((string) $request->input('otp', $message->code) == $message->code) {
+            // $message = Message::where('recipient', 'like', '%' . $user->mobile_number . '%')
+            //     ->where('created_at', '>=', now()->subMinutes(5))
+            //     ->where('status', true)
+            //     ->first();
+            // if ($message) {
+            //     if ((string) $request->input('otp', $message->code) == $message->code) {
                     $token = $user->createToken('dryver');
-                    $message->update(['status' => false]);
+                    // $message->update(['status' => false]);
                     $user['token'] = $token->plainTextToken;
                     return json_encode($user);
-                } else {
-                    throw ValidationException::withMessages(['otp' => 'Invalid Verification Code.']);
-                }
-            } else {
-                throw ValidationException::withMessages(['otp' => 'Verification code expired. Kindly resend for new verification code.']);
-            }
+            //     } else {
+            //         throw ValidationException::withMessages(['otp' => 'Invalid Verification Code.']);
+            //     }
+            // } else {
+            //     throw ValidationException::withMessages(['otp' => 'Verification code expired. Kindly resend for new verification code.']);
+            // }
         }
         return response("Authentication failed.", '401');
     }

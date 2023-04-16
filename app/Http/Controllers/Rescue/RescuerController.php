@@ -25,8 +25,6 @@ class RescuerController extends Controller
         $sort = explode('.', $request->input('sort', 'id'));
         $order = $request->input('order', 'asc');
 
-
-        $markers = $this->getMarkersInRadius($request);
         $data = Rescuer::query()
             ->with(['services'])
             ->where(function ($query) use ($queryString) {
@@ -54,21 +52,23 @@ class RescuerController extends Controller
             })
             ->paginate($perPage)
             ->withQueryString();
-
-        $props = [
-            'data' => RescuerListResource::collection($data),
-            'params' => $request->all(),
-        ];
+            
 
         if ($request->wantsJson()) {
-            return json_encode($props);
+            return [
+                'data' => RescuerListResource::collection($data)->response()->getData(true),
+                'params' => $request->all(),
+            ];
         }
 
         if (count($data) <= 0 && $page > 1) {
             return redirect()->route('rescuers.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/Rescuer', $props);
+        return Inertia::render('Admin/Rescuer', [
+            'data' => RescuerListResource::collection($data),
+            'params' => $request->all(),
+        ]);
     }
 
     /**
