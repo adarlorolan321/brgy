@@ -57,6 +57,14 @@ class RolePermissionSeeder extends Seeder
             'update vehicle',
             'destroy vehicle',
             'show vehicle',
+
+            'access repair',
+            'create repair',
+            'store repair',
+            'edit repair',
+            'update repair',
+            'destroy repair',
+            'show repair',
         ];
         $roles = [
             'Admin' => $permissions,

@@ -6,6 +6,7 @@ use App\Http\Controllers\DriveController;
 use App\Http\Controllers\Dryver\DryverController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\Repair\RepairController;
 use App\Http\Controllers\Rescue\RescuerController;
 use App\Http\Controllers\Rescue\RescueServiceController;
 use App\Http\Controllers\Vehicle\VehicleBrandController;
@@ -50,6 +51,7 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
         'rescuers' => RescuerController::class,
         'vehicles' => VehicleController::class,
         'dryver' => DryverController::class,
+        'repairs' => RepairController::class,
         'rescue_services' => RescueServiceController::class,
     ]);
 
