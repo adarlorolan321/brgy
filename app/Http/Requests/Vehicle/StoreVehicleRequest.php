@@ -28,6 +28,7 @@ class StoreVehicleRequest extends FormRequest
             "vehicle_type_id" => ["required", "exists:vehicle_types,id"],
             "assigned_to" => ["required", "exists:users,id"],
             "plate_number" => ["required"],
+            'odometer' => ['nullable'],
             "color" => ["required"],
         ];
     }

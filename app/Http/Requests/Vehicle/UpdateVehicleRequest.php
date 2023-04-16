@@ -22,7 +22,14 @@ class UpdateVehicleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "vehicle_brand_id" => ["required"],"model" => ["required"],"year" => ["required"],"vehicle_type_id" => ["required"],"assigned_to" => ["required"],"plate_number" => ["required"],"color" => ["required"],
+            "vehicle_brand_id" => ["required", "exists:vehicle_brands,id"],
+            "model" => ["required"],
+            "year" => ["required"],
+            "vehicle_type_id" => ["required", "exists:vehicle_types,id"],
+            "assigned_to" => ["required", "exists:users,id"],
+            "plate_number" => ["required"],
+            'odometer' => ['nullable'],
+            "color" => ["required"],
         ];
     }
 }

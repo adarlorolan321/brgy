@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Support\Str;
+
 
 class Vehicle extends Model implements HasMedia
 {
@@ -21,10 +23,25 @@ class Vehicle extends Model implements HasMedia
         "assigned_to",
         "plate_number",
         "color",
+        "odometer",
+        "is_driving",
+        "uuid",
     ];
+
+    protected $casts = [
+        'is_driving' => 'boolean'
+    ];
+
     protected $appends = [
         'image', 'image_url'
     ];
+
+    protected static function  booted()
+    {
+        static::creating(function ($service) {
+            $service->uuid = Str::uuid();
+        });
+    }
 
     public function getImageAttribute()
     {

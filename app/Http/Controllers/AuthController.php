@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\RegisterOTPRequest;
 use App\Http\Requests\User\RegisterRequest;
+use App\Http\Resources\User\RequestRescueLogResource;
 use App\Http\Traits\SMSHandler;
 use App\Models\Message;
+use App\Models\RequestRescueLog;
 use App\Models\User;
+use App\Models\Vehicle\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -117,5 +120,21 @@ class AuthController extends Controller
         } else {
             throw ValidationException::withMessages(['otp' => 'Verification code expired. Kindly resend for new verification code.']);
         }
+    }
+
+    public function myRescueRequest()
+    {
+        $rescueRequests  = RequestRescueLog::with(['rescuer'])->where('user_id', auth()->user()->id)
+            ->get();
+        return RequestRescueLogResource::collection($rescueRequests);
+    }
+
+    public function myActiveVehicle() {
+
+        $activeVehicle = Vehicle::where('assigned_to', auth()->user()->id)
+            ->where('is_driving', true)
+            ->first();
+        
+        return new RequestRescueLogResource($activeVehicle);
     }
 }

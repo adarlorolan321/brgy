@@ -37,6 +37,11 @@ Route::prefix('v1')->name('api.')->group(function () {
 
 
 Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function () {
+
+    Route::get('/my-rescue-request', [AuthController::class, 'myRescueRequest'])->name('myRescueRequest');
+    Route::get('/my-active-vehicle', [AuthController::class, 'myActiveVehicle'])->name('myActiveVehicle');
+    
+    
     Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
 
     Route::resources([
@@ -49,6 +54,10 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
     ]);
 
     Route::post('/drive/start/{id}', [DriveController::class, 'startDrive'])->name('drive.start');
+    Route::post('/drive/stop/{id}', [DriveController::class, 'stopDrive'])->name('drive.stop');
+    Route::post('/drive/request_rescuer', [DriveController::class, 'requestRescuer'])->name('drive.request_rescue');
+
+    
     Route::post('/blowbagets', [BlowbagetsController::class, 'store'])->name('blowbagets.store');
     Route::get('/blowbagets/user-data', [BlowbagetsController::class, 'userData'])->name('blowbagets.userData');
     Route::get('/my-vehicles', [VehicleController::class, 'getUserVehicle'])->name('my-vehicles');
