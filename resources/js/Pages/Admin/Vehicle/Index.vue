@@ -1,7 +1,27 @@
 <script>
 import AdminLayout from "@/Layouts/AdminLayout.vue";
+import { ColorPicker } from 'vue-color-kit'
+import 'vue-color-kit/dist/vue-color-kit.css'
 export default {
+    components: {
+        ColorPicker,
+    },
+    props: {
+        data: Object,
+        brands: Object,
+        types: Object,
+    },
     layout: AdminLayout,
+    methods: {
+        getBrandName(brandId) {
+            const brand = this.brands.find(b => b.id === brandId)
+            return brand ? brand.name : 'Unknown brand'
+        },
+        getTypeName(typeId) {
+            const type = this.types.find(t => t.id === typeId)
+            return type ? type.name : 'Unknown brand'
+        }
+    }
 };
 </script>
 
@@ -11,7 +31,13 @@ import { useValidateForm } from "@/Composables/Validate.js";
 import { usePage, Head } from "@inertiajs/vue3";
 const { props } = usePage();
 const formObject = {
-    name: null,
+    vehicle_brand_id: null,
+    model: null,
+    vehicle_type_id: null,
+    color: null,
+    year: null,
+    assigned_to: 1,
+    plate_number: null,
 };
 const { validateForm } = useValidateForm();
 const routeName = "vehicles";
@@ -54,153 +80,149 @@ let {
                     </div>
                     <div class="offcanvas-body mx-0 flex-grow-0 pt-0">
                         <div class="form-group mb-3">
-                            <label for="">First Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
+                            <label for="">Car Brand <span class="required">*</span></label>
+                            <v-select v-select 
+                                :options="brands" 
+                                v-model="form.vehicle_brand_id"
+                                :reduce="(vehicle_brand_id) => vehicle_brand_id.id"
+                                label="name" 
+                                @input="
                                 ($event) => {
-                                    form.clearErrors('name');
+                                    form.clearErrors('vehicle_brand_id');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'name'
-                                    );
-                                }
-                            " placeholder="Enter First Name" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
+                                        'vehicle_brand_id'
+                                    ); }"
+                                placeholder="Select Brand" 
+                            >
+                            </v-select> 
                             <div class="invalid-feedback">
-                                {{ form.errors.name }}
+                                {{ form.errors.vehicle_brand_id }}
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Middle Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
+                            <label for="">Car Type <span class="required">*</span></label>
+                            <v-select v-select 
+                                :options="types" 
+                                v-model="form.vehicle_type_id"
+                                :reduce="(vehicle_type_id) => vehicle_type_id.id"
+                                label="name" 
+                                @input="
+                                    ($event) => {
+                                        form.clearErrors('vehicle_type_id');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'vehicle_type_id'
+                                        );
+                                    }"
+                                placeholder="Select Type" 
+                            >
+                            </v-select> 
+                            <div class="invalid-feedback">
+                                {{ form.errors.vehicle_type_id }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Car Model <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.model" 
+                                @input="
                                 ($event) => {
-                                    form.clearErrors('name');
+                                    form.clearErrors('model');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'name'
+                                        'model'
                                     );
-                                }
-                            " placeholder="Enter Middle Name" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
+                                }" 
+                                placeholder="Enter Car Model" 
+                                :class="{'is-invalid': form.errors.model,}" 
+                            />
                             <div class="invalid-feedback">
-                                {{ form.errors.name }}
+                                {{ form.errors.model }}
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Last Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
+                            <label for="">Color <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.color" 
+                                @input="
                                 ($event) => {
-                                    form.clearErrors('name');
+                                    form.clearErrors('color');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'name'
+                                        'color'
                                     );
-                                }
-                            " placeholder="Enter Last Name" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
+                                }" 
+                                placeholder="Enter Color" 
+                                :class="{'is-invalid': form.errors.color,}" 
+                            />
                             <div class="invalid-feedback">
-                                {{ form.errors.name }}
+                                {{ form.errors.color }}
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Select Province <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="">Select Province</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
-                                <option value="france">France</option>
-                                <option value="australia">Australia</option>
-                                <option value="spain">Spain</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Select City <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="">Select City</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
-                                <option value="france">France</option>
-                                <option value="australia">Australia</option>
-                                <option value="spain">Spain</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Country <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="">Select Country</option>
-                                <option value="usa">USA</option>
-                                <option value="uk">UK</option>
-                                <option value="france">France</option>
-                                <option value="australia">Australia</option>
-                                <option value="spain">Spain</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Email <span class="required">*</span></label>
-                            <input type="email" class="form-control" v-model="form.name" @input="
+                            <label for="">Year Model <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.year" 
+                                @input="
                                 ($event) => {
-                                    form.clearErrors('name');
+                                    form.clearErrors('year');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'name'
+                                        'year'
                                     );
-                                }
-                            " placeholder="Enter Email" :class="{
-                                'is-invalid': form.errors.name,
-                                }" />
+                                }" 
+                                placeholder="Enter Year Model" 
+                                :class="{
+                                'is-invalid': form.errors.year,}" 
+                            />
                             <div class="invalid-feedback">
-                                {{ form.errors.name }}
+                                {{ form.errors.year }}
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Contact Number <span class="required">*</span></label>
-                            <input type="number" class="form-control" v-model="form.name" @input="
+                            <label for="">Plate Number <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.plate_number" 
+                                @input="
                                 ($event) => {
-                                    form.clearErrors('name');
+                                    form.clearErrors('plate_number');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'name'
+                                        'plate_number'
                                     );
-                                }
-                            " placeholder="Contact Number" :class="{
-                            'is-invalid': form.errors.name,
-                            }" />
+                                }" 
+                                placeholder="Enter Plate Number" 
+                                :class="{'is-invalid': form.errors.plate_number,}" 
+                            />
                             <div class="invalid-feedback">
-                                {{ form.errors.name }}
+                                {{ form.errors.plate_number }}
                             </div>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Driver Type <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required disabled>
-                                <option value="">Private</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Status <span class="required">*</span></label>
-                            <select class="form-select" id="basic-default-country" required disabled>
-                                <option value="">Driving</option>
-                            </select>
                         </div>
 
                         <button class="btn btn-primary" @click="createPromise" :disabled="form.processing || form.hasErrors"
@@ -256,60 +278,32 @@ let {
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-4" v-for="n in 3" :key="n">
-                <div class="card custom-card__hero" >
-                    <div class="card-body text-center">
+            <div class="col-xl-4 col-lg-4 col-md-4" v-for="(vehicle, index) in data.data" :key="index">
+                <div class="card custom-card__hero">
+                    <div class="user-profile-header-banner">
+                        <img class="banner-custom-img" src="../../../../../public/assets/img/pages/auth-car4-login-illustration-black.png" alt="">
+                    </div>
+                    <div class="card-body text-left">
                         <div class="dropdown btn-pinned">
-                        <button
-                            type="button"
-                            class="btn dropdown-toggle hide-arrow p-0"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-                            <i class="ti ti-dots-vertical text-muted"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
-                            <li>
-                            <hr class="dropdown-divider" />
-                            </li>
-                            <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
-                        </ul>
+                            <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="ti ti-dots-vertical text-muted"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#editUser">Activity Logs</a></li>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li><a class="dropdown-item text-danger" href="javascript:void(0);" @click="deletePromise(vehicle.id)">Delete</a></li>
+                            </ul>
                         </div>
-                        <div class="mx-auto my-3">
-                        <img src="../../../../../public/assets/img/avatars/5.png" alt="Avatar Image" class="rounded-circle w-px-100" />
-                        </div>
-                        <h4 class="mb-1 card-title">Mark Gilbert</h4>
-                        <span class="pb-1">London UK</span>
-                        <br>
-                        <span class="pb-1">email@email.com</span>
-                        <h6 class="pb-1">+63999132312312</h6>
-                        <div class="d-flex align-items-center justify-content-center my-3 gap-2">
-                        <a href="javascript:;"><span class="badge bg-label-warning">Driving..</span></a>
-                        </div>
-    
-                        <div class="d-flex align-items-center justify-content-around my-3 py-1">
-                        <div>
-                            <h4 class="mb-0">18</h4>
-                            <span>Projects</span>
-                        </div>
-                        <div>
-                            <h4 class="mb-0">834</h4>
-                            <span>Tasks</span>
-                        </div>
-                        <div>
-                            <h4 class="mb-0">129</h4>
-                            <span>Connections</span>
-                        </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center">
-                        <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"
-                            ><i class="ti-xs me-1 ti ti-car me-1"></i>Manage Vehicles</a
-                        >
-                        <a href="javascript:;" class="btn btn-label-secondary btn-icon"
-                            ><i class="ti ti-mail ti-sm"></i
-                        ></a>
+                        <h4 class="mb-1 card-title card-text">{{ getBrandName(vehicle.vehicle_brand_id) }}</h4>
+                        <h6 class="mb-0 card-text small-text">{{ getTypeName(vehicle.vehicle_type_id) }}</h6>
+                        <h6 class="mb-0 card-text small-text">{{ vehicle.model }}</h6>
+                        <h6 class="mb-0 card-text small-text">{{ vehicle.color }}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.year }}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.plate_number }}</h6>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3" @click="handleEdit(vehicle)"><i class="ti-xs me-1 ti ti-truck me-1"></i>Manage Vehicle</a>
                         </div>
                     </div>
                 </div>
@@ -341,12 +335,22 @@ let {
         </div>
     </div>
 </template>
-<style>
+<style lang="scss">
 .custom-container-card {
     background: unset !important;
     box-shadow: unset !important;
 }
 .custom-card__hero {
     margin: 10px;
+}
+.user-profile-header-banner img {
+    height: 225px !important;
+    @media (max-width: 1200px) {
+        height: 180px !important;
+    }
+}
+.small-text {
+    font-size: 12px;
+    color: rgba(123, 121, 128, 0.87);
 }
 </style>

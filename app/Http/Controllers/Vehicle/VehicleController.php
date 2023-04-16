@@ -7,6 +7,8 @@ use App\Http\Resources\Vehicle\VehicleListResource;
 use App\Models\Vehicle\Vehicle;
 use App\Http\Requests\Vehicle\StoreVehicleRequest;
 use App\Http\Requests\Vehicle\UpdateVehicleRequest;
+use App\Models\Vehicle\VehicleBrand;
+use App\Models\Vehicle\VehicleType;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -45,9 +47,13 @@ class VehicleController extends Controller
             ->paginate($perPage)
             ->withQueryString();
 
+        $brands = VehicleBrand::all();
+        $types = VehicleType::all();
         $props = [
             'data' => VehicleListResource::collection($data),
             'params' => $request->all(),
+            'brands' => $brands,
+            'types' => $types
         ];
 
         if ($request->wantsJson()) {
@@ -58,7 +64,7 @@ class VehicleController extends Controller
             return redirect()->route('vehicles.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/Vehicle', $props);
+        return Inertia::render('Admin/Vehicle/Index', $props);
     }
 
     /**
