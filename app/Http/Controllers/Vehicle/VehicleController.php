@@ -7,6 +7,7 @@ use App\Http\Resources\Vehicle\VehicleListResource;
 use App\Models\Vehicle\Vehicle;
 use App\Http\Requests\Vehicle\StoreVehicleRequest;
 use App\Http\Requests\Vehicle\UpdateVehicleRequest;
+use App\Models\Media;
 use App\Models\Vehicle\VehicleBrand;
 use App\Models\Vehicle\VehicleType;
 
@@ -81,7 +82,13 @@ class VehicleController extends Controller
     public function store(StoreVehicleRequest $request)
     {
         $data = Vehicle::create($request->validated());
-        sleep(1);
+        
+        if (isset($request->input('image', [])['id'])) {
+            Media::where('id', $request->input('image', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
 
         if ($request->wantsJson()) {
             return new VehicleListResource($data);
@@ -125,7 +132,18 @@ class VehicleController extends Controller
     {
         $data = Vehicle::findOrFail($id);
         $data->update($request->validated());
-        sleep(1);
+        if (isset($request->input('image', [])['id'])) {
+            if ($request->input('image', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('image');
+            }
+            Media::where('id', $request->input('image', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('image');
+        }
+        
 
         if ($request->wantsJson()) {
             return (new VehicleListResource($data))
@@ -143,7 +161,7 @@ class VehicleController extends Controller
     {
         $data = Vehicle::findOrFail($id);
         $data->delete();
-        sleep(1);
+        
 
         if ($request->wantsJson()) {
             return response(null, 204);
