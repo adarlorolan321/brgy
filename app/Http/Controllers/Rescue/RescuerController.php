@@ -39,8 +39,19 @@ class RescuerController extends Controller
                         ->orWhere('messenger_link', 'like', '%' . $queryString . '%')
                         ->orWhere('latitude', 'like', '%' . $queryString . '%')
                         ->orWhere('longitude', 'like', '%' . $queryString . '%')
+                        ->orWhere('province', 'like', '%' . $queryString . '%')
+                        ->orWhere('city', 'like', '%' . $queryString . '%')
+                        ->orWhere('gender', 'like', '%' . $queryString . '%')
                         ->orWhere('name', 'like', '%' . $queryString . '%');
                 }
+            })
+            ->when($request->has('province'), function($query) use ($request){
+                $province = $request->input('province');
+                $query->where('type', 'like', '%' . $province . '%');
+            })
+            ->when($request->has('city'), function($query) use ($request){
+                $city = $request->input('city');
+                $query->where('type', 'like', '%' . $city . '%');
             })
             ->when($request->has('service_id'), function($query) use ($request){
                 $serviceId = $request->input('service_id');

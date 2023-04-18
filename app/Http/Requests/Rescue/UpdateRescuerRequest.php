@@ -32,7 +32,10 @@ class UpdateRescuerRequest extends FormRequest
             "latitude" => ["required"],
             "longitude" => ["required"],
             "services" => ['required', 'array'],
-            "services.*" => ['exists:rescue_services,id']
+            "services.*" => ['exists:rescue_services,id'],
+            "province" => ['required'],
+            "city" => ['required'],
+            "gender" => ['required'],
         ];
     }
 }

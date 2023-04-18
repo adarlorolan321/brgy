@@ -21,6 +21,9 @@ class Rescuer extends Model implements HasMedia
         "messenger_link",
         "latitude",
         "longitude",
+        "province",
+        "city",
+        "gender",
     ]; 
     
     protected $appends = [
