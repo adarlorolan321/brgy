@@ -7,7 +7,7 @@ use App\Http\Resources\Rescue\RescuerListResource;
 use App\Models\Rescue\Rescuer;
 use App\Http\Requests\Rescue\StoreRescuerRequest;
 use App\Http\Requests\Rescue\UpdateRescuerRequest;
-
+use App\Models\Media;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -94,7 +94,13 @@ class RescuerController extends Controller
 
         $data->services()->sync($request->input('services', []));
         $data->load(['services']);
-        sleep(1);
+        
+        if (isset($request->input('image', [])['id'])) {
+            Media::where('id', $request->input('image', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
 
         if ($request->wantsJson()) {
             return new RescuerListResource($data);
@@ -139,7 +145,19 @@ class RescuerController extends Controller
         $data->update($request->validated());
         $data->services()->sync($request->input('services', []));
         $data->load(['services']);
-        sleep(1);
+       
+        
+        if (isset($request->input('image', [])['id'])) {
+            if ($request->input('image', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('image');
+            }
+            Media::where('id', $request->input('image', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('image');
+        }
 
         if ($request->wantsJson()) {
             return (new RescuerListResource($data))
