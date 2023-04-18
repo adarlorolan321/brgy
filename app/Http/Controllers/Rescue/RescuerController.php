@@ -8,6 +8,9 @@ use App\Models\Rescue\Rescuer;
 use App\Http\Requests\Rescue\StoreRescuerRequest;
 use App\Http\Requests\Rescue\UpdateRescuerRequest;
 use App\Models\Media;
+use App\Models\Rescue\RescueService;
+use App\Models\Province;
+
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -27,9 +30,8 @@ class RescuerController extends Controller
 
         $data = Rescuer::query()
             ->with(['services'])
-            ->where(function ($query) use ($queryString) {
+            ->where(function ($query) use ($queryString){
                 if ($queryString && $queryString != '') {
-                    // filter result
                     $query->where('type', 'like', '%' . $queryString . '%')
                         ->orWhere('contact_number', 'like', '%' . $queryString . '%')
                         ->orWhere('is_contact_number_verified', 'like', '%' . $queryString . '%')
@@ -59,6 +61,14 @@ class RescuerController extends Controller
             ->paginate($perPage)
             ->withQueryString();
             
+        $services = RescueService::all();
+        $provinces = Province::with(['cities'])->get();
+        $props = [
+            'data' => RescuerListResource::collection($data),
+            'params' => $request->all(),
+            'services' => $services,
+            'provinces' => $provinces,
+        ];
 
         if ($request->wantsJson()) {
             return [
@@ -71,10 +81,7 @@ class RescuerController extends Controller
             return redirect()->route('rescuers.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/Rescuer', [
-            'data' => RescuerListResource::collection($data),
-            'params' => $request->all(),
-        ]);
+        return Inertia::render('Admin/Rescue/Index', $props);
     }
 
     /**

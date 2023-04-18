@@ -70,7 +70,7 @@ let {
                             v-if="!form.processing"
                         ></button>
                     </div>
-                    <div class="offcanvas-body mt-4 mx-0 flex-grow-0">
+                    <div class="offcanvas-body mx-0 flex-grow-0 pt-0">
                         <div class="form-group mb-3">
                             <label for=""
                                 >Name <span class="required">*</span></label
