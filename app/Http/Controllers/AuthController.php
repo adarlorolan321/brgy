@@ -6,6 +6,7 @@ use App\Http\Requests\User\RegisterOTPRequest;
 use App\Http\Requests\User\RegisterRequest;
 use App\Http\Resources\User\RequestRescueLogResource;
 use App\Http\Traits\SMSHandler;
+use App\Models\Blowbagets;
 use App\Models\Message;
 use App\Models\RequestRescueLog;
 use App\Models\User;
@@ -132,6 +133,7 @@ class AuthController extends Controller
     public function myActiveVehicle() {
 
         $activeVehicle = Vehicle::where('assigned_to', auth()->user()->id)
+            ->with('blowbagets')
             ->where('is_driving', true)
             ->first();
         

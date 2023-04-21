@@ -2,6 +2,7 @@
 
 namespace App\Models\Vehicle;
 
+use App\Models\Blowbagets;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +27,7 @@ class Vehicle extends Model implements HasMedia
         "odometer",
         "is_driving",
         "uuid",
+        'blowbagets_id'
     ];
 
     protected $casts = [
@@ -70,5 +72,9 @@ class Vehicle extends Model implements HasMedia
     public function type()
     {
         return $this->belongsTo(VehicleType::class, 'vehicle_type_id', 'id');
+    }
+
+    public function blowbagets(){
+        return $this->belongsTo(Blowbagets::class, 'blowbagets_id', 'id');
     }
 }

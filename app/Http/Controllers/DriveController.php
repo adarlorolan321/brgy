@@ -53,6 +53,7 @@ class DriveController extends Controller
 
         $vehicle->update([
             'is_driving' => false,
+            'blowbagets_id' => null,
             'odometer' => $request->input('odometer')
         ]);
 
