@@ -91,7 +91,7 @@ class RepairController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        $data = Repair::findOrFail($id);
+        $data = Repair::with(['user', 'vehicle' => ['type', 'brand']])->findOrFail($id);
         if ($request->wantsJson()) {
             return new RepairListResource($data);
         }
