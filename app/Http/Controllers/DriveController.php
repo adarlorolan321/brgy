@@ -78,6 +78,8 @@ class DriveController extends Controller
             'start_date' => Carbon::parse($start_log->created_at)->format('Y-m-d'),
             'start_time'  => Carbon::parse($start_log->created_at)->format('H:i:s'),
             
+            'user_id' => $auth->id,
+            
             'end_date' => Carbon::parse($end_log->created_at)->format('Y-m-d'),
             'end_time'  => Carbon::parse($end_log->created_at)->format('H:i:s'),
             

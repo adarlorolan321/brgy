@@ -102,8 +102,11 @@ class VehicleController extends Controller
     public function show(Request $request, string $id)
     {
         $data = Vehicle::findOrFail($id);
-        $data->load(['brand', 'type', 'user', 'logs.logs']);
-        
+        $data->load(['brand', 'type', 'user', 'logs' => [
+            'user',
+            'logs'
+        ]]);
+
         if ($request->wantsJson()) {
             return new VehicleListResource($data);
         }
