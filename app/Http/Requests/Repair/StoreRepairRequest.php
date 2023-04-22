@@ -24,7 +24,11 @@ class StoreRepairRequest extends FormRequest
         return [
             "mechanic_name" => ["required"],
             "mechanic_contact_number" => ["required"],
-            "mechanic_address" => ["required"]
+            "mechanic_address" => ["required"],
+            'vehicle_id' => ['required'],
+            'total_amount' => ['required'],
+            'images' => ['required', 'array'],
+            'images.*.id' => ['required']
         ];
     }
 }

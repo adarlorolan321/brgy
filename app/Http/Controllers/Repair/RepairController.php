@@ -26,7 +26,7 @@ class RepairController extends Controller
         $order = $request->input('order', 'asc');
 
         $data = Repair::query()
-            ->with([])
+            ->with(['user', 'vehicle' => ['type', 'brand']])
             ->where('user_id', auth()->user()->id)
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {

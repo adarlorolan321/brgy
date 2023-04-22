@@ -2,6 +2,8 @@
 
 namespace App\Models\Repair;
 
+use App\Models\User;
+use App\Models\Vehicle\Vehicle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,6 +21,8 @@ class Repair extends Model implements HasMedia
         "mechanic_contact_number",
         "mechanic_address",
         "user_id",
+        "vehicle_id",
+        'total_amount',
     ];
 
     protected $appends = [
@@ -54,5 +58,15 @@ class Repair extends Model implements HasMedia
 
         return $images;
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function vehicle(){
+        return $this->belongsTo(Vehicle::class);
+    }
+
+
 
 }
