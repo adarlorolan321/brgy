@@ -23,6 +23,7 @@ class Repair extends Model implements HasMedia
         "user_id",
         "vehicle_id",
         'total_amount',
+        'status'
     ];
 
     protected $appends = [
@@ -65,6 +66,10 @@ class Repair extends Model implements HasMedia
 
     public function vehicle(){
         return $this->belongsTo(Vehicle::class);
+    }
+
+    public function items(){
+        return $this->hasMany(RepairItem::class);
     }
 
 

@@ -8,6 +8,7 @@ use App\Models\Repair\Repair;
 use App\Http\Requests\Repair\StoreRepairRequest;
 use App\Http\Requests\Repair\UpdateRepairRequest;
 use App\Models\Media;
+use App\Models\Repair\RepairItem;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -27,7 +28,12 @@ class RepairController extends Controller
 
         $data = Repair::query()
             ->with(['user', 'vehicle' => ['type', 'brand']])
-            ->where('user_id', auth()->user()->id)
+            ->where(function($query) use ($request){
+                if(!auth()->user()->hasRole('Admin'))
+                {
+                    $query->where('user_id', auth()->user()->id);
+                }
+            })
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {
                     $query->where('mechanic_name', 'like', '%' . $queryString . '%')
@@ -80,6 +86,21 @@ class RepairController extends Controller
                 ]);
         }
 
+        foreach ($request->input('items', []) as $item) {
+            $repair_item = RepairItem::create([
+                'item' => $item['item'],
+                'amount' => $item['amount'],
+                'repair_id' => $data->id,
+            ]);
+            if(isset($item['image']) && isset($item['image']['id']))
+            {
+                Media::where('id', $item['image']['id'])
+                    ->update([
+                        'model_id' => $repair_item->id
+                    ]);
+            }
+        }
+
         if ($request->wantsJson()) {
             return new RepairListResource($data);
         }
@@ -91,7 +112,7 @@ class RepairController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        $data = Repair::with(['user', 'vehicle' => ['type', 'brand']])->findOrFail($id);
+        $data = Repair::with(['user', 'vehicle' => ['type', 'brand'], 'items'])->findOrFail($id);
         if ($request->wantsJson()) {
             return new RepairListResource($data);
         }
@@ -128,6 +149,43 @@ class RepairController extends Controller
         }else {
             $data->clearMediaCollection('images');
         }
+
+        $ids = RepairItem::where('repair_id', $data->id)->get()->pluck('id')->toArray();
+
+        foreach ($request->input('items', []) as $item) {
+            $repair_item = null;
+
+            if(isset($item['id']))
+            {
+                $repair_item = RepairItem::where('id', $item['id'])
+                    ->update([
+                        'item' => $item['item'],
+                        'amount' => $item['amount'],
+                        'repair_id' => $data->id,
+                    ]);
+            }else {
+                $repair_item = RepairItem::create([
+                    'item' => $item['item'],
+                    'amount' => $item['amount'],
+                    'repair_id' => $data->id,
+                ]);
+            }
+            
+            if(isset($item['image']) && isset($item['image']['id']))
+            {
+                Media::where('id', $item['image']['id'])
+                    ->update([
+                        'model_id' => $repair_item->id
+                    ]);
+            }
+
+            $key = array_search($repair_item->id, $ids);
+            if($key !== false){
+                unset($ids[$key]);
+            }
+        }
+
+        $delete_ids = RepairItem::whereIn('id', $ids)->delete();
 
         if ($request->wantsJson()) {
             return (new RepairListResource($data))

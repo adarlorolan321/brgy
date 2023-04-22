@@ -28,7 +28,12 @@ class StoreRepairRequest extends FormRequest
             'vehicle_id' => ['required'],
             'total_amount' => ['required'],
             'images' => ['required', 'array'],
-            'images.*.id' => ['required']
+            'images.*.id' => ['required'],
+            'items' => ['required', 'array'],
+            'items.*.item' => ['required'],
+            'items.*.amount' => ['required'],
+            'items.*.image' => ['nullable'],
+            'status' => ['nullable']
         ];
     }
 }
