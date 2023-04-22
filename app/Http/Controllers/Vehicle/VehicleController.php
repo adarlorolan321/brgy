@@ -29,7 +29,7 @@ class VehicleController extends Controller
         $order = $request->input('order', 'asc');
 
         $data = Vehicle::query()
-            ->with([])
+            ->with(['type', 'brand'])
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {
                     // filter result
