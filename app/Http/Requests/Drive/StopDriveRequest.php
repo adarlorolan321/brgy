@@ -24,7 +24,9 @@ class StopDriveRequest extends FormRequest
         return [
             'lat' => 'required',
             'lng' => 'required',
-            'odometer' => 'required'
+            'odometer' => 'required',
+            'distance' => 'required',
+            'average_speed' => 'required',
         ];
     }
 }

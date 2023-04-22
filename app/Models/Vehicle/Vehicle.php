@@ -77,4 +77,8 @@ class Vehicle extends Model implements HasMedia
     public function blowbagets(){
         return $this->belongsTo(Blowbagets::class, 'blowbagets_id', 'id');
     }
+
+    public function logs(){
+        return $this->hasMany(VehicleDriveLog::class, 'vehicle_id', 'id');
+    }
 }
