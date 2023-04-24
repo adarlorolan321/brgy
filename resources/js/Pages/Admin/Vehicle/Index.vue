@@ -38,10 +38,12 @@ const formObject = {
     year: null,
     assigned_to: 1,
     plate_number: null,
+    image: null,
 };
 const { validateForm } = useValidateForm();
 const routeName = "vehicles";
 let {
+    isLoadingComponents,
     paginatedData,
     form,
     createPromise,
@@ -125,6 +127,48 @@ let {
                             </v-select> 
                             <div class="invalid-feedback">
                                 {{ form.errors.vehicle_type_id }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4 dropzone-profile-photo">
+                            <label for="name">Upload Photo</label>
+                            <dropzone
+                                collection="image"
+                                v-if="isLoadingComponents"
+                                :url="route('api.media.upload')"
+                                type="profile"
+                                model="Vehicle\Vehicle"
+                                :value="form.image"
+                                @input="
+                                    ($event) => {
+                                        form.image = $event;
+                                        form.clearErrors('image');
+                                    }
+                                "
+                                message="Drop files here or click to upload profile photo"
+                                acceptedFiles="image/jpeg,image/png"
+                                @error="
+                                    ($event) => {
+                                        if ($event && $event[0]) {
+                                            form.setError('image', $event[0]);
+                                        }
+                                    }
+                                "
+                            >
+                            </dropzone>
+                            <div v-else>
+                                <div class="dropzone" ref="dropzone">
+                                    <div class="dz-message needsclick">
+                                        Please Wait
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="v-invalid-feedback"
+                                v-if="form.errors.image"
+                            >
+                                {{ form.errors.image }}
                             </div>
                         </div>
 
@@ -298,8 +342,11 @@ let {
                         <h6 class="mb-0 card-text small-text">{{ vehicle.color }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.year }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.plate_number }}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text">Last Driven By: {{ vehicle.is_driving }}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text">Current Odometer: {{ vehicle.odometer }}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text">Blowbadgets: {{ vehicle.blowbagets_id }}</h6>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3" @click="handleEdit(vehicle)"><i class="ti-xs me-1 ti ti-truck me-1"></i>Manage Vehicle</a>
+                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3" @click="handleEdit(vehicle)"><i class="ti-xs me-1 ti ti-truck me-1"></i>Edit Vehicle</a>
                         </div>
                     </div>
                 </div>
