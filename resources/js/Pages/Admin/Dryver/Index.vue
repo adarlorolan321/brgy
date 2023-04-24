@@ -159,6 +159,69 @@ const gender = [
                             <v-select v-select :options="city"></v-select> 
                         </div>
 
+                        <div class="form-group mb-3">
+                            <label for="">Mobile Number <span class="required">*</span></label>
+                            <input type="text" class="form-control" v-model="form.number" @input="
+                                ($event) => {
+                                    form.clearErrors('number');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'number'
+                                    );
+                                }
+                            " 
+                            placeholder="Enter Mobile Number" 
+                            :class="{'is-invalid': form.errors.number,}" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.number }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Password <span class="required">*</span></label>
+                            <input type="password" class="form-control" v-model="form.password" @input="
+                                ($event) => {
+                                    form.clearErrors('password');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'password'
+                                    );
+                                }
+                            " 
+                            placeholder="Enter Password" 
+                            :class="{ 'is-invalid': form.errors.password, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.password }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Confirm Password <span class="required">*</span></label>
+                            <input type="password" class="form-control" v-model="form.confirm_password" @input="
+                                ($event) => {
+                                    form.clearErrors('confirm_password');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'confirm_password'
+                                    );
+                                }
+                            " 
+                            placeholder="Enter Confirm Password" 
+                            :class="{ 'is-invalid': form.errors.confirm_password, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.confirm_password }}
+                            </div>
+                        </div>
+
                         <button class="btn btn-primary" @click="createPromise" :disabled="form.processing || form.hasErrors"
                             v-if="formState == 'create'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"

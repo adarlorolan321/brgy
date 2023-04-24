@@ -222,7 +222,7 @@ export default {
 .dropzone-profile-photo {
     .dropzone {
         padding: 15px;
-        width: 200px;
+        width: 100%;
         min-height: 200px;
         display: flex;
         justify-content: center;

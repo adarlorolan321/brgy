@@ -124,62 +124,64 @@ const gender = [
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">First Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.first_name" @input="
+                            <label for="">Name <span class="required">*</span></label>
+                            <input type="text" class="form-control" v-model="form.name" @input="
                                 ($event) => {
-                                    form.clearErrors('first_name');
+                                    form.clearErrors('name');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'first_name'
+                                        'name'
                                     );
                                 }
                             " placeholder="Enter First Name" :class="{
-                                'is-invalid': form.errors.first_name,
+                                'is-invalid': form.errors.name,
                             }" />
                             <div class="invalid-feedback">
-                                {{ form.errors.first_name }}
+                                {{ form.errors.name }}
                             </div>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="">Middle Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.middle_name" @input="
-                                ($event) => {
-                                    form.clearErrors('middle_name');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'middle_name'
-                                    );
-                                }
-                            " placeholder="Enter Middle Name" :class="{
-                                'is-invalid': form.errors.middle_name,
-                            }" />
-                            <div class="invalid-feedback">
-                                {{ form.errors.middle_name }}
+                        <div class="form-group mb-4 dropzone-profile-photo">
+                            <label for="name">Upload Photo</label>
+                            <dropzone
+                                collection="image"
+                                v-if="isLoadingComponents"
+                                :url="route('api.media.upload')"
+                                type="profile"
+                                model="Rescue\RescueService"
+                                :value="form.image"
+                                @input="
+                                    ($event) => {
+                                        form.image = $event;
+                                        form.clearErrors('image');
+                                    }
+                                "
+                                message="Drop files here or click to upload profile photo"
+                                acceptedFiles="image/jpeg,image/png"
+                                @error="
+                                    ($event) => {
+                                        if ($event && $event[0]) {
+                                            form.setError('image', $event[0]);
+                                        }
+                                    }
+                                "
+                            >
+                            </dropzone>
+                            <div v-else>
+                                <div class="dropzone" ref="dropzone">
+                                    <div class="dz-message needsclick">
+                                        Please Wait
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group mb-3">
-                            <label for="">Last Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.last_name" @input="
-                                ($event) => {
-                                    form.clearErrors('last_name');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'last_name'
-                                    );
-                                }
-                            " placeholder="Enter Last Name" :class="{
-                                'is-invalid': form.errors.last_name,
-                            }" />
-                            <div class="invalid-feedback">
-                                {{ form.errors.last_name }}
+                            <div
+                                class="v-invalid-feedback"
+                                v-if="form.errors.image"
+                            >
+                                {{ form.errors.image }}
                             </div>
                         </div>
 
@@ -187,7 +189,6 @@ const gender = [
                             <label for="">Gender <span class="required">*</span></label>
                             <v-select v-select :options="gender" label="name" placeholder="Select Gender"></v-select> 
                         </div>
-
                         <div class="form-group mb-3">
                             <label for="">Select Province <span class="required">*</span></label>
                             <v-select v-select 
@@ -334,7 +335,7 @@ const gender = [
     
                         <div class="d-flex align-items-center justify-content-center">
                         <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"
-                            ><i class="ti-xs me-1 ti ti-truck me-1"></i>Manage Rescuer</a
+                            ><i class="ti-xs me-1 ti ti-truck me-1"></i>Edit Rescuer</a
                         >
                         <a href="javascript:;" class="btn btn-label-secondary btn-icon"
                             ><i class="ti ti-mail ti-sm"></i
