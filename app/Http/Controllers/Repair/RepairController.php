@@ -61,7 +61,7 @@ class RepairController extends Controller
             return redirect()->route('repairs.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/Repair', $props);
+        return Inertia::render('Admin/Repair/Index', $props);
     }
 
     /**

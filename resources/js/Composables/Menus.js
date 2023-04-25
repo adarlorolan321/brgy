@@ -59,6 +59,18 @@ export function useMenu() {
                 },
             ]
         },
+        {
+            label: "Repair",
+            route: "repair.index",
+            icon: "ti ti-tool",
+            only: ["data", "params"],
+        },
+        {
+            label: "All Activity Logs",
+            route: "dryver.index",
+            icon: "ti ti-list",
+            only: ["data", "params"],
+        },
     ];
 
     return {
