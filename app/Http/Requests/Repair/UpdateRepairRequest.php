@@ -27,12 +27,6 @@ class UpdateRepairRequest extends FormRequest
             "mechanic_address" => ["required"],
             'vehicle_id' => ['required'],
             'total_amount' => ['required'],
-            'images' => ['required', 'array'],
-            'images.*.id' => ['required'],
-            'items' => ['required', 'array'],
-            'items.*.item' => ['required'],
-            'items.*.amount' => ['required'],
-            'items.*.image' => ['nullable'],
             'status' => ['nullable']
         ];
     }

@@ -4,14 +4,14 @@ namespace App\Http\Requests\Repair;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRepairRequest extends FormRequest
+class UpdateRepairItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->user()->can("store repair");
+        return true;
     }
 
     /**
@@ -22,12 +22,10 @@ class StoreRepairRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "mechanic_name" => ["required"],
-            "mechanic_contact_number" => ["required"],
-            "mechanic_address" => ["required"],
-            'vehicle_id' => ['required'],
-            'total_amount' => ['required'],
-            'status' => ['nullable']
+            'item' => ['required'],
+            'amount' => ['required'],
+            'repair_id' => ['required'],
+            'image' => ['nullable']
         ];
     }
 }

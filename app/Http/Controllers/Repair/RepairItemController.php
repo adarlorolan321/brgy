@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Repair;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Repair\RepairListResource;
-use App\Models\Repair\Repair;
-use App\Http\Requests\Repair\StoreRepairRequest;
-use App\Http\Requests\Repair\UpdateRepairRequest;
+use App\Http\Requests\Repair\StoreRepairItemRequest;
+use App\Http\Requests\Repair\UpdateRepairItemRequest;
+use App\Http\Resources\RepairItemListResource;
 use App\Models\Media;
+use App\Models\Repair\Repair;
 use App\Models\Repair\RepairItem;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class RepairController extends Controller
+class RepairItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,8 +26,8 @@ class RepairController extends Controller
         $sort = explode('.', $request->input('sort', 'id'));
         $order = $request->input('order', 'asc');
 
-        $data = Repair::query()
-            ->with(['user', 'vehicle' => ['type', 'brand']])
+        $data = RepairItem::query()
+            ->with([])
             ->where(function($query) use ($request){
                 if(!auth()->user()->hasRole('Admin'))
                 {
@@ -36,9 +36,8 @@ class RepairController extends Controller
             })
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {
-                    $query->where('mechanic_name', 'like', '%' . $queryString . '%')
-                        ->orWhere('mechanic_contact_number', 'like', '%' . $queryString . '%')
-                        ->orWhere('mechanic_address', 'like', '%' . $queryString . '%');
+                    $query->where('item', 'like', '%' . $queryString . '%')
+                        ->orWhere('amount', 'like', '%' . $queryString . '%');
                 }
             })
             ->when(count($sort) == 1, function ($query) use ($sort, $order) {
@@ -48,7 +47,7 @@ class RepairController extends Controller
             ->withQueryString();
 
         $props = [
-            'data' => RepairListResource::collection($data),
+            'data' => RepairItemListResource::collection($data),
             'params' => $request->all(),
         ];
 
@@ -58,10 +57,10 @@ class RepairController extends Controller
 
         if(count($data) <= 0 && $page > 1)
         {
-            return redirect()->route('repairs.index', ['page' => 1]);
+            return redirect()->route('repair.items.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/Repair/Index', $props);
+        return Inertia::render('Admin/RepairItem', $props);
     }
 
     /**
@@ -69,18 +68,33 @@ class RepairController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Repair/Create');
+        return Inertia::render('Admin/RepairItem/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRepairRequest $request)
+    public function store(StoreRepairItemRequest $request)
     {
-        $data = Repair::create(array_merge($request->validated(), ['user_id' => auth()->user()->id]));
+        $data = RepairItem::create(array_merge($request->validated(), ['user_id' => auth()->user()->id]));
+
+        if (isset($request->input('image', [])['id'])) {
+            Media::where('id', $request->input('image', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
+        $data->refresh();
+
+
+        $repair = Repair::with(['items'])->where('id', $request->input('repair_id'))->first();
+        $total_amount = $repair->items->sum('amount');
+        $repair->update([
+            'total_amount' => $total_amount
+        ]);
 
         if ($request->wantsJson()) {
-            return new RepairListResource($data);
+            return new RepairItemListResource($data);
         }
         return redirect()->back();
     }
@@ -90,11 +104,11 @@ class RepairController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        $data = Repair::with(['user', 'vehicle' => ['type', 'brand'], 'items'])->findOrFail($id);
+        $data = RepairItem::with([])->findOrFail($id);
         if ($request->wantsJson()) {
-            return new RepairListResource($data);
+            return new RepairItemListResource($data);
         }
-        return Inertia::render('Admin/Repair/Show', [
+        return Inertia::render('Admin/RepairItem/Show', [
             'data' => $data
         ]);
     }
@@ -104,11 +118,11 @@ class RepairController extends Controller
      */
     public function edit(Request $request, string $id)
     {
-        $data = Repair::findOrFail($id);
+        $data = RepairItem::findOrFail($id);
         if ($request->wantsJson()) {
-            return new RepairListResource($data);
+            return new RepairItemListResource($data);
         }
-        return Inertia::render('Admin/Repair/Edit', [
+        return Inertia::render('Admin/RepairItem/Edit', [
             'data' => $data
         ]);
     }
@@ -116,13 +130,32 @@ class RepairController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRepairRequest $request, string $id)
+    public function update(UpdateRepairItemRequest $request, string $id)
     {
-        $data = Repair::findOrFail($id);
+        $data = RepairItem::findOrFail($id);
         $data->update($request->validated());
 
+        
+        if (isset($request->input('image', [])['id'])) {
+            if ($request->input('image', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('image');
+            }
+            Media::where('id', $request->input('image', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('image');
+        }
+        
+        $repair = Repair::with(['items'])->where('id', $request->input('repair_id'))->first();
+        $total_amount = $repair->items->sum('amount');
+        $repair->update([
+            'total_amount' => $total_amount
+        ]);
+
         if ($request->wantsJson()) {
-            return (new RepairListResource($data))
+            return (new RepairItemListResource($data))
                 ->response()
                 ->setStatusCode(201);
         }
@@ -135,7 +168,7 @@ class RepairController extends Controller
      */
     public function destroy(Request $request, string $id)
     {
-        $data = Repair::findOrFail($id);
+        $data = RepairItem::findOrFail($id);
         $data->delete();
 
         if ($request->wantsJson()) {
