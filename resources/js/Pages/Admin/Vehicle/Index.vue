@@ -83,7 +83,7 @@ let {
                     <div class="offcanvas-body mx-0 flex-grow-0 pt-0">
                         <div class="form-group mb-3">
                             <label for="">Car Brand <span class="required">*</span></label>
-                            <v-select v-select 
+                            <v-select 
                                 :options="brands" 
                                 v-model="form.vehicle_brand_id"
                                 :reduce="(vehicle_brand_id) => vehicle_brand_id.id"
@@ -349,6 +349,11 @@ let {
                             <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3" @click="handleEdit(vehicle)"><i class="ti-xs me-1 ti ti-truck me-1"></i>Edit Vehicle</a>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-12 card custom-card__hero" v-if="vehicle">
+                <div class="card-body text-left">
+                    <h5 class="text-center mb-0">No item found.</h5>
                 </div>
             </div>
         </div>
