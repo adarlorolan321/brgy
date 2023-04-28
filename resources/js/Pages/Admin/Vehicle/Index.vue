@@ -321,11 +321,11 @@ let {
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" >
             <div class="col-xl-4 col-lg-4 col-md-4" v-for="(vehicle, index) in data.data" :key="index">
                 <div class="card custom-card__hero">
                     <div class="user-profile-header-banner">
-                        <img class="banner-custom-img" src="../../../../../public/assets/img/pages/auth-car4-login-illustration-black.png" alt="">
+                        <img class="banner-custom-img" :src="vehicle.image_url" alt="">
                     </div>
                     <div class="card-body text-left">
                         <div class="dropdown btn-pinned">
@@ -351,9 +351,11 @@ let {
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 card custom-card__hero" v-if="vehicle">
-                <div class="card-body text-left">
-                    <h5 class="text-center mb-0">No item found.</h5>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-11 card custom-card__hero" v-if="!data">
+                    <div class="card-body text-left">
+                        <h5 class="text-center mb-0">No item found.</h5>
+                    </div>
                 </div>
             </div>
         </div>
