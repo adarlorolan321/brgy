@@ -2,6 +2,11 @@
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 export default {
     layout: AdminLayout,
+    props: {
+        vehicles: Object,
+    },
+    computed: {
+    }
 };
 </script>
 
@@ -16,9 +21,8 @@ const formObject = {
     mechanic_address: null,
     vehicle_id: null,
     total_amount: null,
+    status: null,
     images: null,
-    mechanic_contact_number: null,
-    mechanic_contact_number: null,
 };
 const { validateForm } = useValidateForm();
 const routeName = "repair";
@@ -79,46 +83,183 @@ let {
                     <div class="offcanvas-body pt-0 mx-0 flex-grow-0">
                         <div class="form-group mb-3">
                             <label for=""
-                                >Driver Name <span class="required">*</span></label
+                                >Mechanic Name <span class="required">*</span></label
                             >
                             <input
                                 type="text"
                                 class="form-control"
-                                v-model="form.name"
+                                v-model="form.mechanic_name"
                                 @input="
                                     ($event) => {
-                                        form.clearErrors('name');
+                                        form.clearErrors('mechanic_name');
                                         validateForm(
                                             ['required'],
                                             form,
                                             $event.target.value,
-                                            'name'
+                                            'mechanic_name'
                                         );
                                     }
                                 "
-                                placeholder="Enter name"
+                                placeholder="Enter Mechanic Name"
                                 :class="{
-                                    'is-invalid': form.errors.name,
+                                    'is-invalid': form.errors.mechanic_name,
                                 }"
                             />
                             <div class="invalid-feedback">
-                                {{ form.errors.name }}
+                                {{ form.errors.mechanic_name }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for=""
+                                >Mechanic Contact Number <span class="required">*</span></label
+                            >
+                            <input
+                                type="number"
+                                class="form-control"
+                                v-model="form.mechanic_contact_number"
+                                @input="($event) => {
+                                        form.clearErrors('mechanic_contact_number');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'mechanic_contact_number'
+                                        );
+                                    }
+                                    "
+                                placeholder="Enter Mechanic Contact Number"
+                                :class="{
+                                    'is-invalid': form.errors.mechanic_contact_number,
+                                }"
+                                min="0"
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.mechanic_contact_number }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for=""
+                                >Mechanic Address <span class="required">*</span></label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                v-model="form.mechanic_address"
+                                @input="($event) => {
+                                        form.clearErrors('mechanic_address');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'mechanic_address'
+                                        );
+                                    }
+                                    "
+                                placeholder="Enter Mechanic Address"
+                                :class="{
+                                        'is-invalid': form.errors.mechanic_address,
+                                    }"
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.mechanic_address }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Vehicle <span class="required">*</span></label>
+                            <v-select 
+                                :options="vehicles" 
+                                v-model="form.vehicle_id"
+                                :reduce="(vehicle_id) => vehicle_id.id"
+                                label="model" 
+                                @input="($event) => {
+                                        form.clearErrors('vehicle_id');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'vehicle_id'
+                                        );
+                                    }"
+                                placeholder="Select Vehicle" 
+                            >
+                            </v-select> 
+                            <div class="invalid-feedback">
+                                {{ form.errors.vehicle_id }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for=""
+                                >Total Amount <span class="required">*</span></label
+                            >
+                            <input
+                                type="number"
+                                class="form-control"
+                                v-model="form.total_amount"
+                                @input="($event) => {
+                                        form.clearErrors('total_amount');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'total_amount'
+                                        );
+                                    }
+                                    "
+                                placeholder="Enter Total Amount"
+                                :class="{
+                                        'is-invalid': form.errors.total_amount,
+                                    }"
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.total_amount }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for=""
+                                >Status</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                v-model="form.status"
+                                @input="($event) => {
+                                        form.clearErrors('status');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'status'
+                                        );
+                                    }
+                                    "
+                                placeholder="Enter Status"
+                                :class="{
+                                        'is-invalid': form.errors.status,
+                                    }"
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.status }}
                             </div>
                         </div>
 
                         <div class="form-group mb-4 dropzone-profile-photo">
-                            <label for="name">Brand Icon</label>
+                            <label for="name">Upload Photo</label>
                             <dropzone
-                                collection="brand_icon"
+                                collection="images"
                                 v-if="isLoadingComponents"
                                 :url="route('api.media.upload')"
                                 type="profile"
-                                model="Vehicle\VehicleBrand"
-                                :value="form.brand_icon"
+                                model="Repair\Repair"
+                                :value="form.images"
                                 @input="
                                     ($event) => {
-                                        form.brand_icon = $event;
-                                        form.clearErrors('brand_icon');
+                                        form.images = $event;
+                                        form.clearErrors('images');
                                     }
                                 "
                                 message="Drop files here or click to upload profile photo"
@@ -127,7 +268,7 @@ let {
                                     ($event) => {
                                         if ($event && $event[0]) {
                                             form.setError(
-                                                'brand_icon',
+                                                'images',
                                                 $event[0]
                                             );
                                         }
@@ -145,12 +286,11 @@ let {
 
                             <div
                                 class="v-invalid-feedback"
-                                v-if="form.errors.brand_icon"
+                                v-if="form.errors.images"
                             >
-                                {{ form.errors.brand_icon }}
+                                {{ form.errors.images }}
                             </div>
                         </div>
-
                         <button
                             class="btn btn-primary"
                             @click="createPromise"
@@ -238,14 +378,30 @@ let {
                     <tr>
                         <th></th>
                         <table-header
-                            style="width: 90%"
-                            @click="handleServerQuery('sort', 'name')"
+                            style="width: 35%"
+                            @click="handleServerQuery('sort', 'mechanic_name')"
                             :serverQuery="serverQuery"
-                            serverQueryKey="name"
+                            serverQueryKey="mechanic_name"
                         >
-                            Name
+                            Mechanic Name
                         </table-header>
-                        <th>Actions</th>
+                        <table-header
+                            style="width: 20%"
+                            @click="handleServerQuery('sort', 'mechanic_contact_number')"
+                            :serverQuery="serverQuery"
+                            serverQueryKey="mechanic_contact_number"
+                        >
+                            Contact Number
+                        </table-header>
+                        <table-header
+                            style="width: 20%"
+                            @click="handleServerQuery('sort', 'mechanic_address')"
+                            :serverQuery="serverQuery"
+                            serverQueryKey="mechanic_address"
+                        >
+                            Address
+                        </table-header>
+                        <th >Actions</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
@@ -262,13 +418,15 @@ let {
                             <div class="avatar avatar-lg">
                                 <img
                                     style="object-fit: cover"
-                                    :src="tableData.brand_icon_url"
+                                    :src="tableData.images_url"
                                     alt="Avatar"
                                     class="rounded-circle"
                                 />
                             </div>
                         </td>
-                        <td style="width: 90%">{{ tableData.name }}</td>
+                        <td style="width: 35%">{{ tableData.mechanic_name }}</td>
+                        <td style="width: 20%">{{ tableData.mechanic_contact_number }}</td>
+                        <td style="width: 30%">{{ tableData.mechanic_address }}</td>
                         <td>
                             <div class="d-flex gap-2">
                                 <a
