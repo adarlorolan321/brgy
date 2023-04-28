@@ -9,14 +9,14 @@ export default {
     layout: AdminLayout,
     data() {
         return {
-            selectedProvince: null,
+            happy: null,
             filteredCities: [],
         }
     },
     watch: {
-        selectedProvince() {
-            if (this.selectedProvince) {
-                this.filteredCities = this.selectedProvince.cities;
+        happy() {
+            if (this.happy) {
+                this.filteredCities = this.happy.cities;
             } else {
                 this.filteredCities = [];
             }
@@ -24,8 +24,8 @@ export default {
     },
     methods: {
         getCities() {
-            this.selectedCity = null; // clear the selectedCity field
-            const selectedProvinceId = this.selectedProvince.id;
+            form.city = null; // clear the selectedCity field
+            const selectedProvinceId = this.happy.id;
             const selectedProvince = this.provinces.find(p => p.id === selectedProvinceId);
             this.filteredCities = selectedProvince.cities;
         },
@@ -136,7 +136,7 @@ const status = [
                             <v-select 
                                 :options="types" 
                                 v-model="form.type"
-                                :reduce="(type) => type.id"
+                                :reduce="(type) => type.value"
                                 label="name" 
                                 @input="($event) => {
                                     form.clearErrors('type');
@@ -420,7 +420,7 @@ const status = [
                             <label for="">Select Province <span class="required">*</span></label>
                             <v-select v-select 
                                 :options="provinces" 
-                                v-model="form.province"
+                                v-model="happy"
                                 label="name" 
                                 @change="getCities()"
                                 placeholder="Select Province" 
