@@ -1,19 +1,19 @@
 {
-  "_AdminLayout-9037cb67.js": {
-    "file": "assets/AdminLayout-9037cb67.js",
+  "_AdminLayout-246cf0e2.js": {
+    "file": "assets/AdminLayout-246cf0e2.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_Crud-d0a125ff.js": {
-    "file": "assets/Crud-d0a125ff.js",
+  "_Crud-c36609de.js": {
+    "file": "assets/Crud-c36609de.js",
     "imports": [
       "resources/js/app.js",
-      "_Validate-b15a984d.js"
+      "_Validate-5c791469.js"
     ]
   },
-  "_Validate-b15a984d.js": {
-    "file": "assets/Validate-b15a984d.js",
+  "_Validate-5c791469.js": {
+    "file": "assets/Validate-5c791469.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -51,24 +51,24 @@
     "css": [
       "assets/Index-54649d6c.css"
     ],
-    "file": "assets/Index-b19d2c72.js",
+    "file": "assets/Index-a0713a88.js",
     "imports": [
       "resources/js/app.js",
       "_auth-car4-login-illustration-black-a2816f27.js",
-      "_Crud-d0a125ff.js",
-      "_Validate-b15a984d.js",
-      "_AdminLayout-9037cb67.js"
+      "_Crud-c36609de.js",
+      "_Validate-5c791469.js",
+      "_AdminLayout-246cf0e2.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Dryver/Index.vue"
   },
   "resources/js/Pages/Admin/Repair/Index.vue": {
-    "file": "assets/Index-920635dd.js",
+    "file": "assets/Index-ee76d8d6.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-d0a125ff.js",
-      "_Validate-b15a984d.js",
-      "_AdminLayout-9037cb67.js"
+      "_Crud-c36609de.js",
+      "_Validate-5c791469.js",
+      "_AdminLayout-246cf0e2.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Repair/Index.vue"
@@ -84,40 +84,40 @@
     "css": [
       "assets/Index-bbf8c38f.css"
     ],
-    "file": "assets/Index-717c1007.js",
+    "file": "assets/Index-ae566b6d.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-d0a125ff.js",
-      "_Validate-b15a984d.js",
-      "_AdminLayout-9037cb67.js"
+      "_Crud-c36609de.js",
+      "_Validate-5c791469.js",
+      "_AdminLayout-246cf0e2.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Rescue/Index.vue"
   },
   "resources/js/Pages/Admin/Rescue/Service/Index.vue": {
-    "file": "assets/Index-4248c327.js",
+    "file": "assets/Index-a458c128.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-d0a125ff.js",
-      "_Validate-b15a984d.js",
-      "_AdminLayout-9037cb67.js"
+      "_Crud-c36609de.js",
+      "_Validate-5c791469.js",
+      "_AdminLayout-246cf0e2.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Rescue/Service/Index.vue"
   },
   "resources/js/Pages/Admin/Vehicle/Brand/Index.vue": {
-    "file": "assets/Index-8aa87213.js",
+    "file": "assets/Index-4e504455.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-d0a125ff.js",
-      "_Validate-b15a984d.js",
-      "_AdminLayout-9037cb67.js"
+      "_Crud-c36609de.js",
+      "_Validate-5c791469.js",
+      "_AdminLayout-246cf0e2.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Vehicle/Brand/Index.vue"
   },
   "resources/js/Pages/Admin/Vehicle/Company/Index.vue": {
-    "file": "assets/Index-171277ec.js",
+    "file": "assets/Index-7d7026de.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -132,33 +132,33 @@
     "css": [
       "assets/Index-eb3071ca.css"
     ],
-    "file": "assets/Index-0e72deb8.js",
+    "file": "assets/Index-b477dba2.js",
     "imports": [
       "resources/js/app.js",
       "_auth-car4-login-illustration-black-a2816f27.js",
-      "_Crud-d0a125ff.js",
-      "_Validate-b15a984d.js",
-      "_AdminLayout-9037cb67.js"
+      "_Crud-c36609de.js",
+      "_Validate-5c791469.js",
+      "_AdminLayout-246cf0e2.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Vehicle/Index.vue"
   },
   "resources/js/Pages/Admin/Vehicle/Type/Index.vue": {
-    "file": "assets/Index-0af10c30.js",
+    "file": "assets/Index-08b395cc.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-d0a125ff.js",
-      "_Validate-b15a984d.js",
-      "_AdminLayout-9037cb67.js"
+      "_Crud-c36609de.js",
+      "_Validate-5c791469.js",
+      "_AdminLayout-246cf0e2.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Vehicle/Type/Index.vue"
   },
   "resources/js/Pages/Auth/ForgotPassword.vue": {
-    "file": "assets/ForgotPassword-62d613f5.js",
+    "file": "assets/ForgotPassword-09ba1ad7.js",
     "imports": [
       "resources/js/app.js",
-      "_Validate-b15a984d.js"
+      "_Validate-5c791469.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Auth/ForgotPassword.vue"
@@ -167,7 +167,7 @@
     "assets": [
       "assets/misc-mask-light-d25607d4.png"
     ],
-    "file": "assets/Login-551fb734.js",
+    "file": "assets/Login-0ad87eb5.js",
     "imports": [
       "resources/js/app.js",
       "_auth-car4-login-illustration-black-a2816f27.js"
@@ -176,7 +176,7 @@
     "src": "resources/js/Pages/Auth/Login.vue"
   },
   "resources/js/Pages/Auth/ResetPassword.vue": {
-    "file": "assets/ResetPassword-5e29a5d6.js",
+    "file": "assets/ResetPassword-fcbd7272.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -184,9 +184,9 @@
     "src": "resources/js/Pages/Auth/ResetPassword.vue"
   },
   "resources/js/Pages/Welcome.vue": {
-    "file": "assets/Welcome-04692a83.js",
+    "file": "assets/Welcome-62a86732.js",
     "imports": [
-      "_AdminLayout-9037cb67.js",
+      "_AdminLayout-246cf0e2.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
@@ -214,7 +214,7 @@
       "resources/js/Pages/Auth/ResetPassword.vue",
       "resources/js/Pages/Welcome.vue"
     ],
-    "file": "assets/app-8f82782a.js",
+    "file": "assets/app-bda0fec2.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
