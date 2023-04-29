@@ -577,6 +577,13 @@ const status = [
                     </div>
                 </div>
             </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-11 card custom-card__hero" v-if="!data">
+                    <div class="card-body text-left">
+                        <h5 class="text-center mb-0">No item found.</h5>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-footer py-3" v-if="paginatedData && paginatedData.meta.links">
             <div class="row justify-content-between">
