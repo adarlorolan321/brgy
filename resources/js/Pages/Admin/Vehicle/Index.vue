@@ -325,7 +325,7 @@ let {
             <div class="col-xl-4 col-lg-4 col-md-4" v-for="(vehicle, index) in data.data" :key="index">
                 <div class="card custom-card__hero">
                     <div class="user-profile-header-banner">
-                        <img class="banner-custom-img" :src="vehicle.image_url" alt="">
+                        <img class="banner-custom-img" style="border-top-left-radius: 5px; border-top-right-radius: 5px" :src="vehicle.image_url" alt="">
                     </div>
                     <div class="card-body text-left">
                         <div class="dropdown btn-pinned">

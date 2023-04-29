@@ -22,7 +22,7 @@ const formObject = {
     vehicle_id: null,
     total_amount: null,
     status: null,
-    images: null,
+    image: null,
 };
 const { validateForm } = useValidateForm();
 const routeName = "repair";
@@ -250,16 +250,16 @@ let {
                         <div class="form-group mb-4 dropzone-profile-photo">
                             <label for="name">Upload Photo</label>
                             <dropzone
-                                collection="images"
+                                collection="image"
                                 v-if="isLoadingComponents"
                                 :url="route('api.media.upload')"
                                 type="profile"
                                 model="Repair\Repair"
-                                :value="form.images"
+                                :value="form.image"
                                 @input="
                                     ($event) => {
-                                        form.images = $event;
-                                        form.clearErrors('images');
+                                        form.image = $event;
+                                        form.clearErrors('image');
                                     }
                                 "
                                 message="Drop files here or click to upload profile photo"
@@ -268,7 +268,7 @@ let {
                                     ($event) => {
                                         if ($event && $event[0]) {
                                             form.setError(
-                                                'images',
+                                                'image',
                                                 $event[0]
                                             );
                                         }
@@ -286,9 +286,9 @@ let {
 
                             <div
                                 class="v-invalid-feedback"
-                                v-if="form.errors.images"
+                                v-if="form.errors.image"
                             >
-                                {{ form.errors.images }}
+                                {{ form.errors.image }}
                             </div>
                         </div>
                         <button
