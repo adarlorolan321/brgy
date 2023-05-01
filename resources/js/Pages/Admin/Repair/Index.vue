@@ -22,7 +22,7 @@ const formObject = {
     vehicle_id: null,
     total_amount: null,
     status: null,
-    image: null,
+    // image: null,
 };
 const { validateForm } = useValidateForm();
 const routeName = "repair";
@@ -247,7 +247,7 @@ let {
                             </div>
                         </div>
 
-                        <div class="form-group mb-4 dropzone-profile-photo">
+                        <!-- <div class="form-group mb-4 dropzone-profile-photo">
                             <label for="name">Upload Photo</label>
                             <dropzone
                                 collection="image"
@@ -290,7 +290,7 @@ let {
                             >
                                 {{ form.errors.image }}
                             </div>
-                        </div>
+                        </div> -->
                         <button
                             class="btn btn-primary"
                             @click="createPromise"
@@ -376,7 +376,7 @@ let {
             <table class="table">
                 <thead class="table-light">
                     <tr>
-                        <th></th>
+                        <!-- <th></th> -->
                         <table-header
                             style="width: 35%"
                             @click="handleServerQuery('sort', 'mechanic_name')"
@@ -414,7 +414,7 @@ let {
                         v-for="tableData in paginatedData.data"
                         :key="tableData"
                     >
-                        <td>
+                        <!-- <td>
                             <div class="avatar avatar-lg">
                                 <img
                                     style="object-fit: cover"
@@ -423,7 +423,7 @@ let {
                                     class="rounded-circle"
                                 />
                             </div>
-                        </td>
+                        </td> -->
                         <td style="width: 35%">{{ tableData.mechanic_name }}</td>
                         <td style="width: 20%">{{ tableData.mechanic_contact_number }}</td>
                         <td style="width: 30%">{{ tableData.mechanic_address }}</td>

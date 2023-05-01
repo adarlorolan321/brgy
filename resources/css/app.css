@@ -104,3 +104,7 @@ body {
 .custom-card-title {
     font-size: 20px;
 }
+.custom-dropdown.is-invalid {
+    border: 1px solid #ea5455;
+    border-radius: 5px;
+}

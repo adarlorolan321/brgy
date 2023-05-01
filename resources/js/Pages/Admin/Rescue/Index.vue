@@ -208,26 +208,34 @@ const status = [
 
                         <div class="form-group mb-3">
                             <label for="">Rescuer Contact Number Status <span class="required">*</span></label>
-                            <br>
-                            <label class="radio radio-primary mr-3">
-                                <input
+                            <div class="d-flex gap-3">
+                                <div class="form-check mt-3">
+                                    <input
+                                    name="default-radio-1"
+                                    class="form-check-input"
                                     type="radio"
                                     :value="1"
+                                    id="defaultRadio1"
                                     v-model="form.is_contact_number_verified"
-                                />
-                                <span>Verified</span>
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="radio radio-primary mr-3">
-                                <input
-                                    type="radio"
-                                    :value="0"
-                                    v-model="form.is_contact_number_verified"
-                                    checked
-                                />
-                                <span>Unverified</span>
-                                <span class="checkmark"></span>
-                            </label>
+                                    />
+                                    <label class="form-check-label" for="defaultRadio1"> Verified </label>
+                                </div>
+                                <div class="form-check mt-3">
+                                    <input
+                                        name="default-radio-1"
+                                        class="form-check-input"
+                                        type="radio"
+                                        :value="0"
+                                        id="defaultRadio2"
+                                        v-model="form.is_contact_number_verified"
+                                        checked
+                                    />
+                                    <label class="form-check-label" for="defaultRadio2">Unverified </label>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback">
+                                {{ form.errors.is_contact_number_verified }}
+                            </div>
                         </div>
 
                         <div class="form-group mb-3">
@@ -337,8 +345,15 @@ const status = [
                                         );
                                     }"
                                 placeholder="Select Services" 
+                                class="custom-dropdown"
+                                :class="{
+                                    'is-invalid': form.errors.services,
+                                }" 
                                 >
                             </v-select>  
+                            <div class="invalid-feedback">
+                                <span v-for="(error, index) in form.errors.services" :key="index">{{ error }}</span>
+                            </div>
                         </div>
 
                         <div class="form-group mb-3">
@@ -464,13 +479,13 @@ const status = [
                             />
                         </div>
 
-                        <button class="btn btn-primary" @click="createPromise" :disabled="form.processing || form.hasErrors"
+                        <button class="btn btn-primary" @click="createPromise" :disabled="form.processing"
                             v-if="formState == 'create'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
                             Save
                         </button>
-                        <button class="btn btn-primary" @click="updatePromise" :disabled="form.processing || form.hasErrors"
+                        <button class="btn btn-primary" @click="updatePromise" :disabled="form.processing"
                             v-if="formState == 'update'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
@@ -498,18 +513,6 @@ const status = [
                             </select>
                         </div>
                         <div class="w-auto">entries</div>
-                    </div>
-                </div>
-                <div class="col-5 pl-0">
-                    <div class="d-flex gap-2 align-items-center">
-                        <div class="w-auto">Filter by Address:</div>
-                        <div class="form-group" style="width: 65%">
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="" hidden>Select Address</option>
-                                <option value="usa">Private</option>
-                                <option value="uk">Public</option>
-                            </select>
-                        </div>
                     </div>
                 </div>
                 <div class="col-auto">
