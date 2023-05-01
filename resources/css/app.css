@@ -32,8 +32,8 @@
 
 .swal2-confirm {
     color: #fff !important;
-    background-color: #7367f0 !important;
-    border-color: #7367f0 !important;
+    background-color: #6EC5F6 !important;
+    border-color: #6EC5F6 !important;
 }
 
 .swal2-html-container {
@@ -74,4 +74,37 @@ body {
 
 .btn-link-primary{
     color: white!important;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #6EC5F6;
+    border-color: #6EC5F6;
+}
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover {
+    color: #fff;
+    background-color: #6EC5F6 !important;
+    border-color: #6EC5F6 !important;
+}
+.page-item>.page-link.active {
+    border-color: #6EC5F6;
+    background-color: #6EC5F6;
+    color: #fff;
+}
+.bg-menu-theme.menu-vertical .menu-item.active>.menu-link:not(.menu-toggle) {
+    background: linear-gradient(72.47deg, #6EC5F6 22.16%, rgb(110, 197, 246, 0.7) 76.47%) !important;
+    box-shadow: 0px 2px 6px 0px rgb(110, 197, 246, 0.7) !important;
+    color: #fff !important;
+}
+.bg-menu-theme .menu-inner .menu-item:not(.active) .menu-link:hover,
+.layout-menu-hover.layout-menu-collapsed .bg-menu-theme .menu-inner .menu-item:not(.active) .menu-link:hover {
+    background: linear-gradient(72.47deg, #6EC5F6 22.16%, rgb(110, 197, 246, 0.7) 76.47%) !important;
+}
+.custom-card-title {
+    font-size: 20px;
+}
+.custom-dropdown.is-invalid {
+    border: 1px solid #ea5455;
+    border-radius: 5px;
 }

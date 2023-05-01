@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Vehicle\VehicleBrandController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
+use App\Http\Controllers\Vehicle\VehicleController;
+use App\Http\Controllers\Rescue\RescueController;
+use App\Http\Controllers\Dryver\DryverController;
+use App\Http\Controllers\Rescue\RescuerController;
+use App\Http\Controllers\Repair\RepairController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +34,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
             return Inertia::render('Welcome', []);
         })->name('welcome');
 
+        // Route::get('/vehicle-index', function () {
+        //     return Inertia::render('Admin/Vehicle/Index', []);
+        // })->name('vehicle.index');
+
         Route::get('/dashboard', function () {
             return Inertia::render('Welcome', []);
         })->name('welcome');
@@ -40,6 +49,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,
             'vehicle_types' => VehicleTypeController::class,
+            'rescuers' => RescuerController::class,
+            'vehicles' => VehicleController::class,
+            'dryver' => DryverController::class,
+            'repair' => RepairController::class,
             'rescue_services' => RescueServiceController::class,
         ]);
     });

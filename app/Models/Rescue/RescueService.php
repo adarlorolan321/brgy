@@ -18,6 +18,7 @@ class RescueService extends Model implements HasMedia
     protected $appends = [
         'icon', 'icon_url'
     ];
+    protected $hidden = ['media'];
     public function getIconAttribute()
     {
         $media = $this->getMedia('icon')->first();

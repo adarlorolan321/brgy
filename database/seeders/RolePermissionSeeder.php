@@ -17,34 +17,59 @@ class RolePermissionSeeder extends Seeder
      */
     public function run()
     {
+        $permissions = [
+            'access vehicle_type',
+            'create vehicle_type',
+            'store vehicle_type',
+            'edit vehicle_type',
+            'update vehicle_type',
+            'destroy vehicle_type',
+            'show vehicle_type',
+
+            'access vehicle_brand',
+            'create vehicle_brand',
+            'store vehicle_brand',
+            'edit vehicle_brand',
+            'update vehicle_brand',
+            'destroy vehicle_brand',
+            'show vehicle_brand',
+
+            'access rescue_service',
+            'create rescue_service',
+            'store rescue_service',
+            'edit rescue_service',
+            'update rescue_service',
+            'destroy rescue_service',
+            'show rescue_service',
+
+            'access rescuer',
+            'create rescuer',
+            'store rescuer',
+            'edit rescuer',
+            'update rescuer',
+            'destroy rescuer',
+            'show rescuer',
+
+            'access vehicle',
+            'create vehicle',
+            'store vehicle',
+            'edit vehicle',
+            'update vehicle',
+            'destroy vehicle',
+            'show vehicle',
+
+            'access repair',
+            'create repair',
+            'store repair',
+            'edit repair',
+            'update repair',
+            'destroy repair',
+            'show repair',
+        ];
         $roles = [
-            'Admin' => [
-                'access vehicle_type',
-                'create vehicle_type',
-                'store vehicle_type',
-                'edit vehicle_type',
-                'update vehicle_type',
-                'destroy vehicle_type',
-                'show vehicle_type',
-
-                'access vehicle_brand',
-                'create vehicle_brand',
-                'store vehicle_brand',
-                'edit vehicle_brand',
-                'update vehicle_brand',
-                'destroy vehicle_brand',
-                'show vehicle_brand',
-
-                'access rescue_service',
-                'create rescue_service',
-                'store rescue_service',
-                'edit rescue_service',
-                'update rescue_service',
-                'destroy rescue_service',
-                'show rescue_service',
-
-
-            ],
+            'Admin' => $permissions,
+            "Private Driver" => $permissions,
+            "Company Driver" => $permissions,
         ];
 
         foreach ($roles as $role => $permissions) {
