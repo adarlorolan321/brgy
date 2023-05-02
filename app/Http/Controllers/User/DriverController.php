@@ -8,6 +8,7 @@ use App\Http\Requests\User\UpdateDriverRequest;
 use App\Http\Resources\User\DriverResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class DriverController extends Controller
@@ -30,8 +31,12 @@ class DriverController extends Controller
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {
                     // filter result
-                    $query->where('name', 'like', '%' . $queryString . '%');
-                    //     ->orWhere('column', 'like', '%' . $queryString . '%');
+                    $query->where(DB::raw("CONCAT(first_name, ' ', middle_name, ' ', last_name)"), 'like', '%' . $queryString . '%')
+                        ->orWhere('gender', 'like', '%' . $queryString . '%')
+                        ->orWhere('province', 'like', '%' . $queryString . '%')
+                        ->orWhere('city', 'like', '%' . $queryString . '%')
+                        ->orWhere('email', 'like', '%' . $queryString . '%')
+                        ->orWhere('mobile_number', 'like', '%' . $queryString . '%');
                 }
             })
             ->when(count($sort) == 1, function ($query) use ($sort, $order) {
