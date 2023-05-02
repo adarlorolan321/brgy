@@ -14,7 +14,7 @@ const formObject = {
     name: null,
 };
 const { validateForm } = useValidateForm();
-const routeName = "dryver";
+const routeName = "drivers";
 let {
     paginatedData,
     form,

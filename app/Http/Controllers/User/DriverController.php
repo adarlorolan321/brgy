@@ -59,7 +59,7 @@ class DriverController extends Controller
             return redirect()->route('vehicle_types.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/Vehicle/Type/Index', $props);
+        return Inertia::render('Admin/Dryver/Index', $props);
     }
 
     /**
