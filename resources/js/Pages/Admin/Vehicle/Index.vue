@@ -83,7 +83,7 @@ let {
                     <div class="offcanvas-body mx-0 flex-grow-0 pt-0">
                         <div class="form-group mb-3">
                             <label for="">Car Brand <span class="required">*</span></label>
-                            <v-select v-select 
+                            <v-select 
                                 :options="brands" 
                                 v-model="form.vehicle_brand_id"
                                 :reduce="(vehicle_brand_id) => vehicle_brand_id.id"
@@ -287,16 +287,15 @@ let {
         </div>
         <div class="card-body">
             <div class="row justify-content-between">
-                <div class="col-auto">
+                <div class="col-3 pr-0">
                     <div class="d-flex align-items-center gap-2">
                         <div class="w-auto">Show</div>
                         <div class="flex-1">
-                            <select class="form-select" :value="serverQuery.perPage" @input="
-                                handleServerQuery(
+                            <select class="form-select" :value="serverQuery.perPage" @input="handleServerQuery(
                                     'perPage',
                                     $event.target.value
                                 )
-                            ">
+                                ">
                                 <option v-for="i in [5, 10, 25, 50, 100]" :value="String(i)" :key="i">
                                     {{ i }}
                                 </option>
@@ -305,27 +304,38 @@ let {
                         <div class="w-auto">entries</div>
                     </div>
                 </div>
+                <div class="col-5 pl-0">
+                    <div class="d-flex gap-2 align-items-center">
+                        <div class="w-auto">Filter by Address:</div>
+                        <div class="form-group" style="width: 65%">
+                            <select class="form-select" id="basic-default-country" required>
+                                <option value="" hidden>Select Address</option>
+                                <option value="usa">Private</option>
+                                <option value="uk">Public</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-auto">
                     <div class="d-flex gap-2 align-items-center">
                         <div class="w-auto">Search:</div>
                         <div class="flex-1">
                             <input type="search" placeholder="Search" class="form-control" :value="serverQuery.query"
-                                @input="
-                                    handleServerQuery(
+                                @input="handleServerQuery(
                                         'query',
                                         $event.target.value
                                     )
-                                " />
+                                    " />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" >
             <div class="col-xl-4 col-lg-4 col-md-4" v-for="(vehicle, index) in data.data" :key="index">
                 <div class="card custom-card__hero">
                     <div class="user-profile-header-banner">
-                        <img class="banner-custom-img" src="../../../../../public/assets/img/pages/auth-car4-login-illustration-black.png" alt="">
+                        <img class="banner-custom-img" style="border-top-left-radius: 5px; border-top-right-radius: 5px" :src="vehicle.image_url" alt="">
                     </div>
                     <div class="card-body text-left">
                         <div class="dropdown btn-pinned">
@@ -351,6 +361,13 @@ let {
                     </div>
                 </div>
             </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-11 card custom-card__hero" v-if="!data">
+                    <div class="card-body text-left">
+                        <h5 class="text-center mb-0">No item found.</h5>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-footer py-3" v-if="paginatedData && paginatedData.meta.links">
             <div class="row justify-content-between">
@@ -366,8 +383,8 @@ let {
                         <ul class="pagination mb-0">
                             <li class="page-item" v-for="link in paginatedData.meta.links" :key="link">
                                 <component :is="link.url ? 'inertia-link' : 'button'" class="page-link" :class="{
-                                    active: link.active,
-                                }" :href="link.url" :only="['data', 'params']">
+                                        active: link.active,
+                                    }" :href="link.url" :only="['data', 'params']">
                                     <span v-html="link.label"></span>
                                 </component>
                             </li>

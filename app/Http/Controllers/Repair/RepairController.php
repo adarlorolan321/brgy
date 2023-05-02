@@ -11,6 +11,7 @@ use App\Models\Media;
 use App\Models\Repair\RepairItem;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Vehicle\Vehicle;
 
 class RepairController extends Controller
 {
@@ -47,9 +48,11 @@ class RepairController extends Controller
             ->paginate($perPage)
             ->withQueryString();
 
+        $vehicles = Vehicle::all();
         $props = [
             'data' => RepairListResource::collection($data),
             'params' => $request->all(),
+            'vehicles' => $vehicles,
         ];
 
         if ($request->wantsJson()) {
