@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreDriverRequest;
 use App\Http\Requests\User\UpdateDriverRequest;
 use App\Http\Resources\User\DriverResource;
+use App\Models\Media;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -78,7 +79,16 @@ class DriverController extends Controller
             'password' => bcrypt($request->input('password'))
         ]));
         $data->syncRoles([$request->input('role')]);
-        sleep(1);
+
+        //Upload Profile Photo
+        if (isset($request->input('profile_photo', [])['id'])) {
+            Media::where('id', $request->input('profile_photo', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
+
+        
         if ($request->wantsJson()) {
             return new DriverResource($data);
         }
@@ -123,7 +133,19 @@ class DriverController extends Controller
             'password' => bcrypt($request->input('password'))
         ]));
         $data->syncRoles([$request->input('role')]);
-        sleep(1);
+        
+        
+        if (isset($request->input('profile_photo', [])['id'])) {
+            if ($request->input('profile_photo', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('profile_photo');
+            }
+            Media::where('id', $request->input('profile_photo', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('profile_photo');
+        }
 
         if ($request->wantsJson()) {
             return (new DriverResource($data))
@@ -141,7 +163,7 @@ class DriverController extends Controller
     {
         $data = User::findOrFail($id);
         $data->delete();
-        sleep(1);
+        
 
         if ($request->wantsJson()) {
             return response(null, 204);
