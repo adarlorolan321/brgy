@@ -2,6 +2,10 @@
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 export default {
     layout: AdminLayout,
+    props: {
+        data: Object,
+        provinces: Object,
+    },
 };
 </script>
 
@@ -11,11 +15,23 @@ import { useValidateForm } from "@/Composables/Validate.js";
 import { usePage, Head } from "@inertiajs/vue3";
 const { props } = usePage();
 const formObject = {
-    name: null,
+    first_name: null,
+    last_name: null,
+    middle_name: null,
+    gender: null,
+    province: null,
+    city: null,
+    email: null,
+    mobile_number: null,
+    password: null,
+    password_confirmation:null,
+    role: null,
+
 };
 const { validateForm } = useValidateForm();
 const routeName = "drivers";
 let {
+    isLoadingComponents,
     paginatedData,
     form,
     createPromise,
@@ -30,12 +46,26 @@ let {
 
 const gender = [
     {
-        name: 'Private',
-        value: 'private'
+        name: 'Male',
+        value: 'male'
     },
     {
-        name: 'Public',
-        value: 'public'
+        name: 'Female',
+        value: 'female'
+    },
+    {
+        name: 'Prefer not to say',
+        value: 'prefer_not_to_say'
+    }
+]
+const roles = [
+    {
+        name: 'Private Driver',
+        value: 'Private Driver'
+    },
+    {
+        name: 'Company Driver',
+        value: 'Company Driver'
     }
 ]
 </script>
@@ -65,118 +95,175 @@ const gender = [
                     </div>
                     <div class="offcanvas-body mx-0 flex-grow-0 pt-0">
                         <div class="form-group mb-3">
-                            <label for="">Email <span class="required">*</span></label>
-                            <input type="email" class="form-control" v-model="form.name" @input="
-                                ($event) => {
-                                    form.clearErrors('name');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'name'
-                                    );
-                                }
-                            " placeholder="Enter Email" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
-                            <div class="invalid-feedback">
-                                {{ form.errors.name }}
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-3">
                             <label for="">First Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
+                            <input type="text" class="form-control" v-model="form.first_name" @input="
                                 ($event) => {
-                                    form.clearErrors('name');
+                                    form.clearErrors('first_name');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'name'
+                                        'first_name'
                                     );
                                 }
                             " placeholder="Enter First Name" :class="{
-                                'is-invalid': form.errors.name,
+                                'is-invalid': form.errors.first_name,
                             }" />
                             <div class="invalid-feedback">
-                                {{ form.errors.name }}
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Middle Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
-                                ($event) => {
-                                    form.clearErrors('name');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'name'
-                                    );
-                                }
-                            " placeholder="Enter Middle Name" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
-                            <div class="invalid-feedback">
-                                {{ form.errors.name }}
+                                {{ form.errors.first_name }}
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Last Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
+                            <input type="text" class="form-control" v-model="form.last_name" @input="
                                 ($event) => {
-                                    form.clearErrors('name');
+                                    form.clearErrors('last_name');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'name'
+                                        'last_name'
                                     );
                                 }
                             " placeholder="Enter Last Name" :class="{
-                                'is-invalid': form.errors.name,
+                                'is-invalid': form.errors.last_name,
                             }" />
                             <div class="invalid-feedback">
-                                {{ form.errors.name }}
+                                {{ form.errors.last_name }}
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Select Gender <span class="required">*</span></label>
-                            <v-select v-select :options="gender" label="name"></v-select> 
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Select Province <span class="required">*</span></label>
-                            <v-select v-select :options="province"></v-select> 
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Select City <span class="required">*</span></label>
-                            <v-select v-select :options="city"></v-select> 
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Mobile Number <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.number" @input="
-                                ($event) => {
-                                    form.clearErrors('number');
+                            <label for="">Middle Name <span class="required">*</span></label>
+                            <input type="text" class="form-control" v-model="form.middle_name" @input="($event) => {
+                                    form.clearErrors('middle_name');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'number'
+                                        'middle_name'
+                                    );
+                                }
+                                " placeholder="Enter Middle Name" :class="{
+                                    'is-invalid': form.errors.middle_name,
+                                }" />
+                            <div class="invalid-feedback">
+                                {{ form.errors.middle_name }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Gender <span class="required">*</span></label>
+                            <v-select 
+                                v-select 
+                                :options="gender" 
+                                v-model="form.gender"
+                                :reduce="(gender) => gender.value"
+                                label="name" 
+                                @input="($event) => {
+                                        form.clearErrors('gender');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'gender'
+                                        );
+                                    }"
+                                placeholder="Select Gender">
+                            </v-select>  
+                            <div class="invalid-feedback">
+                                {{ form.errors.gender }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Enter Province <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.province"         
+                                @input="($event) => {
+                                        form.clearErrors('province');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'province'
+                                        );
+                                    }
+                                    " 
+                                placeholder="Enter Province" 
+                                :class="{
+                                        'is-invalid': form.errors.province,
+                                    }" 
+                            />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Enter City <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.city"         
+                                @input="($event) => {
+                                        form.clearErrors('city');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'city'
+                                        );
+                                    }
+                                    " 
+                                placeholder="Enter City" 
+                                :class="{
+                                        'is-invalid': form.errors.city,
+                                    }" 
+                            />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Enter Email <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.email"         
+                                @input="($event) => {
+                                        form.clearErrors('email');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'email'
+                                        );
+                                    }
+                                    " 
+                                placeholder="Enter Email" 
+                                :class="{
+                                        'is-invalid': form.errors.email,
+                                    }" 
+                            />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Mobile Number <span class="required">*</span></label>
+                            <input type="text" class="form-control" v-model="form.mobile_number" @input="
+                                ($event) => {
+                                    form.clearErrors('mobile_number');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'mobile_number'
                                     );
                                 }
                             " 
                             placeholder="Enter Mobile Number" 
-                            :class="{'is-invalid': form.errors.number,}" 
+                            :class="{'is-invalid': form.errors.mobile_number,}" 
                             />
                             <div class="invalid-feedback">
-                                {{ form.errors.number }}
+                                {{ form.errors.mobile_number }}
                             </div>
                         </div>
 
@@ -203,32 +290,55 @@ const gender = [
 
                         <div class="form-group mb-3">
                             <label for="">Confirm Password <span class="required">*</span></label>
-                            <input type="password" class="form-control" v-model="form.confirm_password" @input="
+                            <input type="password" class="form-control" v-model="form.password_confirmation" @input="
                                 ($event) => {
-                                    form.clearErrors('confirm_password');
+                                    form.clearErrors('password_confirmation');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'confirm_password'
+                                        'password_confirmation'
                                     );
                                 }
                             " 
                             placeholder="Enter Confirm Password" 
-                            :class="{ 'is-invalid': form.errors.confirm_password, }" 
+                            :class="{ 'is-invalid': form.errors.password_confirmation, }" 
                             />
                             <div class="invalid-feedback">
-                                {{ form.errors.confirm_password }}
+                                {{ form.errors.password_confirmation }}
                             </div>
                         </div>
 
-                        <button class="btn btn-primary" @click="createPromise" :disabled="form.processing || form.hasErrors"
+                        <div class="form-group mb-3">
+                            <label for="">Select Role <span class="required">*</span></label>
+                            <v-select 
+                                :options="roles" 
+                                v-model="form.role"
+                                :reduce="(role) => role.value"
+                                label="name" 
+                                @input="($event) => {
+                                    form.clearErrors('role');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'role'
+                                    );
+                                }"
+                                placeholder="Select Role">
+                            </v-select> 
+                            <div class="invalid-feedback">
+                                {{ form.errors.role }}
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" @click="createPromise" :disabled="form.processing"
                             v-if="formState == 'create'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
                             Submit
                         </button>
-                        <button class="btn btn-primary" @click="updatePromise" :disabled="form.processing || form.hasErrors"
+                        <button class="btn btn-primary" @click="updatePromise" :disabled="form.processing"
                             v-if="formState == 'update'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
@@ -287,7 +397,7 @@ const gender = [
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-4" v-for="n in 3" :key="n">
+            <div class="col-xl-4 col-lg-4 col-md-4" v-for="(driver, index) in data.data" :key="index">
                 <div class="card custom-card__hero">
                     <div class="user-profile-header-banner">
                         <img class="banner-custom-img"
@@ -305,24 +415,24 @@ const gender = [
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>
-                                <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
+                                <li><a class="dropdown-item text-danger"  @click="deletePromise(driver.id)">Delete</a></li>
                             </ul>
                         </div>
                         <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto hero-container">
                             <img src="../../../../../public/assets/img/avatars/3.png" alt="Avatar Image"
                                 class="d-block  ms-0 rounded-circle user-profile-img hero-profile" />
                         </div>
-                        <h4 class="mb-1 card-title card-text">Mark Gilbert</h4>
-                        <h6 class="mb-0 card-text small-text">Open in Maps</h6>
-                        <h6 class="mb-0 card-text small-text">London UK</h6>
-                        <h6 class="mb-0 card-text small-text">email@email.com</h6>
-                        <h6 class="pb-0 mb-0 card-text small-text">+63999132312312</h6>
+                        <h4 class="mb-1 card-title card-text">{{driver.name}}</h4>
+                        <h6 class="mb-0 card-text small-text">{{driver.gender}}</h6>
+                        <h6 class="mb-0 card-text small-text">{{driver.email}}</h6>
+                        <h6 class="mb-0 card-text small-text">{{driver.mobile_number}}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text">{{driver.role}}</h6>
                         <!-- <span class="badge rounded-pill bg-label-warning pb-2" style="float:left">Driving..</span> -->
                         <div class="d-flex align-items-center justify-content-center my-3 gap-2">
                         </div>
 
                         <div class="d-flex align-items-center justify-content-center">
-                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"><i
+                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3" @click="handleEdit(driver)"><i
                                     class="ti-xs me-1 ti ti-truck me-1"></i>Manage Driver</a>
                             <a href="javascript:;" class="btn btn-label-secondary btn-icon"><i
                                     class="ti ti-mail ti-sm"></i></a>
