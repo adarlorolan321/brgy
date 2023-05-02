@@ -8,7 +8,7 @@ export default {
     },
     props: {
         data: Object,
-        brands: Object,
+        brands: Array,
         types: Object,
     },
     layout: AdminLayout,
@@ -40,6 +40,7 @@ const formObject = {
     plate_number: null,
     image: null,
 };
+
 const { validateForm } = useValidateForm();
 const routeName = "vehicles";
 let {
@@ -81,6 +82,15 @@ let {
                             v-if="!form.processing"></button>
                     </div>
                     <div class="offcanvas-body mx-0 flex-grow-0 pt-0">
+                        <!-- <div class="form-group mb-3">
+                            <label>Car Brand <span class="required">*</span></label>
+                            <select2 :class="{ 'is-invalid': form.errors.vehicle_brand_id }" v-model="form.vehicle_brand_id"
+                                placeholder="Select Brand" @update:modelValue="form.clearErrors('vehicle_brand_id')" :options="brands" label="name" >
+                            </select2>
+                            <div class="invalid-feedback">
+                                {{ form.errors.vehicle_brand_id }}
+                            </div>
+                        </div> -->
                         <div class="form-group mb-3">
                             <label for="">Car Brand <span class="required">*</span></label>
                             <v-select 
@@ -88,16 +98,9 @@ let {
                                 v-model="form.vehicle_brand_id"
                                 :reduce="(vehicle_brand_id) => vehicle_brand_id.id"
                                 label="name" 
-                                @input="
-                                ($event) => {
-                                    form.clearErrors('vehicle_brand_id');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'vehicle_brand_id'
-                                    ); }"
+                                @update:modelValue="form.clearErrors('vehicle_brand_id')"
                                 placeholder="Select Brand" 
+                                :class="{ 'is-invalid': form.errors.vehicle_brand_id }"
                             >
                             </v-select> 
                             <div class="invalid-feedback">
@@ -107,7 +110,7 @@ let {
 
                         <div class="form-group mb-3">
                             <label for="">Car Type <span class="required">*</span></label>
-                            <v-select v-select 
+                            <v-select
                                 :options="types" 
                                 v-model="form.vehicle_type_id"
                                 :reduce="(vehicle_type_id) => vehicle_type_id.id"
@@ -302,18 +305,6 @@ let {
                             </select>
                         </div>
                         <div class="w-auto">entries</div>
-                    </div>
-                </div>
-                <div class="col-5 pl-0">
-                    <div class="d-flex gap-2 align-items-center">
-                        <div class="w-auto">Filter by Address:</div>
-                        <div class="form-group" style="width: 65%">
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="" hidden>Select Address</option>
-                                <option value="usa">Private</option>
-                                <option value="uk">Public</option>
-                            </select>
-                        </div>
                     </div>
                 </div>
                 <div class="col-auto">
