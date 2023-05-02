@@ -10,6 +10,7 @@ use App\Http\Controllers\Rescue\RescueController;
 use App\Http\Controllers\Dryver\DryverController;
 use App\Http\Controllers\Rescue\RescuerController;
 use App\Http\Controllers\Repair\RepairController;
+use App\Http\Controllers\User\DriverController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'rescuers' => RescuerController::class,
             'vehicles' => VehicleController::class,
             'dryver' => DryverController::class,
+            'drivers' => DriverController::class,
             'repair' => RepairController::class,
             'rescue_services' => RescueServiceController::class,
         ]);
