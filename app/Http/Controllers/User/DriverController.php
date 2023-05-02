@@ -56,7 +56,7 @@ class DriverController extends Controller
         }
 
         if (count($data) <= 0 && $page > 1) {
-            return redirect()->route('vehicle_types.index', ['page' => 1]);
+            return redirect()->route('drivers.index', ['page' => 1]);
         }
 
         return Inertia::render('Admin/Dryver/Index', $props);
@@ -67,7 +67,7 @@ class DriverController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/VehicleType/Create');
+        return Inertia::render('Admin/Driver/Create');
     }
 
     /**
@@ -104,7 +104,7 @@ class DriverController extends Controller
         if ($request->wantsJson()) {
             return new DriverResource($data);
         }
-        return Inertia::render('Admin/VehicleType/Show', [
+        return Inertia::render('Admin/Driver/Show', [
             'data' => $data
         ]);
     }
@@ -118,7 +118,7 @@ class DriverController extends Controller
         if ($request->wantsJson()) {
             return new DriverResource($data);
         }
-        return Inertia::render('Admin/VehicleType/Edit', [
+        return Inertia::render('Admin/Driver/Edit', [
             'data' => $data
         ]);
     }
