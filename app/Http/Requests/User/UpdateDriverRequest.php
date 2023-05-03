@@ -29,8 +29,15 @@ class UpdateDriverRequest extends FormRequest
             'gender' => ['required'],
             'province' => ['required'],
             'city' => ['required'],
-            'email' => ['required', 'email', 'unique:users,email,'. $this->id],
-            'mobile_number' => ['required', 'unique:users,mobile_number,' . $this->id, 'regex:/^(?:(\+63?9)|0?9)\d{9}$/i'],
+            'email' => [
+                'required', 
+                'email', 
+                // 'unique:users,email,'. $this->id
+            ],
+            'mobile_number' => [
+                'required', 
+                // 'unique:users,mobile_number,' . $this->id, 'regex:/^(?:(\+63?9)|0?9)\d{9}$/i'
+            ],
             'password' => ['nullable', 'confirmed'],
             'role' => ['required', Rule::in(['Private Driver', 'Company Driver'])],
         ];
