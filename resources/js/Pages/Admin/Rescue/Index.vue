@@ -138,15 +138,8 @@ const status = [
                                 v-model="form.type"
                                 :reduce="(type) => type.value"
                                 label="name" 
-                                @input="($event) => {
-                                    form.clearErrors('type');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'type'
-                                    );
-                                }"
+                                @update:modelValue="form.clearErrors('type')"
+                                :class="{ 'is-invalid': form.errors.type }"
                                 placeholder="Select Rescuer Type">
                             </v-select> 
                             <div class="invalid-feedback">
@@ -425,6 +418,7 @@ const status = [
                                         'gender'
                                     );
                                 }"
+                                :class="{ 'is-invalid': form.errors.gender }"
                                 placeholder="Select Gender">
                             </v-select>  
                             <div class="invalid-feedback">
@@ -454,6 +448,9 @@ const status = [
                                         'is-invalid': form.errors.province,
                                     }" 
                             />
+                            <div class="invalid-feedback">
+                                {{ form.errors.province }}
+                            </div>
                         </div>
 
                         <div class="form-group mb-3">
@@ -474,9 +471,12 @@ const status = [
                                     " 
                                 placeholder="Enter City" 
                                 :class="{
-                                        'is-invalid': form.errors.city,
-                                    }" 
+                                    'is-invalid': form.errors.city,
+                                }" 
                             />
+                            <div class="invalid-feedback">
+                                {{ form.errors.city }}
+                            </div>
                         </div>
 
                         <button class="btn btn-primary" @click="createPromise" :disabled="form.processing"

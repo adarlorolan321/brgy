@@ -145,7 +145,8 @@ const roles = [
                                         'middle_name'
                                     );
                                 }
-                                " placeholder="Enter Middle Name" :class="{
+                                " placeholder="Enter Middle Name" 
+                                :class="{
                                     'is-invalid': form.errors.middle_name,
                                 }" />
                             <div class="invalid-feedback">
@@ -170,6 +171,10 @@ const roles = [
                                             'gender'
                                         );
                                     }"
+                                class="custom-select"
+                                :class="{
+                                    'is-invalid': form.errors.gender,
+                                }"
                                 placeholder="Select Gender">
                             </v-select>  
                             <div class="invalid-feedback">
@@ -195,9 +200,12 @@ const roles = [
                                     " 
                                 placeholder="Enter Province" 
                                 :class="{
-                                        'is-invalid': form.errors.province,
-                                    }" 
+                                    'is-invalid': form.errors.province,
+                                }" 
                             />
+                            <div class="invalid-feedback">
+                                {{ form.errors.province }}
+                            </div>
                         </div>
 
                         <div class="form-group mb-3">
@@ -221,6 +229,9 @@ const roles = [
                                         'is-invalid': form.errors.city,
                                     }" 
                             />
+                            <div class="invalid-feedback">
+                                {{ form.errors.city }}
+                            </div>
                         </div>
 
                         <div class="form-group mb-3">
@@ -244,6 +255,9 @@ const roles = [
                                         'is-invalid': form.errors.email,
                                     }" 
                             />
+                            <div class="invalid-feedback">
+                                {{ form.errors.email }}
+                            </div>
                         </div>
 
                         <div class="form-group mb-3">
@@ -289,7 +303,7 @@ const roles = [
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Confirm Password <span class="required">*</span></label>
+                            <label for="">Confirm Password</label>
                             <input type="password" class="form-control" v-model="form.password_confirmation" @input="
                                 ($event) => {
                                     form.clearErrors('password_confirmation');
@@ -324,6 +338,9 @@ const roles = [
                                         $event.target.value,
                                         'role'
                                     );
+                                }"
+                                :class="{
+                                    'is-invalid': form.errors.role,
                                 }"
                                 placeholder="Select Role">
                             </v-select> 
