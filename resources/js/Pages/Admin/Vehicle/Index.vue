@@ -115,17 +115,9 @@ let {
                                 v-model="form.vehicle_type_id"
                                 :reduce="(vehicle_type_id) => vehicle_type_id.id"
                                 label="name" 
-                                @input="
-                                    ($event) => {
-                                        form.clearErrors('vehicle_type_id');
-                                        validateForm(
-                                            ['required'],
-                                            form,
-                                            $event.target.value,
-                                            'vehicle_type_id'
-                                        );
-                                    }"
+                                @update:modelValue="form.clearErrors('vehicle_type_id')"
                                 placeholder="Select Type" 
+                                :class="{ 'is-invalid': form.errors.vehicle_type_id }"
                             >
                             </v-select> 
                             <div class="invalid-feedback">
