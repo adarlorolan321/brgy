@@ -108,3 +108,9 @@ body {
     border: 1px solid #ea5455;
     border-radius: 5px;
 }
+.layout-navbar.navbar-detached.container-xxl {
+    max-width: unset !important;
+}
+.container-xxl {
+    max-width: unset !important;
+}
