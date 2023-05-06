@@ -7,6 +7,7 @@ use App\Http\Requests\User\RegisterRequest;
 use App\Http\Resources\User\RequestRescueLogResource;
 use App\Http\Traits\SMSHandler;
 use App\Models\Blowbagets;
+use App\Models\Media;
 use App\Models\Message;
 use App\Models\RequestRescueLog;
 use App\Models\User;
@@ -138,5 +139,26 @@ class AuthController extends Controller
             ->first();
         
         return new RequestRescueLogResource($activeVehicle);
+    }
+
+    public function myInformation(){
+        return auth()->user();
+    }
+
+    public function updateProfilePhoto(Request $request)
+    {
+        $data = User::find(auth()->user()->id);
+        
+        if (isset($request->input('profile_photo', [])['id'])) {
+            if ($request->input('profile_photo', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('profile_photo');
+            }
+            Media::where('id', $request->input('profile_photo', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('profile_photo');
+        }
     }
 }

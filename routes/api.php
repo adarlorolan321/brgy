@@ -42,6 +42,7 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
 
     Route::get('/my-rescue-request', [AuthController::class, 'myRescueRequest'])->name('myRescueRequest');
     Route::get('/my-active-vehicle', [AuthController::class, 'myActiveVehicle'])->name('myActiveVehicle');
+    Route::get('/my-information', [AuthController::class, 'myInformation'])->name('myInformation');
     
     
     Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
