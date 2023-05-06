@@ -59,7 +59,7 @@ class DriverController extends Controller
             return redirect()->route('drivers.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/Driver/Index', $props);
+        return Inertia::render('Admin/Dryver/Index', $props);
     }
 
     /**

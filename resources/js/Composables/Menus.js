@@ -10,7 +10,7 @@ export function useMenu() {
         },
         {
             label: "Dryvers",
-            route: "dryver.index",
+            route: "drivers.index",
             icon: "ti ti-user",
             only: ["data", "params"],
         },
