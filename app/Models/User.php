@@ -93,7 +93,7 @@ class User extends Authenticatable implements HasMedia
 
     public function getProfilePhotoAttribute()
     {
-        $media = $this->getMedia('profile_photo')->first();
+        $media = $this->getMedia('profile_picture')->first();
         return $media ? array_merge($media->toArray(), [
             'url' => $media->getUrl(),
             'src' => $media->getUrl(),
@@ -104,7 +104,7 @@ class User extends Authenticatable implements HasMedia
 
     public function getProfilePhotoUrlAttribute()
     {
-        $media = $this->getMedia('profile_photo')->first();
+        $media = $this->getMedia('profile_picture')->first();
         return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->name . '&color=8176f2&background=F8F7FA';
     }
 }
