@@ -52,7 +52,6 @@ class RepairController extends Controller
         $props = [
             'data' => RepairListResource::collection($data),
             'params' => $request->all(),
-            'vehicles' => $vehicles,
         ];
 
         if ($request->wantsJson()) {
@@ -64,6 +63,7 @@ class RepairController extends Controller
             return redirect()->route('repairs.index', ['page' => 1]);
         }
 
+        $props = array_merge($props, ['vehicles' => $vehicles]);
         return Inertia::render('Admin/Repair/Index', $props);
     }
 
