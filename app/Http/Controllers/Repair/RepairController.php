@@ -39,6 +39,8 @@ class RepairController extends Controller
                 if ($queryString && $queryString != '') {
                     $query->where('mechanic_name', 'like', '%' . $queryString . '%')
                         ->orWhere('mechanic_contact_number', 'like', '%' . $queryString . '%')
+                        ->orWhere('status', 'like', '%' . $queryString . '%')
+                        ->orWhere('item', 'like', '%' . $queryString . '%')
                         ->orWhere('mechanic_address', 'like', '%' . $queryString . '%');
                 }
             })
