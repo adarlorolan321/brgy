@@ -75,12 +75,31 @@ class RepairController extends Controller
         return Inertia::render('Admin/Repair/Create');
     }
 
+   
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreRepairRequest $request)
     {
         $data = Repair::create(array_merge($request->validated(), ['user_id' => auth()->user()->id]));
+
+        if($request->has('images')) {
+            Media::whereIn('id', data_get($request->input('images'), '*.id'))
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
+
+        if(auth()->user()->hasRole('Private Driver'))
+        {
+            $data->update([
+                'status' => 'Confirmed'
+            ]);
+        }else {
+            $data->update([
+                'status' => 'Pending'
+            ]);
+        }
 
         if ($request->wantsJson()) {
             return new RepairListResource($data);
@@ -93,7 +112,7 @@ class RepairController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        $data = Repair::with(['user', 'vehicle' => ['type', 'brand'], 'items'])->findOrFail($id);
+        $data = Repair::with(['user', 'vehicle' => ['type', 'brand']])->findOrFail($id);
         if ($request->wantsJson()) {
             return new RepairListResource($data);
         }
@@ -123,6 +142,20 @@ class RepairController extends Controller
     {
         $data = Repair::findOrFail($id);
         $data->update($request->validated());
+
+        
+        Media::where('model_id', $id)->update([
+                    'model_id' => 0
+                ]);
+
+        if($request->has('images')) {
+            Media::whereIn('id', data_get($request->input('images'), '*.id'))
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }else {
+            $data->clearMediaCollection('images');
+        }
 
         if ($request->wantsJson()) {
             return (new RepairListResource($data))

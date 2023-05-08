@@ -3,6 +3,7 @@
 namespace App\Models\Vehicle;
 
 use App\Models\Blowbagets;
+use App\Models\Repair\Repair;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -80,5 +81,9 @@ class Vehicle extends Model implements HasMedia
 
     public function logs(){
         return $this->hasMany(VehicleDriveLog::class, 'vehicle_id', 'id');
+    }
+
+    public function repairs(){
+        return $this->hasMany(Repair::class, 'vehicle_id', 'id');
     }
 }

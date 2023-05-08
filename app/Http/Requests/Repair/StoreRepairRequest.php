@@ -27,6 +27,7 @@ class StoreRepairRequest extends FormRequest
             "mechanic_address" => ["required"],
             'vehicle_id' => ['required'],
             'total_amount' => ['required'],
+            'item' => ['required'],
             'status' => ['nullable']
         ];
     }
