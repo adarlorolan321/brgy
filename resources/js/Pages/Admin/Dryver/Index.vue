@@ -446,28 +446,28 @@ const roles = [
                             </div>
                         </div>
                         </div>
-                        <p class="mt-4 small text-uppercase text-muted">Details</p>
+                        <p class="mt-3 small text-uppercase text-muted">Details</p>
                         <div class="info-container">
                         <ul class="list-unstyled">
-                            <li class="mb-2">
-                            <span class="fw-semibold me-1">Email:</span>
-                            <span>{{driver.email}}</span>
+                            <li class="">
+                                <span class="fw-semibold me-1 small-text">Email:</span>
+                                <span class="small-text">{{driver.email}}</span>
                             </li>
-                            <li class="mb-2 pt-1">
-                            <span class="fw-semibold me-1">Gender:</span>
-                            <span>{{driver.gender ? driver.gender : 'No Data'}}</span>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Gender:</span>
+                                <span class="small-text">{{driver.gender ? driver.gender : 'No Data'}}</span>
                             </li>
-                            <li class="mb-2 pt-1">
-                            <span class="fw-semibold me-1">Status:</span>
-                            <span class="badge bg-label-success">Driving..</span>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Status:</span>
+                                <span class="badge bg-label-success small-text">Driving..</span>
                             </li>
-                            <li class="mb-2 pt-1">
-                            <span class="fw-semibold me-1">Contact:</span>
-                            <span>{{driver.mobile_number ? driver.mobile_number : 'No Data'}}</span>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Contact:</span>
+                                <span class="small-text">{{driver.mobile_number ? driver.mobile_number : 'No Data'}}</span>
                             </li>
-                            <li class="mb-2 pt-1">
-                            <span class="fw-semibold me-1">Address:</span>
-                            <span>{{ driver.province || driver.city ? `${driver.province || ''} ${driver.city || ''}` : 'No Data' }}</span>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Address:</span>
+                                <span class="small-text">{{ driver.province || driver.city ? `${driver.province || ''} ${driver.city || ''}` : 'No Data' }}</span>
                             </li>
                         </ul>
                         <div class="d-flex justify-content-center">
