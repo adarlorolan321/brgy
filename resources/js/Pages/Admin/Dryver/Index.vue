@@ -415,47 +415,79 @@ const roles = [
         </div>
         <div class="row">
             <div class="col-xl-4 col-lg-4 col-md-4" v-for="(driver, index) in data.data" :key="index">
-                <div class="card custom-card__hero">
-                    <div class="user-profile-header-banner">
-                        <img class="banner-custom-img"
-                            src="../../../../../public/assets/img/pages/auth-car4-login-illustration-black.png" alt="">
+                <div class="card mb-4 custom-card__hero">
+                    <div class="dropdown btn-pinned">
+                                <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="ti ti-dots-vertical text-muted"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
+                                            data-bs-target="#editUser">Activity Logs</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li><a class="dropdown-item text-danger"  @click="deletePromise(driver.id)">Delete</a></li>
+                                </ul>
+                            </div>
+                    <div class="card-body">
+                        <div class="user-avatar-section">
+                        <div class="d-flex align-items-center flex-column">
+                            <img
+                            class="img-fluid rounded mb-3 pt-1 mt-4"
+                            src="../../../../../public/assets/img/avatars/3.png"
+                            height="100"
+                            width="100"
+                            alt="User avatar"
+                            />
+                            <div class="user-info text-center">
+                            <h4 class="mb-2">{{driver.name}}</h4>
+                            <span class="badge bg-label-secondary mt-1">{{driver.role}}</span>
+                            </div>
+                        </div>
+                        </div>
+                        <p class="mt-3 small text-uppercase text-muted">Details</p>
+                        <div class="info-container">
+                        <ul class="list-unstyled">
+                            <li class="">
+                                <span class="fw-semibold me-1 small-text">Email:</span>
+                                <span class="small-text">{{driver.email}}</span>
+                            </li>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Gender:</span>
+                                <span class="small-text">{{driver.gender ? driver.gender : 'No Data'}}</span>
+                            </li>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Status:</span>
+                                <span class="badge bg-label-success small-text">Driving..</span>
+                            </li>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Contact:</span>
+                                <span class="small-text">{{driver.mobile_number ? driver.mobile_number : 'No Data'}}</span>
+                            </li>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Address:</span>
+                                <span class="small-text">{{ driver.province || driver.city ? `${driver.province || ''} ${driver.city || ''}` : 'No Data' }}</span>
+                            </li>
+                        </ul>
+                        <div class="d-flex justify-content-center">
+                            <a 
+                                href="javascript:;" 
+                                class="btn btn-primary d-flex align-items-center me-3" 
+                                @click="handleEdit(driver)"
+                                >
+                                <i class="ti-xs me-1 ti ti-truck me-1"></i>Manage Driver
+                            </a>
+                            <a 
+                                href="javascript:;" 
+                                class="btn btn-label-secondary btn-icon"
+                            >
+                                <i class="ti ti-mail ti-sm"></i>
+                            </a>
+                        </div>
+                        </div>
                     </div>
-                    <div class="card-body text-center">
-                        <div class="dropdown btn-pinned">
-                            <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="ti ti-dots-vertical text-muted"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
-                                        data-bs-target="#editUser">Activity Logs</a></li>
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-                                <li><a class="dropdown-item text-danger"  @click="deletePromise(driver.id)">Delete</a></li>
-                            </ul>
-                        </div>
-                        <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto hero-container">
-                            <img src="../../../../../public/assets/img/avatars/3.png" alt="Avatar Image"
-                                class="d-block  ms-0 rounded-circle user-profile-img hero-profile" />
-                        </div>
-                        <h4 class="mb-1 card-title card-text">{{driver.name}}</h4>
-                        <h6 class="mb-0 card-text small-text">{{driver.gender}}</h6>
-                        <h6 class="mb-0 card-text small-text">{{driver.email}}</h6>
-                        <h6 class="mb-0 card-text small-text">{{driver.mobile_number}}</h6>
-                        <h6 class="pb-0 mb-0 card-text small-text">{{driver.role}}</h6>
-                        <!-- <span class="badge rounded-pill bg-label-warning pb-2" style="float:left">Driving..</span> -->
-                        <div class="d-flex align-items-center justify-content-center my-3 gap-2">
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3" @click="handleEdit(driver)"><i
-                                    class="ti-xs me-1 ti ti-truck me-1"></i>Manage Driver</a>
-                            <a href="javascript:;" class="btn btn-label-secondary btn-icon"><i
-                                    class="ti ti-mail ti-sm"></i></a>
-                        </div>
                     </div>
-                </div>
             </div>
         </div>
         <div class="card-footer py-3" v-if="paginatedData && paginatedData.meta.links">
@@ -607,7 +639,7 @@ const roles = [
 }
 
 .custom-card__hero {
-    margin: 10px;
+    min-height: 560px;
 }
 
 .hero-container {
@@ -625,7 +657,7 @@ const roles = [
 
 .banner-custom-img {
     object-fit: contain !important;
-    height: 270px !important;
+    height: 90px !important;
 }
 
 .small-text {
