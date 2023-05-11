@@ -626,7 +626,8 @@ const status = [
     margin-top: -4.5rem !important;
 }
 .hero-profile {
-    height: 68px !important;
+    height: 75px !important;
+    width: 75px !important;
     margin-left: 1rem !important;
 }
 .card-text {
