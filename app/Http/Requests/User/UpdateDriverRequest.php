@@ -40,6 +40,10 @@ class UpdateDriverRequest extends FormRequest
             ],
             'password' => ['nullable', 'confirmed'],
             'role' => ['required', Rule::in(['Private Driver', 'Company Driver'])],
+            'license_number' => ['required'],
+            'license_type' => ['required', Rule::in(['Student', 'Non-Professional', 'Professional'])],
+            'expiration_date' => ['required'],
+            'blood_type' => ['nullable'],
         ];
     }
 }

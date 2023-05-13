@@ -28,7 +28,13 @@ class Vehicle extends Model implements HasMedia
         "odometer",
         "is_driving",
         "uuid",
-        'blowbagets_id'
+        'blowbagets_id',
+        "chassis_number",
+        "engine_number",
+        "orcr_number",
+        "expiration_date",
+        "insurance_company",
+        "insurance_policy_number",
     ];
 
     protected $casts = [
@@ -36,7 +42,11 @@ class Vehicle extends Model implements HasMedia
     ];
 
     protected $appends = [
-        'image', 'image_url'
+        'image', 
+        'image_url',
+
+        'insurance_photo', 
+        'insurance_photo_url',
     ];
 
     protected static function  booted()
@@ -62,6 +72,24 @@ class Vehicle extends Model implements HasMedia
         $media = $this->getMedia('image')->first();
         return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->name . '&color=8176f2&background=F8F7FA';
     }
+
+    public function getInsurancePhotoAttribute()
+    {
+        $media = $this->getMedia('insurance_photo')->first();
+        return $media ? array_merge($media->toArray(), [
+            'url' => $media->getUrl(),
+            'src' => $media->getUrl(),
+            'path' => $media->getUrl(),
+            'preview_url' => $media->getUrl(),
+        ]) : null;
+    }
+
+    public function getInsurancePhotoUrlAttribute()
+    {
+        $media = $this->getMedia('insurance_photo')->first();
+        return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->name . '&color=8176f2&background=F8F7FA';
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'assigned_to', 'id');

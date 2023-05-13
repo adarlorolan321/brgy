@@ -33,6 +33,10 @@ class StoreDriverRequest extends FormRequest
             'mobile_number' => ['required', 'unique:users,mobile_number', 'regex:/^(?:(\+63?9)|0?9)\d{9}$/i'],
             'password' => ['required', 'confirmed'],
             'role' => ['required', Rule::in(['Private Driver', 'Company Driver'])],
+            'license_number' => ['required'],
+            'license_type' => ['required', Rule::in(['Student', 'Non-Professional', 'Professional'])],
+            'expiration_date' => ['required'],
+            'blood_type' => ['nullable'],
         ];
     }
 }

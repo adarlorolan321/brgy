@@ -41,6 +41,10 @@ class User extends Authenticatable implements HasMedia
         'mobile_number',
         'password',
         'status',
+        'license_number',
+        'license_type',
+        'expiration_date',
+        'blood_type',
     ];
 
     /**
@@ -72,7 +76,13 @@ class User extends Authenticatable implements HasMedia
      * @var array<int, string>
      */
     protected $appends = [
-        'profile_photo', 'role', 'profile_photo_url'
+        'profile_photo',
+        'role', 
+        'profile_photo_url',
+        'license_front',
+        'license_front_url',
+        'license_back',
+        'license_back_url',
     ];
 
     protected static function  booted()
@@ -107,4 +117,39 @@ class User extends Authenticatable implements HasMedia
         $media = $this->getMedia('profile_picture')->first();
         return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->name . '&color=8176f2&background=F8F7FA';
     }
+
+    public function getLicenseFrontAttribute()
+    {
+        $media = $this->getMedia('license_front')->first();
+        return $media ? array_merge($media->toArray(), [
+            'url' => $media->getUrl(),
+            'src' => $media->getUrl(),
+            'path' => $media->getUrl(),
+            'preview_url' => $media->getUrl(),
+        ]) : null;
+    }
+
+    public function getLicenseFrontUrlAttribute()
+    {
+        $media = $this->getMedia('license_front')->first();
+        return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->name . '&color=8176f2&background=F8F7FA';
+    }
+
+    public function getLicenseBackAttribute()
+    {
+        $media = $this->getMedia('license_back')->first();
+        return $media ? array_merge($media->toArray(), [
+            'url' => $media->getUrl(),
+            'src' => $media->getUrl(),
+            'path' => $media->getUrl(),
+            'preview_url' => $media->getUrl(),
+        ]) : null;
+    }
+
+    public function getLicenseBackUrlAttribute()
+    {
+        $media = $this->getMedia('license_back')->first();
+        return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->name . '&color=8176f2&background=F8F7FA';
+    }
+
 }
