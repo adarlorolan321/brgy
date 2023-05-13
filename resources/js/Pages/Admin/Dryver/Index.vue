@@ -389,10 +389,13 @@ const roles = [
                     <div class="d-flex gap-2 align-items-center">
                         <div class="w-auto">Filter by Type:</div>
                         <div class="form-group" style="width: 70%">
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="" hidden>Select Driver Type</option>
-                                <option value="usa">Private</option>
-                                <option value="uk">Public</option>
+                            <select class="form-select" id="basic-default-country" :value="serverQuery.role" @input="handleServerQuery(
+                                    'role',
+                                    $event.target.value
+                                )">
+                                <option value="">Select Driver Type</option>
+                                <option value="Private Driver">Private Driver</option>
+                                <option value="Company Driver">Company Driver</option>
                             </select>
                         </div>
                     </div>

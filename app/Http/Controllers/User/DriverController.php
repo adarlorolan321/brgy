@@ -23,7 +23,10 @@ class DriverController extends Controller
 
         $page = $request->input('page', 1); // default 1
         $perPage = $request->input('perPage', 50); // default 50
+
         $queryString = $request->input('query', null);
+        $type = $request->input('role', null);
+
         $sort = explode('.', $request->input('sort', 'id'));
         $order = $request->input('order', 'asc');
 
@@ -38,6 +41,17 @@ class DriverController extends Controller
                         ->orWhere('city', 'like', '%' . $queryString . '%')
                         ->orWhere('email', 'like', '%' . $queryString . '%')
                         ->orWhere('mobile_number', 'like', '%' . $queryString . '%');
+                }
+            })
+            ->whereHas('roles', function($query){
+                $query->whereIn('name', ["Private Driver", "Company Driver"]);
+            })
+            ->where(function($query) use ($type){
+                if($type && $type != '')
+                {
+                    $query->whereHas('roles', function($query) use ($type){
+                        $query->where('name', $type);
+                    });
                 }
             })
             ->when(count($sort) == 1, function ($query) use ($sort, $order) {
