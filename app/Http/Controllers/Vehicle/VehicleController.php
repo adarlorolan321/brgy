@@ -90,6 +90,14 @@ class VehicleController extends Controller
                 ]);
         }
 
+        if (isset($request->input('insurance_photo', [])['id'])) {
+            Media::where('id', $request->input('insurance_photo', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
+        
+
         if ($request->wantsJson()) {
             return new VehicleListResource($data);
         }
@@ -153,7 +161,19 @@ class VehicleController extends Controller
         } else {
             $data->clearMediaCollection('image');
         }
+
         
+        if (isset($request->input('insurance_photo', [])['id'])) {
+            if ($request->input('insurance_photo', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('insurance_photo');
+            }
+            Media::where('id', $request->input('insurance_photo', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('insurance_photo');
+        }
 
         if ($request->wantsJson()) {
             return (new VehicleListResource($data))
