@@ -632,7 +632,7 @@ const roles = [
         </div>
     </div>
 </template>
-<style>
+<style scoped>
 .custom-container-card {
     background: unset !important;
     box-shadow: unset !important;

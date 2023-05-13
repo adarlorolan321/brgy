@@ -338,8 +338,21 @@ let {
                         <h6 class="pb-0 mb-0 card-text small-text">Last Driven By: {{ vehicle.is_driving }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">Current Odometer: {{ vehicle.odometer }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">Blowbadgets: {{ vehicle.blowbagets_id }}</h6>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3" @click="handleEdit(vehicle)"><i class="ti-xs me-1 ti ti-truck me-1"></i>Edit Vehicle</a>
+                        <div class="d-flex align-items-center justify-content-center mt-3">
+                            <a 
+                                href="javascript:;" 
+                                class="btn btn-primary d-flex align-items-center me-3" 
+                                @click="handleEdit(vehicle)">
+                                <i class="ti-xs me-1 ti ti-truck me-1"></i>
+                                Edit Vehicle
+                            </a>
+
+                            <a 
+                                href="javascript:;" 
+                                class="btn btn-label-secondary btn-icon waves-effect" 
+                                >
+                                <i class="ti-xs me-1 ti ti-eye ti-sm"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
