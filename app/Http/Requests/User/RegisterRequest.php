@@ -34,6 +34,10 @@ class RegisterRequest extends FormRequest
             'password' => ['required', 'confirmed'],
             'role' => ['required', Rule::in(['Private Driver', 'Company Driver'])],
             'otp' => ['required'],
+            'license_number' => ['required'],
+            'license_type' => ['required', Rule::in(['Student', 'Non-Professional', 'Professional'])],
+            'expiration_date' => ['required'],
+            'blood_type' => ['nullable'],
         ];
     }
 

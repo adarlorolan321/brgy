@@ -115,6 +115,33 @@ class AuthController extends Controller
                 $user->syncRoles([$request->input('role')]);
                 $user['token'] = $token->plainTextToken;
                 $message->update(['status' => false]);
+
+
+                 //Upload Profile Photo
+                if (isset($request->input('profile_photo', [])['id'])) {
+                    Media::where('id', $request->input('profile_photo', [])['id'])
+                        ->update([
+                            'model_id' => $user->id
+                        ]);
+                }
+
+                
+                 //Upload Profile Photo
+                 if (isset($request->input('license_front', [])['id'])) {
+                    Media::where('id', $request->input('license_front', [])['id'])
+                        ->update([
+                            'model_id' => $user->id
+                        ]);
+                }
+
+                 //Upload Profile Photo
+                 if (isset($request->input('license_back', [])['id'])) {
+                    Media::where('id', $request->input('license_back', [])['id'])
+                        ->update([
+                            'model_id' => $user->id
+                        ]);
+                }
+
                 return json_encode($user);
             } else {
                 throw ValidationException::withMessages(['otp' => 'Invalid Verification Code.']);

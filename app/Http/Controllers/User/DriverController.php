@@ -102,6 +102,22 @@ class DriverController extends Controller
                 ]);
         }
 
+          //Upload Profile Photo
+          if (isset($request->input('license_front', [])['id'])) {
+            Media::where('id', $request->input('license_front', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
+
+         //Upload Profile Photo
+         if (isset($request->input('license_back', [])['id'])) {
+            Media::where('id', $request->input('license_back', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
+
         
         if ($request->wantsJson()) {
             return new DriverResource($data);
@@ -159,6 +175,30 @@ class DriverController extends Controller
                 ]);
         } else {
             $data->clearMediaCollection('profile_photo');
+        }
+         
+        if (isset($request->input('license_front', [])['id'])) {
+            if ($request->input('license_front', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('license_front');
+            }
+            Media::where('id', $request->input('license_front', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('license_front');
+        }
+
+        if (isset($request->input('license_back', [])['id'])) {
+            if ($request->input('license_back', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('license_back');
+            }
+            Media::where('id', $request->input('license_back', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('license_back');
         }
 
         if ($request->wantsJson()) {
