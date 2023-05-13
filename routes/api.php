@@ -8,6 +8,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\Repair\RepairController;
 use App\Http\Controllers\Repair\RepairItemController;
+use App\Http\Controllers\Rescue\RescueLogController;
 use App\Http\Controllers\Rescue\RescuerController;
 use App\Http\Controllers\Rescue\RescueServiceController;
 use App\Http\Controllers\Vehicle\VehicleBrandController;
@@ -56,6 +57,7 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
         'repairs' => RepairController::class,
         'repair_items' => RepairItemController::class,
         'rescue_services' => RescueServiceController::class,
+        'rescue_logs' => RescueLogController::class,
     ]);
 
     Route::post('/drive/start/{id}', [DriveController::class, 'startDrive'])->name('drive.start');

@@ -56,6 +56,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'drivers' => DriverController::class,
             'repair' => RepairController::class,
             'rescue_services' => RescueServiceController::class,
+            'rescue_logs' => RescueLogController::class,
         ]);
     });
 });
