@@ -349,13 +349,13 @@ const roles = [
                             </div>
                         </div>
 
-                        <button class="btn btn-primary" @click="createPromise" :disabled="form.processing"
+                        <button class="btn btn-primary" @click="createPromise"
                             v-if="formState == 'create'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
                             Submit
                         </button>
-                        <button class="btn btn-primary" @click="updatePromise" :disabled="form.processing"
+                        <button class="btn btn-primary" @click="updatePromise"
                             v-if="formState == 'update'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
@@ -393,7 +393,6 @@ const roles = [
                                     'role',
                                     $event.target.value
                                 )">
-                                <option value="">Select Driver Type</option>
                                 <option value="Private Driver">Private Driver</option>
                                 <option value="Company Driver">Company Driver</option>
                             </select>
@@ -426,7 +425,14 @@ const roles = [
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
-                                            data-bs-target="#editUser">Activity Logs</a></li>
+                                        data-bs-target="#editUser">Drive Logs</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
+                                        data-bs-target="#editUser">Repair Logs</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
+                                        data-bs-target="#editUser">Rescue Logs</a>
+                                    </li>
                                     <li>
                                         <hr class="dropdown-divider" />
                                     </li>
@@ -478,6 +484,7 @@ const roles = [
                                 href="javascript:;" 
                                 class="btn btn-primary d-flex align-items-center me-3" 
                                 @click="handleEdit(driver)"
+                                v-if="driver.role == 'Company Driver'"
                                 >
                                 <i class="ti-xs me-1 ti ti-truck me-1"></i>Manage Driver
                             </a>
@@ -641,9 +648,7 @@ const roles = [
     box-shadow: unset !important;
 }
 
-.custom-card__hero {
-    min-height: 560px;
-}
+
 
 .hero-container {
     margin-top: -4.5rem !important;
