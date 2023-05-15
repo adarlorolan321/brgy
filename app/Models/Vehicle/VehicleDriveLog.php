@@ -23,6 +23,10 @@ class VehicleDriveLog extends Model
         'uuid'
     ];
 
+    public function vehicle(){
+        return $this->belongsTo(Vehicle::class);
+    }
+
     public function logs(){
         return $this->hasMany(VehicleLog::class, 'uuid', 'uuid');
     }

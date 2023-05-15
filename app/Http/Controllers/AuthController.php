@@ -12,6 +12,7 @@ use App\Models\Message;
 use App\Models\RequestRescueLog;
 use App\Models\User;
 use App\Models\Vehicle\Vehicle;
+use App\Models\Vehicle\VehicleDriveLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -187,5 +188,13 @@ class AuthController extends Controller
         } else {
             $data->clearMediaCollection('profile_photo');
         }
+    }
+
+    public function driveLogs() {
+        $driveLogs = VehicleDriveLog::where('user_id', auth()->user()->id)
+                        ->with(['logs', 'vehicle' => ['brand', 'type']])
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+        return new RequestRescueLogResource($driveLogs);
     }
 }
