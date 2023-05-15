@@ -10,6 +10,7 @@ use App\Models\Blowbagets;
 use App\Models\Media;
 use App\Models\Message;
 use App\Models\RequestRescueLog;
+use App\Models\Rescue\RescueLog;
 use App\Models\User;
 use App\Models\Vehicle\Vehicle;
 use App\Models\Vehicle\VehicleDriveLog;
@@ -154,8 +155,9 @@ class AuthController extends Controller
 
     public function myRescueRequest()
     {
-        $rescueRequests  = RequestRescueLog::with(['rescuer'])->where('user_id', auth()->user()->id)
-            ->get();
+        $rescueRequests  = RescueLog::with(['rescuer'])
+                ->where('user_id', auth()->user()->id)
+                ->get();
         return RequestRescueLogResource::collection($rescueRequests);
     }
 
