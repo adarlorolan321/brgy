@@ -71,7 +71,21 @@ class RescuerController extends Controller
             })
             ->paginate($perPage)
             ->withQueryString();
-            
+        
+        $data->getCollection()->transform(function($data) use ($request){
+            $distance = 0;
+
+            if ($request->has('radius') && $request->has('lat') && $request->has('lng')) {
+                $pointA = [ "lat" => $request->input('lat'), "lng" => $request->input('lng')];
+                $pointB = [ "lat" => $data->latitude, "lng" => $data->longitude];
+                $distance = $this->calculateDistance($pointA, $pointB);
+            }
+
+            return array_merge($data->toArray(), [
+                'distance' => $distance
+            ]);
+        });
+
         $services = RescueService::all();
         $provinces = Province::with(['cities'])->get();
         $props = [
@@ -217,4 +231,36 @@ class RescuerController extends Controller
 
         return ['min_lat' => $minLat,    'max_lat' => $maxLat,    'min_lng' => $minLng,    'max_lng' => $maxLng,];
     }
+
+    public function calculateDistance($pointA, $pointB, $unit = "K")
+    {
+        // convert from degrees to radians
+        $lat1 = $pointB['lat'];
+        $lon1 = $pointB['lng'];
+
+        $lat2 = $pointA['lat'];
+        $lon2 = $pointA['lng'];
+      
+        $theta = $lon1 - $lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+        $unit = strtoupper($unit);
+      
+        if ($unit == "K") {
+            $km = $miles * 1.609344;
+
+            if($km < 1) {
+                return ($km * 100 ) . 'm';
+            }
+            return round($km, 2) . 'km';
+        } else if ($unit == "N") {
+            return ($miles * 0.8684);
+        } else {
+            return $miles;
+        }
+      }
+
+   
 }

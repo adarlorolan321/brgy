@@ -97,9 +97,24 @@ class RescueLogController extends Controller
      */
     public function store(StoreRescueLogRequest $request)
     {
-        $data = RescueLog::create(array_merge($request->validated(), [
-            'user_id' => auth()->user()->id
-        ]));
+       
+        $recentlyCreated = RescueLog::where([
+            "vehicle_id" => $request->input('vehicle_id'),
+            "lat" => $request->input('lat'),
+            "lng" => $request->input('lng'),
+            "rescuer_id" => $request->input('rescuer_id'),
+        ])
+        ->where('created_at', '>=', now()->subSeconds(30))
+        ->first();
+        if(!$recentlyCreated)
+        {
+            $data = RescueLog::create(array_merge($request->validated(), [
+                'user_id' => auth()->user()->id
+            ]));
+        }else{
+            return new RescueLogListResource($recentlyCreated);
+        }
+
         sleep(1);
 
         if ($request->wantsJson()) {
