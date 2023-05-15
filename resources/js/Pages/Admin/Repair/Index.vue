@@ -20,6 +20,7 @@ const formObject = {
     mechanic_contact_number: null,
     mechanic_address: null,
     vehicle_id: null,
+    item: null,
     total_amount: null,
     status: null,
     // image: null,
@@ -188,6 +189,33 @@ let {
                             </v-select> 
                             <div class="invalid-feedback">
                                 {{ form.errors.vehicle_id }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for=""
+                                >Item <span class="required">*</span></label
+                            >
+                            <input
+                                class="form-control"
+                                v-model="form.item"
+                                @input="($event) => {
+                                        form.clearErrors('item');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'item'
+                                        );
+                                    }
+                                    "
+                                placeholder="Enter Item"
+                                :class="{
+                                        'is-invalid': form.errors.item,
+                                    }"
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.item }}
                             </div>
                         </div>
 
