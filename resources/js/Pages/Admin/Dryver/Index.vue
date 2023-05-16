@@ -26,6 +26,12 @@ const formObject = {
     password: null,
     password_confirmation:null,
     role: null,
+    status: null,
+    license_number: null,
+    license_type: null,
+    expiration_date: null,
+    blood_type: null,
+    license_front: null,
 
 };
 const { validateForm } = useValidateForm();
@@ -68,6 +74,7 @@ const roles = [
         value: 'Company Driver'
     }
 ]
+const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
 </script>
 
 <template>
@@ -346,6 +353,184 @@ const roles = [
                             </v-select> 
                             <div class="invalid-feedback">
                                 {{ form.errors.role }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Status</label>
+                            <input type="text" class="form-control" v-model="form.status" @input="($event) => {
+                                    form.clearErrors('status');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'status'
+                                    );
+                                }
+                                " 
+                            placeholder="Enter Status" 
+                            :class="{ 'is-invalid': form.errors.status, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.status }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">License Number <span class="required">*</span></label>
+                            <input type="text" class="form-control" v-model="form.license_number" @input="($event) => {
+                                    form.clearErrors('license_number');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'license_number'
+                                    );
+                                }
+                                " 
+                            placeholder="Enter License Number" 
+                            :class="{ 'is-invalid': form.errors.license_number, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.license_number }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Select License Type <span class="required">*</span></label>
+                            <v-select 
+                                :options="licenseTypeList" 
+                                v-model="form.license_type"
+                                label="name" 
+                                @input="($event) => {
+                                        form.clearErrors('license_type');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'license_type'
+                                        );
+                                    }"
+                                :class="{
+                                        'is-invalid': form.errors.license_type,
+                                    }"
+                                placeholder="Select License Type">
+                            </v-select> 
+                            <div class="invalid-feedback">
+                                {{ form.errors.license_type }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Expiration Date <span class="required">*</span></label>
+                           <input
+                                type="date"
+                                class="form-control dob-picker"
+                                placeholder="YYYY-MM-DD"
+                                v-model="form.expiration_date"
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.expiration_date }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Blood Type</label>
+                            <input type="text" class="form-control" v-model="form.blood_type" @input="($event) => {
+                                    form.clearErrors('blood_type');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'blood_type'
+                                    );
+                                }
+                                " 
+                            placeholder="Enter Blood Type" 
+                            :class="{ 'is-invalid': form.errors.blood_type, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.blood_type }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4 dropzone-profile-photo">
+                            <label for="name">License Front</label>
+                            <dropzone
+                                collection="license_front"
+                                v-if="isLoadingComponents"
+                                :url="route('api.media.upload')"
+                                type="profile"
+                                model="User"
+                                :value="form.license_front"
+                                @input="($event) => {
+                                        form.license_front = $event;
+                                        form.clearErrors('license_front');
+                                    }
+                                    "
+                                message="Drop files here or click to upload profile photo"
+                                acceptedFiles="image/jpeg,image/png"
+                                @error="($event) => {
+                                        if ($event && $event[0]) {
+                                            form.setError('license_front', $event[0]);
+                                        }
+                                    }
+                                    "
+                            >
+                            </dropzone>
+                            <div v-else>
+                                <div class="dropzone" ref="dropzone">
+                                    <div class="dz-message needsclick">
+                                        Please Wait
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="v-invalid-feedback"
+                                v-if="form.errors.license_front"
+                            >
+                                {{ form.errors.license_front }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4 dropzone-profile-photo">
+                            <label for="name">License Back</label>
+                            <dropzone
+                                collection="license_back"
+                                v-if="isLoadingComponents"
+                                :url="route('api.media.upload')"
+                                type="profile"
+                                model="User"
+                                :value="form.license_back"
+                                @input="($event) => {
+                                        form.license_back = $event;
+                                        form.clearErrors('license_back');
+                                    }
+                                    "
+                                message="Drop files here or click to upload profile photo"
+                                acceptedFiles="image/jpeg,image/png"
+                                @error="($event) => {
+                                        if ($event && $event[0]) {
+                                            form.setError('license_back', $event[0]);
+                                        }
+                                    }
+                                    "
+                            >
+                            </dropzone>
+                            <div v-else>
+                                <div class="dropzone" ref="dropzone">
+                                    <div class="dz-message needsclick">
+                                        Please Wait
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="v-invalid-feedback"
+                                v-if="form.errors.license_back"
+                            >
+                                {{ form.errors.license_back }}
                             </div>
                         </div>
 
