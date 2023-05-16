@@ -317,6 +317,7 @@ let {
                 </div>
             </div>
         </div>
+        {{ data }}
         <div class="row" >
             <div class="col-xl-4 col-lg-4 col-md-4" v-for="(vehicle, index) in data.data" :key="index">
                 <div class="card custom-card__hero">
