@@ -10,6 +10,7 @@ export default {
 </script>
 
 <script setup>
+import { ref, watch } from 'vue';
 import { useCrud } from "@/Composables/Crud.js";
 import { useValidateForm } from "@/Composables/Validate.js";
 import { usePage, Head } from "@inertiajs/vue3";
@@ -75,6 +76,15 @@ const roles = [
     }
 ]
 const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
+const filteredCities = ref([]);
+
+watch(() => {
+    if (form.province) {
+        filteredCities.value = props.provinces[form.province].cities;
+    } else {
+        filteredCities.value = [];
+    }
+});
 </script>
 
 <template>
@@ -208,25 +218,17 @@ const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
 
                         <div class="form-group mb-3">
                             <label for="">Enter City <span class="required">*</span></label>
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                v-model="form.city"         
-                                @input="($event) => {
-                                        form.clearErrors('city');
-                                        validateForm(
-                                            ['required'],
-                                            form,
-                                            $event.target.value,
-                                            'city'
-                                        );
-                                    }
-                                    " 
-                                placeholder="Enter City" 
+                            <v-select 
+                                :options="filteredCities" 
+                                v-model="form.city"
+                                label="name" 
+                                @update:modelValue="form.clearErrors('city')"
+                                class="custom-select"
                                 :class="{
-                                        'is-invalid': form.errors.city,
-                                    }" 
-                            />
+                                    'is-invalid': form.errors.city,
+                                }"
+                                placeholder="Select City">
+                            </v-select>  
                             <div class="invalid-feedback">
                                 {{ form.errors.city }}
                             </div>
