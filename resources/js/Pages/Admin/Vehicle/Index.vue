@@ -39,6 +39,12 @@ const formObject = {
     assigned_to: 1,
     plate_number: null,
     image: null,
+    chassis_number: null,
+    engine_number: null,
+    orcr_number: null,
+    expiration_date: null,
+    insurance_company: null,
+    insurance_policy_number: null,
 };
 
 const { validateForm } = useValidateForm();
@@ -267,13 +273,141 @@ let {
                             </div>
                         </div>
 
-                        <button class="btn btn-primary" @click="createPromise" :disabled="form.processing || form.hasErrors"
+                        <div class="form-group mb-3">
+                            <label for="">Chassis Number <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.chassis_number" 
+                                @input="($event) => {
+                                        form.clearErrors('chassis_number');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'chassis_number'
+                                        );
+                                    }" 
+                                placeholder="Enter Chassis Number" 
+                                :class="{ 'is-invalid': form.errors.chassis_number, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.chassis_number }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Engine Number <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.engine_number" 
+                                @input="($event) => {
+                                        form.clearErrors('engine_number');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'engine_number'
+                                        );
+                                    }" 
+                                placeholder="Enter Engine Number" 
+                                :class="{ 'is-invalid': form.errors.engine_number, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.engine_number }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">ORCR Number <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.orcr_number" 
+                                @input="($event) => {
+                                        form.clearErrors('orcr_number');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'orcr_number'
+                                        );
+                                    }" 
+                                placeholder="Enter ORCR Number" 
+                                :class="{ 'is-invalid': form.errors.orcr_number, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.orcr_number }}
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="">Expiration Date <span class="required">*</span></label>
+                            <input
+                                type="date"
+                                class="form-control dob-picker"
+                                placeholder="YYYY-MM-DD"
+                                v-model="form.expiration_date"
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.expiration_date }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Insurance Company</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.insurance_company" 
+                                @input="($event) => {
+                                        form.clearErrors('insurance_company');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'insurance_company'
+                                        );
+                                    }" 
+                                placeholder="Enter Insurance Company" 
+                                :class="{ 'is-invalid': form.errors.insurance_company, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.insurance_company }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Insurance Policy Number</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.insurance_policy_number" 
+                                @input="($event) => {
+                                        form.clearErrors('insurance_policy_number');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'insurance_policy_number'
+                                        );
+                                    }" 
+                                placeholder="Enter Insurance Policy Number" 
+                                :class="{ 'is-invalid': form.errors.insurance_policy_number, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.insurance_policy_number }}
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" @click="createPromise"
                             v-if="formState == 'create'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
                             Save
                         </button>
-                        <button class="btn btn-primary" @click="updatePromise" :disabled="form.processing || form.hasErrors"
+                        <button class="btn btn-primary" @click="updatePromise"
                             v-if="formState == 'update'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
