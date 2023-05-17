@@ -35,8 +35,6 @@ Route::prefix('v1')->name('api.')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register');
 
     Route::get('/provinces', [ProvinceController::class, 'index'])->name('provinces.index');
-    
-    Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
 });
 // End of Public Route
 
@@ -48,6 +46,7 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
     Route::get('/my-information', [AuthController::class, 'myInformation'])->name('myInformation');
     
     
+    Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
 
     Route::resources([
         'vehicle_brands' => VehicleBrandController::class,
