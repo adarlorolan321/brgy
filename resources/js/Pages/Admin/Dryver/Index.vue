@@ -10,6 +10,7 @@ export default {
 </script>
 
 <script setup>
+import { ref, watch } from 'vue';
 import { useCrud } from "@/Composables/Crud.js";
 import { useValidateForm } from "@/Composables/Validate.js";
 import { usePage, Head } from "@inertiajs/vue3";
@@ -75,6 +76,15 @@ const roles = [
     }
 ]
 const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
+const filteredCities = ref([]);
+
+watch(() => {
+    if (form.province) {
+        filteredCities.value = props.provinces[form.province].cities;
+    } else {
+        filteredCities.value = [];
+    }
+});
 </script>
 
 <template>
@@ -122,26 +132,6 @@ const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Last Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.last_name" @input="
-                                ($event) => {
-                                    form.clearErrors('last_name');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'last_name'
-                                    );
-                                }
-                            " placeholder="Enter Last Name" :class="{
-                                'is-invalid': form.errors.last_name,
-                            }" />
-                            <div class="invalid-feedback">
-                                {{ form.errors.last_name }}
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-3">
                             <label for="">Middle Name <span class="required">*</span></label>
                             <input type="text" class="form-control" v-model="form.middle_name" @input="($event) => {
                                     form.clearErrors('middle_name');
@@ -158,6 +148,25 @@ const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
                                 }" />
                             <div class="invalid-feedback">
                                 {{ form.errors.middle_name }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Last Name <span class="required">*</span></label>
+                            <input type="text" class="form-control" v-model="form.last_name" @input="($event) => {
+                                    form.clearErrors('last_name');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'last_name'
+                                    );
+                                }
+                                " placeholder="Enter Last Name" :class="{
+                                    'is-invalid': form.errors.last_name,
+                                }" />
+                            <div class="invalid-feedback">
+                                {{ form.errors.last_name }}
                             </div>
                         </div>
 
@@ -191,25 +200,17 @@ const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
 
                         <div class="form-group mb-3">
                             <label for="">Enter Province <span class="required">*</span></label>
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                v-model="form.province"         
-                                @input="($event) => {
-                                        form.clearErrors('province');
-                                        validateForm(
-                                            ['required'],
-                                            form,
-                                            $event.target.value,
-                                            'province'
-                                        );
-                                    }
-                                    " 
-                                placeholder="Enter Province" 
+                            <v-select 
+                                :options="provinces" 
+                                v-model="form.province"
+                                label="name" 
+                                @update:modelValue="form.clearErrors('province')"
+                                class="custom-select"
                                 :class="{
-                                    'is-invalid': form.errors.province,
-                                }" 
-                            />
+                                        'is-invalid': form.errors.province,
+                                    }"
+                                placeholder="Select Province">
+                            </v-select>  
                             <div class="invalid-feedback">
                                 {{ form.errors.province }}
                             </div>
@@ -217,25 +218,17 @@ const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
 
                         <div class="form-group mb-3">
                             <label for="">Enter City <span class="required">*</span></label>
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                v-model="form.city"         
-                                @input="($event) => {
-                                        form.clearErrors('city');
-                                        validateForm(
-                                            ['required'],
-                                            form,
-                                            $event.target.value,
-                                            'city'
-                                        );
-                                    }
-                                    " 
-                                placeholder="Enter City" 
+                            <v-select 
+                                :options="filteredCities" 
+                                v-model="form.city"
+                                label="name" 
+                                @update:modelValue="form.clearErrors('city')"
+                                class="custom-select"
                                 :class="{
-                                        'is-invalid': form.errors.city,
-                                    }" 
-                            />
+                                    'is-invalid': form.errors.city,
+                                }"
+                                placeholder="Select City">
+                            </v-select>  
                             <div class="invalid-feedback">
                                 {{ form.errors.city }}
                             </div>

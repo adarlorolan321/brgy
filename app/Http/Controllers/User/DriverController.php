@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use App\Models\Province;
 
 class DriverController extends Controller
 {
@@ -60,9 +61,11 @@ class DriverController extends Controller
             ->paginate($perPage)
             ->withQueryString();
 
+        $provinces = Province::all();
         $props = [
             'data' => DriverResource::collection($data),
             'params' => $request->all(),
+            'provinces' => $provinces,
         ];
 
         if ($request->wantsJson()) {

@@ -10,6 +10,7 @@ use App\Http\Requests\Vehicle\UpdateVehicleRequest;
 use App\Models\Media;
 use App\Models\Vehicle\VehicleBrand;
 use App\Models\Vehicle\VehicleType;
+use App\Models\Province;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -50,11 +51,13 @@ class VehicleController extends Controller
 
         $brands = VehicleBrand::all();
         $types = VehicleType::all();
+        $provinces = Province::all();
         $props = [
             'data' => VehicleListResource::collection($data),
             'params' => $request->all(),
             'brands' => $brands,
-            'types' => $types
+            'types' => $types,
+            'provinces' => $provinces,
         ];
 
         if ($request->wantsJson()) {
