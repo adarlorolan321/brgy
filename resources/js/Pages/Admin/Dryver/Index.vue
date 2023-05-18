@@ -10,7 +10,7 @@ export default {
 </script>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, computed  } from 'vue';
 import { useCrud } from "@/Composables/Crud.js";
 import { useValidateForm } from "@/Composables/Validate.js";
 import { usePage, Head } from "@inertiajs/vue3";
@@ -76,19 +76,24 @@ const roles = [
     }
 ]
 const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
-const filteredCities = ref([]);
 
-watch(() => {
+const provinces = ref(props.provinces)
+const getCities = computed(() => {
     if (form.province) {
-        filteredCities.value = props.provinces[form.province].cities;
+        const selectedProvince = provinces.value.find(
+            (province) => province.name === form.province
+        );
+        return selectedProvince ? selectedProvince.cities : [];
     } else {
-        filteredCities.value = [];
+        return [];
     }
 });
+
 </script>
 
 <template>
     <Head title="Driver"></Head>
+    <!-- {{ provinces }} -->
     <div class="card card-action custom-container-card">
         <div class="card-header">
             <div class="card-action-title align-items-center">
@@ -215,11 +220,10 @@ watch(() => {
                                 {{ form.errors.province }}
                             </div>
                         </div>
-
                         <div class="form-group mb-3">
                             <label for="">Enter City <span class="required">*</span></label>
                             <v-select 
-                                :options="filteredCities" 
+                                :options="getCities" 
                                 v-model="form.city"
                                 label="name" 
                                 @update:modelValue="form.clearErrors('city')"
