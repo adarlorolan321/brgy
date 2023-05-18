@@ -486,7 +486,7 @@ const status = ['Pending', 'Confirmed'];
                             </div>
                         </td>
                         <td>{{tableData.user.name}}</td>
-                        <td> {{ tableData.vehicle.model }} / {{ tableData.vehicle.year }}</td>
+                        <td> {{ tableData}}</td>
                         <td>{{ tableData.item }}</td>
                         <td>{{ tableData.total_amount }}</td>
                         <td>{{ tableData.status }}</td>
