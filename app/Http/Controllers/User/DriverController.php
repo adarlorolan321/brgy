@@ -134,7 +134,7 @@ class DriverController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        $data = User::findOrFail($id);
+        $data = User::with(['repairs'])->findOrFail($id);
         if ($request->wantsJson()) {
             return new DriverResource($data);
         }
