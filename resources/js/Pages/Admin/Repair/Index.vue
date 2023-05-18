@@ -20,6 +20,7 @@ const formObject = {
     mechanic_contact_number: null,
     mechanic_address: null,
     vehicle_id: null,
+    item: null,
     total_amount: null,
     status: null,
     // image: null,
@@ -39,6 +40,8 @@ let {
     handleEdit,
     formState,
 } = useCrud(formObject, routeName);
+
+const status = ['Pending', 'Confirmed'];
 </script>
 
 <template>
@@ -49,7 +52,7 @@ let {
                 <h5 class="card-title">Repairs</h5>
             </div>
             <div class="card-action-element">
-                <button
+                <!-- <button
                     class="btn btn-primary"
                     type="button"
                     @click="handleCreate"
@@ -59,7 +62,7 @@ let {
                 >
                     <i class="ti ti-plus ti-xs me-1"></i>
                     Add Repair
-                </button>
+                </button> -->
                 <div
                     class="offcanvas offcanvas-end"
                     tabindex="-1"
@@ -70,7 +73,7 @@ let {
                     <div class="offcanvas-header">
                         <h5 id="offCanvasFormLabel" class="offcanvas-title">
                             {{ formState == "create" ? "Add" : "Update" }}
-                            Repair
+                            Status
                         </h5>
                         <button
                             type="button"
@@ -81,7 +84,7 @@ let {
                         ></button>
                     </div>
                     <div class="offcanvas-body pt-0 mx-0 flex-grow-0">
-                        <div class="form-group mb-3">
+                        <!-- <div class="form-group mb-3">
                             <label for=""
                                 >Mechanic Name <span class="required">*</span></label
                             >
@@ -193,6 +196,33 @@ let {
 
                         <div class="form-group mb-3">
                             <label for=""
+                                >Item <span class="required">*</span></label
+                            >
+                            <input
+                                class="form-control"
+                                v-model="form.item"
+                                @input="($event) => {
+                                        form.clearErrors('item');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'item'
+                                        );
+                                    }
+                                    "
+                                placeholder="Enter Item"
+                                :class="{
+                                        'is-invalid': form.errors.item,
+                                    }"
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.item }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for=""
                                 >Total Amount <span class="required">*</span></label
                             >
                             <input
@@ -217,31 +247,21 @@ let {
                             <div class="invalid-feedback">
                                 {{ form.errors.total_amount }}
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="form-group mb-3">
-                            <label for=""
-                                >Status</label
-                            >
-                            <input
-                                type="text"
-                                class="form-control"
+                        <div class="form-group mb-5">
+                            <label for="">Status</label>
+                            <v-select 
+                                :options="status" 
                                 v-model="form.status"
-                                @input="($event) => {
-                                        form.clearErrors('status');
-                                        validateForm(
-                                            ['required'],
-                                            form,
-                                            $event.target.value,
-                                            'status'
-                                        );
-                                    }
-                                    "
-                                placeholder="Enter Status"
+                                label="name" 
+                                @update:modelValue="form.clearErrors('status')"
+                                class="custom-select"
                                 :class="{
                                         'is-invalid': form.errors.status,
                                     }"
-                            />
+                                placeholder="Select Status">
+                            </v-select>  
                             <div class="invalid-feedback">
                                 {{ form.errors.status }}
                             </div>
@@ -310,6 +330,7 @@ let {
                             @click="updatePromise"
                             :disabled="form.processing || form.hasErrors"
                             v-if="formState == 'update'"
+                            style="margin-top: -35px"
                         >
                             <span
                                 v-if="form.processing"
@@ -376,7 +397,47 @@ let {
             <table class="table">
                 <thead class="table-light">
                     <tr>
-                        <!-- <th></th> -->
+                        <th></th>
+                        <table-header
+                            style="width: 35%"
+                            @click="handleServerQuery('sort', 'mechanic_name')"
+                            :serverQuery="serverQuery"
+                            serverQueryKey="mechanic_name"
+                        >
+                            Dryver Name
+                        </table-header>
+                        <table-header
+                            style="width: 35%"
+                            @click="handleServerQuery('sort', 'mechanic_name')"
+                            :serverQuery="serverQuery"
+                            serverQueryKey="mechanic_name"
+                        >
+                            Vehicle
+                        </table-header>
+                        <table-header
+                            style="width: 35%"
+                            @click="handleServerQuery('sort', 'mechanic_name')"
+                            :serverQuery="serverQuery"
+                            serverQueryKey="mechanic_name"
+                        >
+                            Service
+                        </table-header>
+                        <table-header
+                            style="width: 35%"
+                            @click="handleServerQuery('sort', 'mechanic_name')"
+                            :serverQuery="serverQuery"
+                            serverQueryKey="mechanic_name"
+                        >
+                            Amount
+                        </table-header>
+                         <table-header
+                            style="width: 35%"
+                            @click="handleServerQuery('sort', 'mechanic_name')"
+                            :serverQuery="serverQuery"
+                            serverQueryKey="mechanic_name"
+                        >
+                            Status
+                        </table-header>
                         <table-header
                             style="width: 35%"
                             @click="handleServerQuery('sort', 'mechanic_name')"
@@ -414,16 +475,21 @@ let {
                         v-for="tableData in paginatedData.data"
                         :key="tableData"
                     >
-                        <!-- <td>
+                        <td>
                             <div class="avatar avatar-lg">
                                 <img
                                     style="object-fit: cover"
-                                    :src="tableData.images_url"
+                                    src=""
                                     alt="Avatar"
                                     class="rounded-circle"
                                 />
                             </div>
-                        </td> -->
+                        </td>
+                        <td>{{tableData.user.name}}</td>
+                        <td> {{ tableData}}</td>
+                        <td>{{ tableData.item }}</td>
+                        <td>{{ tableData.total_amount }}</td>
+                        <td>{{ tableData.status }}</td>
                         <td style="width: 35%">{{ tableData.mechanic_name }}</td>
                         <td style="width: 20%">{{ tableData.mechanic_contact_number }}</td>
                         <td style="width: 30%">{{ tableData.mechanic_address }}</td>

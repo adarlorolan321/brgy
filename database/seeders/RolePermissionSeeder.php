@@ -65,6 +65,16 @@ class RolePermissionSeeder extends Seeder
             'update repair',
             'destroy repair',
             'show repair',
+
+            
+            'access rescue_log',
+            'create rescue_log',
+            'store rescue_log',
+            'edit rescue_log',
+            'update rescue_log',
+            'destroy rescue_log',
+            'show rescue_log',
+            
         ];
         $roles = [
             'Admin' => $permissions,

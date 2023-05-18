@@ -30,6 +30,14 @@ class StoreVehicleRequest extends FormRequest
             "plate_number" => ["required"],
             'odometer' => ['nullable'],
             "color" => ["required"],
+            
+            "chassis_number" => ['required'],
+            "engine_number" => ['required'],
+            "orcr_number" => ['required'],
+            "expiration_date" => ['required'],
+            "insurance_company" => ['nullable'],
+            "insurance_policy_number" => ['nullable'],
+
         ];
     }
 }

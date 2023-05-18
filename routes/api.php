@@ -8,6 +8,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\Repair\RepairController;
 use App\Http\Controllers\Repair\RepairItemController;
+use App\Http\Controllers\Rescue\RescueLogController;
 use App\Http\Controllers\Rescue\RescuerController;
 use App\Http\Controllers\Rescue\RescueServiceController;
 use App\Http\Controllers\Vehicle\VehicleBrandController;
@@ -42,6 +43,7 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
 
     Route::get('/my-rescue-request', [AuthController::class, 'myRescueRequest'])->name('myRescueRequest');
     Route::get('/my-active-vehicle', [AuthController::class, 'myActiveVehicle'])->name('myActiveVehicle');
+    Route::get('/my-information', [AuthController::class, 'myInformation'])->name('myInformation');
     
     
     Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
@@ -55,6 +57,7 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
         'repairs' => RepairController::class,
         'repair_items' => RepairItemController::class,
         'rescue_services' => RescueServiceController::class,
+        'rescue_logs' => RescueLogController::class,
     ]);
 
     Route::post('/drive/start/{id}', [DriveController::class, 'startDrive'])->name('drive.start');
@@ -65,4 +68,6 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
     Route::post('/blowbagets', [BlowbagetsController::class, 'store'])->name('blowbagets.store');
     Route::get('/blowbagets/user-data', [BlowbagetsController::class, 'userData'])->name('blowbagets.userData');
     Route::get('/my-vehicles', [VehicleController::class, 'getUserVehicle'])->name('my-vehicles');
+    Route::get('/my-vehicle-logs', [AuthController::class, 'driveLogs'])->name('my-vehicles-logs');
+    
 });

@@ -33,6 +33,11 @@ class RegisterOTPRequest extends FormRequest
             'mobile_number' => ['required', 'unique:users,mobile_number', 'regex:/^(9)\d{9}$/i'],
             'role' => ['required', Rule::in(['Private Driver', 'Company Driver'])],
             'password' => ['required', 'confirmed'],
+            
+            'license_number' => ['required'],
+            'license_type' => ['required', Rule::in(['Student', 'Non-Professional', 'Professional'])],
+            'expiration_date' => ['required'],
+            'blood_type' => ['nullable'],
         ];
     }
 }

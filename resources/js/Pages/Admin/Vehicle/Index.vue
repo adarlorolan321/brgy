@@ -39,6 +39,12 @@ const formObject = {
     assigned_to: 1,
     plate_number: null,
     image: null,
+    chassis_number: null,
+    engine_number: null,
+    orcr_number: null,
+    expiration_date: null,
+    insurance_company: null,
+    insurance_policy_number: null,
 };
 
 const { validateForm } = useValidateForm();
@@ -63,7 +69,10 @@ let {
     <div class="card card-action custom-container-card">
         <div class="card-header">
             <div class="card-action-title align-items-center">
-                <h5 class="card-title">Vehicle</h5>
+                <h4 class="fw-bold py-3 mb-4 card-title">
+                    <span class="text-muted fw-light">Vehicles /</span>
+                    Company Vehicle
+                </h4>
             </div>
             <div class="card-action-element">
                 <button class="btn btn-primary" type="button" @click="handleCreate" data-bs-toggle="offcanvas"
@@ -115,17 +124,9 @@ let {
                                 v-model="form.vehicle_type_id"
                                 :reduce="(vehicle_type_id) => vehicle_type_id.id"
                                 label="name" 
-                                @input="
-                                    ($event) => {
-                                        form.clearErrors('vehicle_type_id');
-                                        validateForm(
-                                            ['required'],
-                                            form,
-                                            $event.target.value,
-                                            'vehicle_type_id'
-                                        );
-                                    }"
+                                @update:modelValue="form.clearErrors('vehicle_type_id')"
                                 placeholder="Select Type" 
+                                :class="{ 'is-invalid': form.errors.vehicle_type_id }"
                             >
                             </v-select> 
                             <div class="invalid-feedback">
@@ -272,13 +273,141 @@ let {
                             </div>
                         </div>
 
-                        <button class="btn btn-primary" @click="createPromise" :disabled="form.processing || form.hasErrors"
+                        <div class="form-group mb-3">
+                            <label for="">Chassis Number <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.chassis_number" 
+                                @input="($event) => {
+                                        form.clearErrors('chassis_number');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'chassis_number'
+                                        );
+                                    }" 
+                                placeholder="Enter Chassis Number" 
+                                :class="{ 'is-invalid': form.errors.chassis_number, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.chassis_number }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Engine Number <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.engine_number" 
+                                @input="($event) => {
+                                        form.clearErrors('engine_number');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'engine_number'
+                                        );
+                                    }" 
+                                placeholder="Enter Engine Number" 
+                                :class="{ 'is-invalid': form.errors.engine_number, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.engine_number }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">ORCR Number <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.orcr_number" 
+                                @input="($event) => {
+                                        form.clearErrors('orcr_number');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'orcr_number'
+                                        );
+                                    }" 
+                                placeholder="Enter ORCR Number" 
+                                :class="{ 'is-invalid': form.errors.orcr_number, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.orcr_number }}
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="">Expiration Date <span class="required">*</span></label>
+                            <input
+                                type="date"
+                                class="form-control dob-picker"
+                                placeholder="YYYY-MM-DD"
+                                v-model="form.expiration_date"
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.expiration_date }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Insurance Company</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.insurance_company" 
+                                @input="($event) => {
+                                        form.clearErrors('insurance_company');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'insurance_company'
+                                        );
+                                    }" 
+                                placeholder="Enter Insurance Company" 
+                                :class="{ 'is-invalid': form.errors.insurance_company, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.insurance_company }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Insurance Policy Number</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.insurance_policy_number" 
+                                @input="($event) => {
+                                        form.clearErrors('insurance_policy_number');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'insurance_policy_number'
+                                        );
+                                    }" 
+                                placeholder="Enter Insurance Policy Number" 
+                                :class="{ 'is-invalid': form.errors.insurance_policy_number, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.insurance_policy_number }}
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" @click="createPromise"
                             v-if="formState == 'create'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
                             Save
                         </button>
-                        <button class="btn btn-primary" @click="updatePromise" :disabled="form.processing || form.hasErrors"
+                        <button class="btn btn-primary" @click="updatePromise"
                             v-if="formState == 'update'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
@@ -346,8 +475,24 @@ let {
                         <h6 class="pb-0 mb-0 card-text small-text">Last Driven By: {{ vehicle.is_driving }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">Current Odometer: {{ vehicle.odometer }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">Blowbadgets: {{ vehicle.blowbagets_id }}</h6>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3" @click="handleEdit(vehicle)"><i class="ti-xs me-1 ti ti-truck me-1"></i>Edit Vehicle</a>
+                        <div class="d-flex align-items-center justify-content-center mt-3">
+                            <a 
+                                href="javascript:;" 
+                                class="btn btn-primary d-flex align-items-center me-3" 
+                                @click="handleEdit(vehicle)">
+                                <i class="ti-xs me-1 ti ti-truck me-1"></i>
+                                Edit Vehicle
+                            </a>
+
+                            <a 
+                                href="javascript:;" 
+                                class="btn btn-label-secondary btn-icon waves-effect" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#editUser"
+                                type="button"
+                                >
+                                <i class="ti-xs me-1 ti ti-eye ti-sm"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -385,6 +530,104 @@ let {
             </div>
         </div>
     </div>
+    <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+            <div class="modal-content p-3 p-md-5">
+                <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center mb-4">
+                    <h3 class="mb-2">Repairs Information</h3>
+                    <p class="text-muted">This show the summary of repairs.</p>
+                    </div>
+                    <form id="editUserForm" class="row g-3" onsubmit="return false">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="modalEditUserFirstName">Driver Name</label>
+                            <input
+                            type="text"
+                            id="modalEditUserFirstName"
+                            name="modalEditUserFirstName"
+                            class="form-control"
+                            readonly
+                            />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="modalEditUserLastName">Vehicle Model</label>
+                            <input
+                            type="text"
+                            id="modalEditUserLastName"
+                            name="modalEditUserLastName"
+                            class="form-control"
+                            readonly
+                            />
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label" for="modalEditUserName">Vehicle Type</label>
+                            <input
+                            type="text"
+                            id="modalEditUserName"
+                            name="modalEditUserName"
+                            class="form-control"
+                            readonly
+                            />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="modalEditUserEmail">Vehicle Brand</label>
+                            <input
+                            type="text"
+                            id="modalEditUserEmail"
+                            name="modalEditUserEmail"
+                            class="form-control"
+                            readonly
+                            />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="modalEditUserStatus">Vehicle Year</label>
+                            <input
+                                type="text"
+                                id="modalEditUserEmail"
+                                name="modalEditUserEmail"
+                                class="form-control"
+                                readonly
+                            />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="modalEditTaxID">Item/Service Name</label>
+                            <input
+                            type="text"
+                            id="modalEditTaxID"
+                            name="modalEditTaxID"
+                            class="form-control modal-edit-tax-id"
+                            readonly
+                            />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="modalEditUserPhone">Amount</label>
+                            <div class="input-group">
+                            <span class="input-group-text">PHP</span>
+                            <input
+                                type="text"
+                                id="modalEditUserPhone"
+                                name="modalEditUserPhone"
+                                class="form-control phone-number-mask"
+                                readonly
+                            />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <label class="form-label" for="modalEditTaxID">Status</label>
+                            <input
+                            type="text"
+                            id="modalEditTaxID"
+                            name="modalEditTaxID"
+                            class="form-control modal-edit-tax-id"
+                            readonly
+                            />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
 </template>
 <style lang="scss">
 .custom-container-card {

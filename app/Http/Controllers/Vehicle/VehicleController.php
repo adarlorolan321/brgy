@@ -10,6 +10,7 @@ use App\Http\Requests\Vehicle\UpdateVehicleRequest;
 use App\Models\Media;
 use App\Models\Vehicle\VehicleBrand;
 use App\Models\Vehicle\VehicleType;
+use App\Models\Province;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -50,11 +51,13 @@ class VehicleController extends Controller
 
         $brands = VehicleBrand::all();
         $types = VehicleType::all();
+        $provinces = Province::all();
         $props = [
             'data' => VehicleListResource::collection($data),
             'params' => $request->all(),
             'brands' => $brands,
-            'types' => $types
+            'types' => $types,
+            'provinces' => $provinces,
         ];
 
         if ($request->wantsJson()) {
@@ -90,6 +93,14 @@ class VehicleController extends Controller
                 ]);
         }
 
+        if (isset($request->input('insurance_photo', [])['id'])) {
+            Media::where('id', $request->input('insurance_photo', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
+        
+
         if ($request->wantsJson()) {
             return new VehicleListResource($data);
         }
@@ -102,15 +113,23 @@ class VehicleController extends Controller
     public function show(Request $request, string $id)
     {
         $data = Vehicle::findOrFail($id);
-        $data->load(['brand', 'type', 'user', 'logs' => [
-            'user',
-            'logs'
-        ]]);
+        $data->load([
+            'brand', 
+            'type', 
+            'user', 
+            'repairs' => [
+                'vehicle' => ['type', 'brand']
+            ],
+            'logs' => [
+                'user',
+                'logs'
+            ]
+        ]);
 
         if ($request->wantsJson()) {
             return new VehicleListResource($data);
         }
-        return Inertia::render('Admin/Vehicle/Show', [
+        return Inertia::render('Admin/Vehicle/Index', [
             'data' => $data
         ]);
     }
@@ -147,7 +166,19 @@ class VehicleController extends Controller
         } else {
             $data->clearMediaCollection('image');
         }
+
         
+        if (isset($request->input('insurance_photo', [])['id'])) {
+            if ($request->input('insurance_photo', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('insurance_photo');
+            }
+            Media::where('id', $request->input('insurance_photo', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('insurance_photo');
+        }
 
         if ($request->wantsJson()) {
             return (new VehicleListResource($data))

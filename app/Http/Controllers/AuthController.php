@@ -7,10 +7,13 @@ use App\Http\Requests\User\RegisterRequest;
 use App\Http\Resources\User\RequestRescueLogResource;
 use App\Http\Traits\SMSHandler;
 use App\Models\Blowbagets;
+use App\Models\Media;
 use App\Models\Message;
 use App\Models\RequestRescueLog;
+use App\Models\Rescue\RescueLog;
 use App\Models\User;
 use App\Models\Vehicle\Vehicle;
+use App\Models\Vehicle\VehicleDriveLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -114,6 +117,33 @@ class AuthController extends Controller
                 $user->syncRoles([$request->input('role')]);
                 $user['token'] = $token->plainTextToken;
                 $message->update(['status' => false]);
+
+
+                 //Upload Profile Photo
+                if (isset($request->input('profile_photo', [])['id'])) {
+                    Media::where('id', $request->input('profile_photo', [])['id'])
+                        ->update([
+                            'model_id' => $user->id
+                        ]);
+                }
+
+                
+                 //Upload Profile Photo
+                 if (isset($request->input('license_front', [])['id'])) {
+                    Media::where('id', $request->input('license_front', [])['id'])
+                        ->update([
+                            'model_id' => $user->id
+                        ]);
+                }
+
+                 //Upload Profile Photo
+                 if (isset($request->input('license_back', [])['id'])) {
+                    Media::where('id', $request->input('license_back', [])['id'])
+                        ->update([
+                            'model_id' => $user->id
+                        ]);
+                }
+
                 return json_encode($user);
             } else {
                 throw ValidationException::withMessages(['otp' => 'Invalid Verification Code.']);
@@ -125,8 +155,9 @@ class AuthController extends Controller
 
     public function myRescueRequest()
     {
-        $rescueRequests  = RequestRescueLog::with(['rescuer'])->where('user_id', auth()->user()->id)
-            ->get();
+        $rescueRequests  = RescueLog::with(['rescuer'])
+                ->where('user_id', auth()->user()->id)
+                ->get();
         return RequestRescueLogResource::collection($rescueRequests);
     }
 
@@ -138,5 +169,34 @@ class AuthController extends Controller
             ->first();
         
         return new RequestRescueLogResource($activeVehicle);
+    }
+
+    public function myInformation(){
+        return auth()->user();
+    }
+
+    public function updateProfilePhoto(Request $request)
+    {
+        $data = User::find(auth()->user()->id);
+        
+        if (isset($request->input('profile_photo', [])['id'])) {
+            if ($request->input('profile_photo', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('profile_photo');
+            }
+            Media::where('id', $request->input('profile_photo', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('profile_photo');
+        }
+    }
+
+    public function driveLogs() {
+        $driveLogs = VehicleDriveLog::where('user_id', auth()->user()->id)
+                        ->with(['logs', 'vehicle' => ['brand', 'type']])
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+        return new RequestRescueLogResource($driveLogs);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class RegisterRequest extends FormRequest
+class UpdateDriverRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,22 +29,21 @@ class RegisterRequest extends FormRequest
             'gender' => ['required'],
             'province' => ['required'],
             'city' => ['required'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'mobile_number' => ['required', 'unique:users,mobile_number', 'regex:/^(9)\d{9}$/i'],
-            'password' => ['required', 'confirmed'],
+            'email' => [
+                'required', 
+                'email', 
+                // 'unique:users,email,'. $this->id
+            ],
+            'mobile_number' => [
+                'required', 
+                // 'unique:users,mobile_number,' . $this->id, 'regex:/^(?:(\+63?9)|0?9)\d{9}$/i'
+            ],
+            'password' => ['nullable', 'confirmed'],
             'role' => ['required', Rule::in(['Private Driver', 'Company Driver'])],
-            'otp' => ['required'],
             'license_number' => ['required'],
             'license_type' => ['required', Rule::in(['Student', 'Non-Professional', 'Professional'])],
             'expiration_date' => ['required'],
             'blood_type' => ['nullable'],
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'mobile_number.regex' => 'Invalid mobile number format'
         ];
     }
 }

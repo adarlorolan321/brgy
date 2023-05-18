@@ -2,20 +2,43 @@
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 export default {
     layout: AdminLayout,
+    props: {
+        data: Object,
+        provinces: Object,
+    },
 };
 </script>
 
 <script setup>
+import { ref, computed  } from 'vue';
 import { useCrud } from "@/Composables/Crud.js";
 import { useValidateForm } from "@/Composables/Validate.js";
 import { usePage, Head } from "@inertiajs/vue3";
 const { props } = usePage();
 const formObject = {
-    name: null,
+    first_name: null,
+    last_name: null,
+    middle_name: null,
+    gender: null,
+    province: null,
+    city: null,
+    email: null,
+    mobile_number: null,
+    password: null,
+    password_confirmation:null,
+    role: null,
+    status: null,
+    license_number: null,
+    license_type: null,
+    expiration_date: null,
+    blood_type: null,
+    license_front: null,
+
 };
 const { validateForm } = useValidateForm();
-const routeName = "dryver";
+const routeName = "drivers";
 let {
+    isLoadingComponents,
     paginatedData,
     form,
     createPromise,
@@ -30,18 +53,47 @@ let {
 
 const gender = [
     {
-        name: 'Private',
-        value: 'private'
+        name: 'Male',
+        value: 'male'
     },
     {
-        name: 'Public',
-        value: 'public'
+        name: 'Female',
+        value: 'female'
+    },
+    {
+        name: 'Prefer not to say',
+        value: 'prefer_not_to_say'
     }
 ]
+const roles = [
+    {
+        name: 'Private Driver',
+        value: 'Private Driver'
+    },
+    {
+        name: 'Company Driver',
+        value: 'Company Driver'
+    }
+]
+const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
+
+// const provinces = ref(props.provinces)
+// const getCities = computed(() => {
+//     if (form.province) {
+//         const selectedProvince = provinces.value.find(
+//             (province) => province.name === form.province
+//         );
+//         return selectedProvince ? selectedProvince.cities : [];
+//     } else {
+//         return [];
+//     }
+// });
+
 </script>
 
 <template>
     <Head title="Driver"></Head>
+    <!-- {{ provinces }} -->
     <div class="card card-action custom-container-card">
         <div class="card-header">
             <div class="card-action-title align-items-center">
@@ -65,118 +117,172 @@ const gender = [
                     </div>
                     <div class="offcanvas-body mx-0 flex-grow-0 pt-0">
                         <div class="form-group mb-3">
-                            <label for="">Email <span class="required">*</span></label>
-                            <input type="email" class="form-control" v-model="form.name" @input="
-                                ($event) => {
-                                    form.clearErrors('name');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'name'
-                                    );
-                                }
-                            " placeholder="Enter Email" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
-                            <div class="invalid-feedback">
-                                {{ form.errors.name }}
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-3">
                             <label for="">First Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
+                            <input type="text" class="form-control" v-model="form.first_name" @input="
                                 ($event) => {
-                                    form.clearErrors('name');
+                                    form.clearErrors('first_name');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'name'
+                                        'first_name'
                                     );
                                 }
                             " placeholder="Enter First Name" :class="{
-                                'is-invalid': form.errors.name,
+                                'is-invalid': form.errors.first_name,
                             }" />
                             <div class="invalid-feedback">
-                                {{ form.errors.name }}
+                                {{ form.errors.first_name }}
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Middle Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
-                                ($event) => {
-                                    form.clearErrors('name');
+                            <input type="text" class="form-control" v-model="form.middle_name" @input="($event) => {
+                                    form.clearErrors('middle_name');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'name'
+                                        'middle_name'
                                     );
                                 }
-                            " placeholder="Enter Middle Name" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
+                                " placeholder="Enter Middle Name" 
+                                :class="{
+                                    'is-invalid': form.errors.middle_name,
+                                }" />
                             <div class="invalid-feedback">
-                                {{ form.errors.name }}
+                                {{ form.errors.middle_name }}
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Last Name <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.name" @input="
-                                ($event) => {
-                                    form.clearErrors('name');
+                            <input type="text" class="form-control" v-model="form.last_name" @input="($event) => {
+                                    form.clearErrors('last_name');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'name'
+                                        'last_name'
                                     );
                                 }
-                            " placeholder="Enter Last Name" :class="{
-                                'is-invalid': form.errors.name,
-                            }" />
+                                " placeholder="Enter Last Name" :class="{
+                                    'is-invalid': form.errors.last_name,
+                                }" />
                             <div class="invalid-feedback">
-                                {{ form.errors.name }}
+                                {{ form.errors.last_name }}
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Select Gender <span class="required">*</span></label>
-                            <v-select v-select :options="gender" label="name"></v-select> 
+                            <label for="">Gender <span class="required">*</span></label>
+                            <v-select 
+                                v-select 
+                                :options="gender" 
+                                v-model="form.gender"
+                                :reduce="(gender) => gender.value"
+                                label="name" 
+                                @input="($event) => {
+                                        form.clearErrors('gender');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'gender'
+                                        );
+                                    }"
+                                class="custom-select"
+                                :class="{
+                                    'is-invalid': form.errors.gender,
+                                }"
+                                placeholder="Select Gender">
+                            </v-select>  
+                            <div class="invalid-feedback">
+                                {{ form.errors.gender }}
+                            </div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Select Province <span class="required">*</span></label>
-                            <v-select v-select :options="province"></v-select> 
+                            <label for="">Enter Province <span class="required">*</span></label>
+                            <v-select 
+                                :options="provinces" 
+                                v-model="form.province"
+                                label="name" 
+                                @update:modelValue="form.clearErrors('province')"
+                                class="custom-select"
+                                :class="{
+                                        'is-invalid': form.errors.province,
+                                    }"
+                                placeholder="Select Province">
+                            </v-select>  
+                            <div class="invalid-feedback">
+                                {{ form.errors.province }}
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="">Enter City <span class="required">*</span></label>
+                            <v-select 
+                                :options="provinces.cities" 
+                                v-model="form.city"
+                                label="name" 
+                                @update:modelValue="form.clearErrors('city')"
+                                class="custom-select"
+                                :class="{
+                                    'is-invalid': form.errors.city,
+                                }"
+                                placeholder="Select City">
+                            </v-select>  
+                            <div class="invalid-feedback">
+                                {{ form.errors.city }}
+                            </div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Select City <span class="required">*</span></label>
-                            <v-select v-select :options="city"></v-select> 
+                            <label for="">Enter Email <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.email"         
+                                @input="($event) => {
+                                        form.clearErrors('email');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'email'
+                                        );
+                                    }
+                                    " 
+                                placeholder="Enter Email" 
+                                :class="{
+                                        'is-invalid': form.errors.email,
+                                    }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.email }}
+                            </div>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="">Mobile Number <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.number" @input="
+                            <input type="text" class="form-control" v-model="form.mobile_number" @input="
                                 ($event) => {
-                                    form.clearErrors('number');
+                                    form.clearErrors('mobile_number');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'number'
+                                        'mobile_number'
                                     );
                                 }
                             " 
                             placeholder="Enter Mobile Number" 
-                            :class="{'is-invalid': form.errors.number,}" 
+                            :class="{'is-invalid': form.errors.mobile_number,}" 
                             />
                             <div class="invalid-feedback">
-                                {{ form.errors.number }}
+                                {{ form.errors.mobile_number }}
                             </div>
                         </div>
 
@@ -202,33 +308,237 @@ const gender = [
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Confirm Password <span class="required">*</span></label>
-                            <input type="password" class="form-control" v-model="form.confirm_password" @input="
+                            <label for="">Confirm Password</label>
+                            <input type="password" class="form-control" v-model="form.password_confirmation" @input="
                                 ($event) => {
-                                    form.clearErrors('confirm_password');
+                                    form.clearErrors('password_confirmation');
                                     validateForm(
                                         ['required'],
                                         form,
                                         $event.target.value,
-                                        'confirm_password'
+                                        'password_confirmation'
                                     );
                                 }
                             " 
                             placeholder="Enter Confirm Password" 
-                            :class="{ 'is-invalid': form.errors.confirm_password, }" 
+                            :class="{ 'is-invalid': form.errors.password_confirmation, }" 
                             />
                             <div class="invalid-feedback">
-                                {{ form.errors.confirm_password }}
+                                {{ form.errors.password_confirmation }}
                             </div>
                         </div>
 
-                        <button class="btn btn-primary" @click="createPromise" :disabled="form.processing || form.hasErrors"
+                        <div class="form-group mb-3">
+                            <label for="">Select Role <span class="required">*</span></label>
+                            <v-select 
+                                :options="roles" 
+                                v-model="form.role"
+                                :reduce="(role) => role.value"
+                                label="name" 
+                                @input="($event) => {
+                                    form.clearErrors('role');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'role'
+                                    );
+                                }"
+                                :class="{
+                                    'is-invalid': form.errors.role,
+                                }"
+                                placeholder="Select Role">
+                            </v-select> 
+                            <div class="invalid-feedback">
+                                {{ form.errors.role }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Status</label>
+                            <input type="text" class="form-control" v-model="form.status" @input="($event) => {
+                                    form.clearErrors('status');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'status'
+                                    );
+                                }
+                                " 
+                            placeholder="Enter Status" 
+                            :class="{ 'is-invalid': form.errors.status, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.status }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">License Number <span class="required">*</span></label>
+                            <input type="text" class="form-control" v-model="form.license_number" @input="($event) => {
+                                    form.clearErrors('license_number');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'license_number'
+                                    );
+                                }
+                                " 
+                            placeholder="Enter License Number" 
+                            :class="{ 'is-invalid': form.errors.license_number, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.license_number }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Select License Type <span class="required">*</span></label>
+                            <v-select 
+                                :options="licenseTypeList" 
+                                v-model="form.license_type"
+                                label="name" 
+                                @input="($event) => {
+                                        form.clearErrors('license_type');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'license_type'
+                                        );
+                                    }"
+                                :class="{
+                                        'is-invalid': form.errors.license_type,
+                                    }"
+                                placeholder="Select License Type">
+                            </v-select> 
+                            <div class="invalid-feedback">
+                                {{ form.errors.license_type }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Expiration Date <span class="required">*</span></label>
+                           <input
+                                type="date"
+                                class="form-control dob-picker"
+                                placeholder="YYYY-MM-DD"
+                                v-model="form.expiration_date"
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.expiration_date }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="">Blood Type</label>
+                            <input type="text" class="form-control" v-model="form.blood_type" @input="($event) => {
+                                    form.clearErrors('blood_type');
+                                    validateForm(
+                                        ['required'],
+                                        form,
+                                        $event.target.value,
+                                        'blood_type'
+                                    );
+                                }
+                                " 
+                            placeholder="Enter Blood Type" 
+                            :class="{ 'is-invalid': form.errors.blood_type, }" 
+                            />
+                            <div class="invalid-feedback">
+                                {{ form.errors.blood_type }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4 dropzone-profile-photo">
+                            <label for="name">License Front</label>
+                            <dropzone
+                                collection="license_front"
+                                v-if="isLoadingComponents"
+                                :url="route('api.media.upload')"
+                                type="profile"
+                                model="User"
+                                :value="form.license_front"
+                                @input="($event) => {
+                                        form.license_front = $event;
+                                        form.clearErrors('license_front');
+                                    }
+                                    "
+                                message="Drop files here or click to upload profile photo"
+                                acceptedFiles="image/jpeg,image/png"
+                                @error="($event) => {
+                                        if ($event && $event[0]) {
+                                            form.setError('license_front', $event[0]);
+                                        }
+                                    }
+                                    "
+                            >
+                            </dropzone>
+                            <div v-else>
+                                <div class="dropzone" ref="dropzone">
+                                    <div class="dz-message needsclick">
+                                        Please Wait
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="v-invalid-feedback"
+                                v-if="form.errors.license_front"
+                            >
+                                {{ form.errors.license_front }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4 dropzone-profile-photo">
+                            <label for="name">License Back</label>
+                            <dropzone
+                                collection="license_back"
+                                v-if="isLoadingComponents"
+                                :url="route('api.media.upload')"
+                                type="profile"
+                                model="User"
+                                :value="form.license_back"
+                                @input="($event) => {
+                                        form.license_back = $event;
+                                        form.clearErrors('license_back');
+                                    }
+                                    "
+                                message="Drop files here or click to upload profile photo"
+                                acceptedFiles="image/jpeg,image/png"
+                                @error="($event) => {
+                                        if ($event && $event[0]) {
+                                            form.setError('license_back', $event[0]);
+                                        }
+                                    }
+                                    "
+                            >
+                            </dropzone>
+                            <div v-else>
+                                <div class="dropzone" ref="dropzone">
+                                    <div class="dz-message needsclick">
+                                        Please Wait
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="v-invalid-feedback"
+                                v-if="form.errors.license_back"
+                            >
+                                {{ form.errors.license_back }}
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" @click="createPromise"
                             v-if="formState == 'create'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
                             Submit
                         </button>
-                        <button class="btn btn-primary" @click="updatePromise" :disabled="form.processing || form.hasErrors"
+                        <button class="btn btn-primary" @click="updatePromise"
                             v-if="formState == 'update'">
                             <span v-if="form.processing" class="spinner-border me-1" role="status"
                                 aria-hidden="true"></span>
@@ -262,10 +572,12 @@ const gender = [
                     <div class="d-flex gap-2 align-items-center">
                         <div class="w-auto">Filter by Type:</div>
                         <div class="form-group" style="width: 70%">
-                            <select class="form-select" id="basic-default-country" required>
-                                <option value="" hidden>Select Driver Type</option>
-                                <option value="usa">Private</option>
-                                <option value="uk">Public</option>
+                            <select class="form-select" id="basic-default-country" :value="serverQuery.role" @input="handleServerQuery(
+                                    'role',
+                                    $event.target.value
+                                )">
+                                <option value="Private Driver">Private Driver</option>
+                                <option value="Company Driver">Company Driver</option>
                             </select>
                         </div>
                     </div>
@@ -287,48 +599,88 @@ const gender = [
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-4" v-for="n in 3" :key="n">
-                <div class="card custom-card__hero">
-                    <div class="user-profile-header-banner">
-                        <img class="banner-custom-img"
-                            src="../../../../../public/assets/img/pages/auth-car4-login-illustration-black.png" alt="">
+            <div class="col-xl-4 col-lg-4 col-md-4" v-for="(driver, index) in data.data" :key="index">
+                <div class="card mb-4 custom-card__hero">
+                    <div class="dropdown btn-pinned">
+                                <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="ti ti-dots-vertical text-muted"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
+                                        data-bs-target="#editUser">Drive Logs</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
+                                        data-bs-target="#editUser">Repair Logs</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
+                                        data-bs-target="#editUser">Rescue Logs</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+                                    <li><a class="dropdown-item text-danger"  @click="deletePromise(driver.id)">Delete</a></li>
+                                </ul>
+                            </div>
+                    <div class="card-body">
+                        <div class="user-avatar-section">
+                        <div class="d-flex align-items-center flex-column">
+                            <img
+                            class="img-fluid rounded mb-3 pt-1 mt-4"
+                            src="../../../../../public/assets/img/avatars/3.png"
+                            height="100"
+                            width="100"
+                            alt="User avatar"
+                            />
+                            <div class="user-info text-center">
+                            <h4 class="mb-2">{{driver.name}}</h4>
+                            <span class="badge bg-label-secondary mt-1">{{driver.role}}</span>
+                            </div>
+                        </div>
+                        </div>
+                        <p class="mt-3 small text-uppercase text-muted">Details</p>
+                        <div class="info-container">
+                        <ul class="list-unstyled">
+                            <li class="">
+                                <span class="fw-semibold me-1 small-text">Email:</span>
+                                <span class="small-text">{{driver.email}}</span>
+                            </li>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Gender:</span>
+                                <span class="small-text">{{driver.gender ? driver.gender : 'No Data'}}</span>
+                            </li>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Status:</span>
+                                <span class="badge bg-label-success small-text">Driving..</span>
+                            </li>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Contact:</span>
+                                <span class="small-text">{{driver.mobile_number ? driver.mobile_number : 'No Data'}}</span>
+                            </li>
+                            <li class=" pt-1">
+                                <span class="fw-semibold me-1 small-text">Address:</span>
+                                <span class="small-text">{{ driver.province || driver.city ? `${driver.province || ''} ${driver.city || ''}` : 'No Data' }}</span>
+                            </li>
+                        </ul>
+                        <div class="d-flex justify-content-center">
+                            <a 
+                                href="javascript:;" 
+                                class="btn btn-primary d-flex align-items-center me-3" 
+                                @click="handleEdit(driver)"
+                                v-if="driver.role == 'Company Driver'"
+                                >
+                                <i class="ti-xs me-1 ti ti-truck me-1"></i>Manage Driver
+                            </a>
+                            <a 
+                                href="javascript:;" 
+                                class="btn btn-label-secondary btn-icon"
+                            >
+                                <i class="ti ti-mail ti-sm"></i>
+                            </a>
+                        </div>
+                        </div>
                     </div>
-                    <div class="card-body text-center">
-                        <div class="dropdown btn-pinned">
-                            <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                <i class="ti ti-dots-vertical text-muted"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
-                                        data-bs-target="#editUser">Activity Logs</a></li>
-                                <li>
-                                    <hr class="dropdown-divider" />
-                                </li>
-                                <li><a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a></li>
-                            </ul>
-                        </div>
-                        <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto hero-container">
-                            <img src="../../../../../public/assets/img/avatars/3.png" alt="Avatar Image"
-                                class="d-block  ms-0 rounded-circle user-profile-img hero-profile" />
-                        </div>
-                        <h4 class="mb-1 card-title card-text">Mark Gilbert</h4>
-                        <h6 class="mb-0 card-text small-text">Open in Maps</h6>
-                        <h6 class="mb-0 card-text small-text">London UK</h6>
-                        <h6 class="mb-0 card-text small-text">email@email.com</h6>
-                        <h6 class="pb-0 mb-0 card-text small-text">+63999132312312</h6>
-                        <!-- <span class="badge rounded-pill bg-label-warning pb-2" style="float:left">Driving..</span> -->
-                        <div class="d-flex align-items-center justify-content-center my-3 gap-2">
-                        </div>
-
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a href="javascript:;" class="btn btn-primary d-flex align-items-center me-3"><i
-                                    class="ti-xs me-1 ti ti-truck me-1"></i>Manage Driver</a>
-                            <a href="javascript:;" class="btn btn-label-secondary btn-icon"><i
-                                    class="ti ti-mail ti-sm"></i></a>
-                        </div>
                     </div>
-                </div>
             </div>
         </div>
         <div class="card-footer py-3" v-if="paginatedData && paginatedData.meta.links">
@@ -473,15 +825,13 @@ const gender = [
         </div>
     </div>
 </template>
-<style>
+<style scoped>
 .custom-container-card {
     background: unset !important;
     box-shadow: unset !important;
 }
 
-.custom-card__hero {
-    margin: 10px;
-}
+
 
 .hero-container {
     margin-top: -4.5rem !important;
@@ -498,7 +848,7 @@ const gender = [
 
 .banner-custom-img {
     object-fit: contain !important;
-    height: 270px !important;
+    height: 90px !important;
 }
 
 .small-text {

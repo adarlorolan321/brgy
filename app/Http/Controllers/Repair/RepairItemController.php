@@ -28,12 +28,6 @@ class RepairItemController extends Controller
 
         $data = RepairItem::query()
             ->with([])
-            ->where(function($query) use ($request){
-                if(!auth()->user()->hasRole('Admin'))
-                {
-                    $query->where('user_id', auth()->user()->id);
-                }
-            })
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {
                     $query->where('item', 'like', '%' . $queryString . '%')

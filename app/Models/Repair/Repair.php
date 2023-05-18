@@ -22,6 +22,7 @@ class Repair extends Model implements HasMedia
         "mechanic_address",
         "user_id",
         "vehicle_id",
+        "item",
         'total_amount',
         'status'
     ];
@@ -67,11 +68,5 @@ class Repair extends Model implements HasMedia
     public function vehicle(){
         return $this->belongsTo(Vehicle::class);
     }
-
-    public function items(){
-        return $this->hasMany(RepairItem::class);
-    }
-
-
 
 }
