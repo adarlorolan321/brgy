@@ -398,7 +398,7 @@ const status = ['Pending', 'Confirmed'];
                 <thead class="table-light">
                     <tr>
                         <th></th>
-                        <table-header
+                        <!-- <table-header
                             style="width: 35%"
                             @click="handleServerQuery('sort', 'mechanic_name')"
                             :serverQuery="serverQuery"
@@ -429,7 +429,7 @@ const status = ['Pending', 'Confirmed'];
                             serverQueryKey="mechanic_name"
                         >
                             Amount
-                        </table-header>
+                        </table-header> -->
                          <table-header
                             style="width: 35%"
                             @click="handleServerQuery('sort', 'mechanic_name')"
@@ -485,10 +485,10 @@ const status = ['Pending', 'Confirmed'];
                                 />
                             </div>
                         </td>
-                        <td>{{tableData.user.name}}</td>
+                        <!-- <td>{{tableData.user.name}}</td>
                         <td>{{ tableData.vehicle.vehicle_brand_id }} / {{ tableData.vehicle.model }} / {{ tableData.vehicle.vehicle_type_id }} / {{ tableData.vehicle.year }}</td>
                         <td>{{ tableData.item }}</td>
-                        <td>{{ tableData.total_amount }}</td>
+                        <td>{{ tableData.total_amount }}</td> -->
                         <td>{{ tableData.status }}</td>
                         <td style="width: 35%">{{ tableData.mechanic_name }}</td>
                         <td style="width: 20%">{{ tableData.mechanic_contact_number }}</td>
