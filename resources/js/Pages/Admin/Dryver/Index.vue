@@ -77,17 +77,17 @@ const roles = [
 ]
 const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
 
-const provinces = ref(props.provinces)
-const getCities = computed(() => {
-    if (form.province) {
-        const selectedProvince = provinces.value.find(
-            (province) => province.name === form.province
-        );
-        return selectedProvince ? selectedProvince.cities : [];
-    } else {
-        return [];
-    }
-});
+// const provinces = ref(props.provinces)
+// const getCities = computed(() => {
+//     if (form.province) {
+//         const selectedProvince = provinces.value.find(
+//             (province) => province.name === form.province
+//         );
+//         return selectedProvince ? selectedProvince.cities : [];
+//     } else {
+//         return [];
+//     }
+// });
 
 </script>
 
@@ -220,10 +220,11 @@ const getCities = computed(() => {
                                 {{ form.errors.province }}
                             </div>
                         </div>
+                        
                         <div class="form-group mb-3">
                             <label for="">Enter City <span class="required">*</span></label>
                             <v-select 
-                                :options="getCities" 
+                                :options="provinces.cities" 
                                 v-model="form.city"
                                 label="name" 
                                 @update:modelValue="form.clearErrors('city')"
