@@ -479,13 +479,13 @@ const status = ['Pending', 'Confirmed'];
                             <div class="avatar avatar-lg">
                                 <img
                                     style="object-fit: cover"
-                                    :src="tableData.vehicle.image_url"
+                                    src=""
                                     alt="Avatar"
                                     class="rounded-circle"
                                 />
                             </div>
                         </td>
-                        <td>{{tableData.user.name}}</td>
+                        <td>{{tableData.vehicle.image_url}}</td>
                         <td>{{ tableData.vehicle.vehicle_brand_id }} / {{ tableData.vehicle.model }} / {{ tableData.vehicle.vehicle_type_id }} / {{ tableData.vehicle.year }}</td>
                         <td>{{ tableData.item }}</td>
                         <td>{{ tableData.total_amount }}</td>
