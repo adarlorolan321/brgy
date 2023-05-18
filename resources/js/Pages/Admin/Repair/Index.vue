@@ -406,14 +406,14 @@ const status = ['Pending', 'Confirmed'];
                         >
                             Dryver Name
                         </table-header>
-                        <table-header
+                        <!-- <table-header
                             style="width: 35%"
                             @click="handleServerQuery('sort', 'mechanic_name')"
                             :serverQuery="serverQuery"
                             serverQueryKey="mechanic_name"
                         >
                             Vehicle
-                        </table-header>
+                        </table-header> -->
                         <table-header
                             style="width: 35%"
                             @click="handleServerQuery('sort', 'mechanic_name')"
@@ -486,7 +486,7 @@ const status = ['Pending', 'Confirmed'];
                             </div>
                         </td>
                         <td>{{tableData.user.name}}</td>
-                        <td> {{ tableData}}</td>
+                        <!-- <td> {{ tableData}}</td> -->
                         <td>{{ tableData.item }}</td>
                         <td>{{ tableData.total_amount }}</td>
                         <td>{{ tableData.status }}</td>
