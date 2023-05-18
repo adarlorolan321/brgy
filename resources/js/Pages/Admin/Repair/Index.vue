@@ -501,12 +501,6 @@ const status = ['Pending', 'Confirmed'];
                                     href="javascript:void(0);"
                                     ><i class="ti ti-pencil"></i>
                                 </a>
-                                <a
-                                    class="btn btn-icon btn-label-danger waves-effect"
-                                    href="javascript:void(0);"
-                                    @click="deletePromise(tableData.id)"
-                                    ><i class="ti ti-trash"></i>
-                                </a>
                             </div>
                         </td>
                     </tr>
