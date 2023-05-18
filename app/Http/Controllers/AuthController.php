@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\RegisterOTPRequest;
 use App\Http\Requests\User\RegisterRequest;
+use App\Http\Requests\User\UpdateLicenseRequest;
 use App\Http\Resources\User\RequestRescueLogResource;
 use App\Http\Traits\SMSHandler;
 use App\Models\Blowbagets;
@@ -128,21 +129,6 @@ class AuthController extends Controller
                 }
 
                 
-                 //Upload Profile Photo
-                 if (isset($request->input('license_front', [])['id'])) {
-                    Media::where('id', $request->input('license_front', [])['id'])
-                        ->update([
-                            'model_id' => $user->id
-                        ]);
-                }
-
-                 //Upload Profile Photo
-                 if (isset($request->input('license_back', [])['id'])) {
-                    Media::where('id', $request->input('license_back', [])['id'])
-                        ->update([
-                            'model_id' => $user->id
-                        ]);
-                }
 
                 return json_encode($user);
             } else {
@@ -151,6 +137,45 @@ class AuthController extends Controller
         } else {
             throw ValidationException::withMessages(['otp' => 'Verification code expired. Kindly resend for new verification code.']);
         }
+    }
+  
+     
+    public function updateLicense(UpdateLicenseRequest $request)
+    {
+        $data = User::find(auth()->user()->id);
+
+        $data->update([
+            'license_number' => $request->input('license_number'),
+            'license_type' => $request->input('license_type'),
+            'expiration_date' => $request->input('expiration_date'),
+        ]);
+
+        if (isset($request->input('license_front', [])['id'])) {
+            if ($request->input('license_front', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('license_front');
+            }
+            Media::where('id', $request->input('license_front', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('license_front');
+        }
+
+        
+        if (isset($request->input('license_back', [])['id'])) {
+            if ($request->input('license_back', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('license_back');
+            }
+            Media::where('id', $request->input('license_back', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('license_back');
+        }
+        $data->refresh();
+        return json_encode($data);
     }
 
     public function myRescueRequest()
