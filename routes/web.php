@@ -47,7 +47,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
             return Inertia::render('Vehicle', []);
         })->name('vehicle');
 
-    //    Route::get('/dryver', [\App\Http\Controllers\User\DriverController::class, 'store'])->name('dryver/create');
+        Route::get('/drivers/{id}', [App\Http\Controllers\User\DriverController::class, 'show'])->name('driver.show');
+
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,
             'vehicle_types' => VehicleTypeController::class,
