@@ -428,52 +428,36 @@ const status = [
 
                         
                         <div class="form-group mb-3">
-                            <label for="">Select Province <span class="required">*</span></label>
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                v-model="form.province"         
-                                @input="($event) => {
-                                        form.clearErrors('province');
-                                        validateForm(
-                                            ['required'],
-                                            form,
-                                            $event.target.value,
-                                            'province'
-                                        );
-                                    }
-                                    " 
-                                placeholder="Enter Province" 
+                            <label for="">Enter Province <span class="required">*</span></label>
+                            <v-select 
+                                :options="provinces" 
+                                v-model="form.province"
+                                label="name" 
+                                @update:modelValue="form.clearErrors('province')"
+                                class="custom-select"
                                 :class="{
                                         'is-invalid': form.errors.province,
-                                    }" 
-                            />
+                                    }"
+                                placeholder="Select Province">
+                            </v-select>  
                             <div class="invalid-feedback">
                                 {{ form.errors.province }}
                             </div>
                         </div>
-
+                    
                         <div class="form-group mb-3">
-                            <label for="">Select City <span class="required">*</span></label>
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                v-model="form.city"         
-                                @input="($event) => {
-                                        form.clearErrors('city');
-                                        validateForm(
-                                            ['required'],
-                                            form,
-                                            $event.target.value,
-                                            'city'
-                                        );
-                                    }
-                                    " 
-                                placeholder="Enter City" 
+                            <label for="">Enter City <span class="required">*</span></label>
+                            <v-select 
+                                :options="getCities" 
+                                v-model="filteredCities"
+                                label="name" 
+                                @update:modelValue="form.clearErrors('city')"
+                                class="custom-select"
                                 :class="{
-                                    'is-invalid': form.errors.city,
-                                }" 
-                            />
+                                        'is-invalid': form.errors.city,
+                                    }"
+                                placeholder="Select City">
+                            </v-select>  
                             <div class="invalid-feedback">
                                 {{ form.errors.city }}
                             </div>
