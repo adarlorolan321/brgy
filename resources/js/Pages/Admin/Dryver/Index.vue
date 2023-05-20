@@ -6,11 +6,17 @@ export default {
         data: Object,
         provinces: Object,
     },
+    methods: {
+        openModal(id) {
+            // $('#editUser').modal('show');
+            window.location.href = `/drivers/${id}`;
+        },
+    }
 };
 </script>
 
 <script setup>
-import { ref, computed  } from 'vue';
+import { ref, computed, watch  } from 'vue';
 import { useCrud } from "@/Composables/Crud.js";
 import { useValidateForm } from "@/Composables/Validate.js";
 import { usePage, Head } from "@inertiajs/vue3";
@@ -77,23 +83,32 @@ const roles = [
 ]
 const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
 
-// const provinces = ref(props.provinces)
-// const getCities = computed(() => {
-//     if (form.province) {
-//         const selectedProvince = provinces.value.find(
-//             (province) => province.name === form.province
-//         );
-//         return selectedProvince ? selectedProvince.cities : [];
-//     } else {
-//         return [];
-//     }
-// });
+const provinces = ref(props.provinces || []);
+const cities = computed(() => {
+    console.log('select city')
+    if (form.province) {
+        const selectedProvince = provinces.value.find(
+            (province) => province.value === form.province
+        );
+        return selectedProvince ? selectedProvince.cities : [];
+    } else {
+        return [];
+    }
+});
+
+const filteredCities = computed(() => {
+    console.log('provinces')
+    if (form.province) {
+        return cities.value.filter(city => city.province === form.province);
+    } else {
+        return [];
+    }
+});
 
 </script>
 
 <template>
     <Head title="Driver"></Head>
-    <!-- {{ provinces }} -->
     <div class="card card-action custom-container-card">
         <div class="card-header">
             <div class="card-action-title align-items-center">
@@ -204,36 +219,52 @@ const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="">Enter Province <span class="required">*</span></label>
-                            <v-select 
-                                :options="provinces" 
-                                v-model="form.province"
-                                label="name" 
-                                @update:modelValue="form.clearErrors('province')"
-                                class="custom-select"
+                            <label for="">Select Province <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.province"         
+                                @input="($event) => {
+                                        form.clearErrors('province');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'province'
+                                        );
+                                    }
+                                    " 
+                                placeholder="Enter Province" 
                                 :class="{
                                         'is-invalid': form.errors.province,
-                                    }"
-                                placeholder="Select Province">
-                            </v-select>  
+                                    }" 
+                            />
                             <div class="invalid-feedback">
                                 {{ form.errors.province }}
                             </div>
                         </div>
-                        
+
                         <div class="form-group mb-3">
-                            <label for="">Enter City <span class="required">*</span></label>
-                            <v-select 
-                                :options="provinces.cities" 
-                                v-model="form.city"
-                                label="name" 
-                                @update:modelValue="form.clearErrors('city')"
-                                class="custom-select"
+                            <label for="">Select City <span class="required">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                v-model="form.city"         
+                                @input="($event) => {
+                                        form.clearErrors('city');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'city'
+                                        );
+                                    }
+                                    " 
+                                placeholder="Enter City" 
                                 :class="{
-                                    'is-invalid': form.errors.city,
-                                }"
-                                placeholder="Select City">
-                            </v-select>  
+                                        'is-invalid': form.errors.city,
+                                    }" 
+                            />
                             <div class="invalid-feedback">
                                 {{ form.errors.city }}
                             </div>
@@ -599,7 +630,7 @@ const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-4" v-for="(driver, index) in data.data" :key="index">
+            <div class="col-xl-4 col-lg-4 col-md-4" v-for="(driver, index) in data.data" :key="index.id">
                 <div class="card mb-4 custom-card__hero">
                     <div class="dropdown btn-pinned">
                                 <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown"
@@ -607,8 +638,7 @@ const licenseTypeList = ['Student', 'Non-Professional', 'Professional']
                                     <i class="ti ti-dots-vertical text-muted"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
-                                        data-bs-target="#editUser">Drive Logs</a>
+                                    <li><a class="dropdown-item" @click="openModal(driver.id)">Drive Logs</a>
                                     </li>
                                     <li><a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
                                         data-bs-target="#editUser">Repair Logs</a>

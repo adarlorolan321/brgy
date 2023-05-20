@@ -40,14 +40,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
         //     return Inertia::render('Admin/Vehicle/Index', []);
         // })->name('vehicle.index');
 
-        Route::get('/dashboard', function () {
-            return Inertia::render('Welcome', []);
-        })->name('welcome');
+        // Route::get('/dashboard', function () {
+        //     return Inertia::render('Welcome', []);
+        // })->name('welcome');
         Route::get('/vehicle', function () {
             return Inertia::render('Vehicle', []);
         })->name('vehicle');
 
-    //    Route::get('/dryver', [\App\Http\Controllers\User\DriverController::class, 'store'])->name('dryver/create');
+        Route::get('/drivers/{id}', [App\Http\Controllers\User\DriverController::class, 'show'])->name('driver.show');
+
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,
             'vehicle_types' => VehicleTypeController::class,

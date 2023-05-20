@@ -142,7 +142,7 @@ class DriverController extends Controller
         if ($request->wantsJson()) {
             return new DriverResource($data);
         }
-        return Inertia::render('Admin/Driver/Show', [
+        return Inertia::render('Admin/Dryver/Show', [
             'data' => $data
         ]);
     }
