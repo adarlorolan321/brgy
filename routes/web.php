@@ -32,9 +32,9 @@ use App\Http\Controllers\Rescue\RescueLogController;
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['role:Admin'])->group(function () {
 
-        // Route::get('/', function () {
-        //     return Inertia::render('Welcome', []);
-        // })->name('welcome');
+        Route::get('/', function () {
+            return Inertia::render('Welcome', []);
+        })->name('welcome');
 
         // Route::get('/vehicle-index', function () {
         //     return Inertia::render('Admin/Vehicle/Index', []);
