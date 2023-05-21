@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Insurance;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateInsuranceClaimRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class UpdateInsuranceClaimRequest extends FormRequest
             "vehicle_id" => ["required", 'exists:vehicles,id'],
             "police_station_address" => ["required"],
             "police_station_contact_number" => ["required"],
-            "status" => ["required"],
+            "status" => ["required", Rule::in(['Pending', "Insurance Claim In Progress", "Insurance Claimed"])],
             "amount" => ["required"],
             "reason" => ["required"],
             "police_blotter_images" => ['required', 'array'],
