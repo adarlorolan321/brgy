@@ -362,7 +362,7 @@ const { menus } = useMenu();
 onMounted(() => {
     setTimeout(() => {
         loadScript("/assets/js/main.js");
-    }, 1000);
+    }, 200);
 });
 
 const logout = () => {
