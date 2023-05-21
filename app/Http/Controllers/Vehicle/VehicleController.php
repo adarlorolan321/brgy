@@ -117,12 +117,13 @@ class VehicleController extends Controller
             'brand', 
             'type', 
             'user', 
-            'repairs' => [
-                'vehicle' => ['type', 'brand']
-            ],
+            'repairs',
             'logs' => [
                 'user',
                 'logs'
+            ],
+            'insurance_claims' => [
+                'user'
             ]
         ]);
 

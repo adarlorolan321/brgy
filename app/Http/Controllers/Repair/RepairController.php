@@ -12,6 +12,7 @@ use App\Models\Repair\RepairItem;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Vehicle\Vehicle;
+use Illuminate\Support\Facades\DB;
 
 class RepairController extends Controller
 {
@@ -41,7 +42,20 @@ class RepairController extends Controller
                         ->orWhere('mechanic_contact_number', 'like', '%' . $queryString . '%')
                         ->orWhere('status', 'like', '%' . $queryString . '%')
                         ->orWhere('item', 'like', '%' . $queryString . '%')
-                        ->orWhere('mechanic_address', 'like', '%' . $queryString . '%');
+                        ->orWhere('mechanic_address', 'like', '%' . $queryString . '%')
+                        ->orWhereHas('user', function($query) use ($queryString){
+                            $query->where(DB::raw("CONCAT(first_name, ' ', middle_name, ' ', last_name)"), 'like', '%' . $queryString . '%');
+                        })
+                        ->orWhereHas('vehicle', function($query) use ($queryString){
+                            $query->where('model', 'like', '%' . $queryString . '%')
+                             ->orWhere('year', 'like', '%' . $queryString . '%');
+                        })
+                        ->orWhereHas('vehicle.type', function($query) use ($queryString){
+                            $query->where('name', 'like', '%' . $queryString . '%');
+                        })
+                        ->orWhereHas('vehicle.brand', function($query) use ($queryString){
+                            $query->where('name', 'like', '%' . $queryString . '%');
+                        });
                 }
             })
             ->when(count($sort) == 1, function ($query) use ($sort, $order) {
@@ -146,7 +160,9 @@ class RepairController extends Controller
         $data->update($request->validated());
 
         
-        Media::where('model_id', $id)->update([
+        Media::where('model_id', $id)
+                ->where('model_type', 'App\Models\Repair\Repair')
+                ->update([
                     'model_id' => 0
                 ]);
 

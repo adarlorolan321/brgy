@@ -55,7 +55,7 @@ class Repair extends Model implements HasMedia
         $images = [];
 
         foreach ($medias as $media) {
-            $images[] = $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->name . '&color=8176f2&background=F8F7FA';
+            $images[] = $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=R&color=8176f2&background=F8F7FA';
         }
 
         return $images;
