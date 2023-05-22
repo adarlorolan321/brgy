@@ -132,7 +132,7 @@ class RepairController extends Controller
         if ($request->wantsJson()) {
             return new RepairListResource($data);
         }
-        return Inertia::render('Admin/Repair/Show', [
+        return Inertia::render('Admin/Dryver/ShowRepair', [
             'data' => $data
         ]);
     }
