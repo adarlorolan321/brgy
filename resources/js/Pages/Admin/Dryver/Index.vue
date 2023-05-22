@@ -15,6 +15,10 @@ export default {
             // $('#editUser').modal('show');
             window.location.href = `/rescue_logs/${id}`;
         },
+        openRepair(id) {
+            // $('#editUser').modal('show');
+            window.location.href = `/drivers/${id}`;
+        },
     }
 };
 </script>
@@ -644,7 +648,7 @@ const filteredCities = computed(() => {
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li><a class="dropdown-item" @click="openModal(driver.id)">Drive Logs</a>
                                     </li>
-                                    <li><a class="dropdown-item"  @click="openRescue(driver.id)">Repair Logs</a>
+                                    <li><a class="dropdown-item"  @click="openRepair(driver.id)">Repair Logs</a>
                                     </li>
                                     <li><a class="dropdown-item" @click="openRescue(driver.id)">Rescue Logs</a>
                                     </li>
