@@ -141,7 +141,7 @@ class RescueLogController extends Controller
         if ($request->wantsJson()) {
             return new RescueLogListResource($data);
         }
-        return Inertia::render('Admin/RescueLog/Show', [
+        return Inertia::render('Admin/Dryver/ShowRescue', [
             'data' => $data
         ]);
     }
