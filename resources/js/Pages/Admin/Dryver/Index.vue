@@ -17,7 +17,7 @@ export default {
         },
         openRepair(id) {
             // $('#editUser').modal('show');
-            window.location.href = `/drivers/${id}`;
+            window.location.href = `/repairs-log/${id}`;
         },
     }
 };
@@ -641,23 +641,23 @@ const filteredCities = computed(() => {
             <div class="col-xl-4 col-lg-4 col-md-4" v-for="(driver, index) in data.data" :key="index.id">
                 <div class="card mb-4 custom-card__hero">
                     <div class="dropdown btn-pinned">
-                                <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <i class="ti ti-dots-vertical text-muted"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" @click="openModal(driver.id)">Drive Logs</a>
-                                    </li>
-                                    <li><a class="dropdown-item"  @click="openRepair(driver.id)">Repair Logs</a>
-                                    </li>
-                                    <li><a class="dropdown-item" @click="openRescue(driver.id)">Rescue Logs</a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider" />
-                                    </li>
-                                    <li><a class="dropdown-item text-danger"  @click="deletePromise(driver.id)">Delete</a></li>
-                                </ul>
-                            </div>
+                        <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="ti ti-dots-vertical text-muted"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" @click="openModal(driver.id)">Drive Logs</a>
+                            </li>
+                            <li><a class="dropdown-item"  @click="openRepair(driver.id)">Repair Logs</a>
+                            </li>
+                            <li><a class="dropdown-item" @click="openRescue(driver.id)">Rescue Logs</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item text-danger"  @click="deletePromise(driver.id)">Delete</a></li>
+                        </ul>
+                    </div>
                     <div class="card-body">
                         <div class="user-avatar-section">
                         <div class="d-flex align-items-center flex-column">
