@@ -110,7 +110,7 @@ export default {
                 'timeline-item timeline-item-success pb-4 border-left-dashed',
                 'timeline-item timeline-item-danger pb-4 border-left-dashed',
                 'timeline-item timeline-item-info pb-4 border-left-dashed',
-                'timeline-item timeline-item-secondary pb-3 border-0'
+                'timeline-item timeline-item-secondary pb-4 border-left-dashed'
             ];
 
             // Generate a random index within the range of the classes array
