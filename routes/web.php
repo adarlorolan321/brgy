@@ -50,6 +50,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::get('/drivers/{id}', [App\Http\Controllers\User\DriverController::class, 'show'])->name('driver.show');
 
+        Route::get('/repairs-log/{id}', [App\Http\Controllers\Repair\RepairController::class, 'showLog'])->name('repairs.log');
+
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,
             'vehicle_types' => VehicleTypeController::class,

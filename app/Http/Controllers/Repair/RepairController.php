@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Vehicle\Vehicle;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Http\Resources\User\DriverResource;
 
 class RepairController extends Controller
 {
@@ -131,6 +133,24 @@ class RepairController extends Controller
         $data = Repair::with(['user', 'vehicle' => ['type', 'brand']])->findOrFail($id);
         if ($request->wantsJson()) {
             return new RepairListResource($data);
+        }
+        return Inertia::render('Admin/Dryver/ShowRepair', [
+            'data' => $data
+        ]);
+    }
+
+     /**
+     * Display the specified resource.
+     */
+    public function showLog(Request $request, string $id)
+    {
+        $data = User::with([
+            'repairs' => ['vehicle' => ['brand', 'type']],
+            'driveLogs' => ['vehicle' => ['brand', 'type']],
+            'rescueLogs' => ['vehicle' => ['brand', 'type'], 'rescuer'],
+        ])->findOrFail($id);
+        if ($request->wantsJson()) {
+            return new DriverResource($data);
         }
         return Inertia::render('Admin/Dryver/ShowRepair', [
             'data' => $data
