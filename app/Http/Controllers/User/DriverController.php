@@ -47,14 +47,14 @@ class DriverController extends Controller
                         ->orWhere('mobile_number', 'like', '%' . $queryString . '%');
                 }
             })
-            ->whereHas('roles', function($query){
-                $query->whereIn('name', ["Private Driver", "Company Driver"]);
-            })
-            ->where(function($query) use ($type){
-                if($type && $type != '')
-                {
-                    $query->whereHas('roles', function($query) use ($type){
-                        $query->where('name', $type);
+            ->where(function ($query) use ($type) {
+                if ($type && $type != '') {
+                    $query->whereHas('roles', function ($query) use ($type) {
+                        if ($type === 'All') {
+                            $query->whereIn('name', ['Private Driver', 'Company Driver']);
+                        } else {
+                            $query->where('name', $type);
+                        }
                     });
                 }
             })
