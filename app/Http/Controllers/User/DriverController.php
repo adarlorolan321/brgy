@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use App\Models\Province;
 use App\Models\City;
+use App\Models\Vehicle\VehicleBrand;
+use App\Models\Vehicle\VehicleType;
 
 class DriverController extends Controller
 {
@@ -142,8 +144,13 @@ class DriverController extends Controller
         if ($request->wantsJson()) {
             return new DriverResource($data);
         }
+
+        $brands = VehicleBrand::all();
+        $types = VehicleType::all();
         return Inertia::render('Admin/Dryver/Show', [
-            'data' => $data
+            'data' => $data,
+            'brands' => $brands,
+            'types' => $types,
         ]);
     }
 

@@ -9,7 +9,7 @@
     </div>
     <div class="card mb-4" v-if="data.drive_logs == ''">
         <div class="card-body d-flex align-items-center justify-content-center">
-            <h5 class="pb-0 mb-0 d-flex ">No driver's activity</h5>
+            <h5 class="pb-0 mb-0 d-flex ">No drivers' activity</h5>
         </div>
     </div>
     <div class="card mb-4" v-else>
@@ -137,6 +137,8 @@ export default {
     layout: AdminLayout,
     props: {
         data: Object,
+        brands: Array,
+        types: Object,
     },
     methods: {
         getFormattedTime(date, time) {

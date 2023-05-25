@@ -112,7 +112,9 @@ const status = [
     <div class="card card-action custom-container-card">
         <div class="card-header">
             <div class="card-action-title align-items-center">
-                <h5 class="card-title">Rescuer</h5>
+                <h4 class="fw-bold mb-4 card-title pt-0">
+                    Rescuer
+                </h4>
             </div>
             <div class="card-action-element">
                 <button class="btn btn-primary" type="button" @click="handleCreate" data-bs-toggle="offcanvas"

@@ -69,8 +69,7 @@ let {
     <div class="card card-action custom-container-card">
         <div class="card-header">
             <div class="card-action-title align-items-center">
-                <h4 class="fw-bold py-3 mb-4 card-title">
-                    <span class="text-muted fw-light">Vehicles /</span>
+                <h4 class="fw-bold mb-4 card-title pt-0">
                     Company Vehicle
                 </h4>
             </div>
