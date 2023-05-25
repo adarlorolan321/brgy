@@ -602,14 +602,14 @@ let {
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserPhone">Amount</label>
                             <div class="input-group">
-                            <span class="input-group-text">PHP</span>
-                            <input
-                                type="text"
-                                id="modalEditUserPhone"
-                                name="modalEditUserPhone"
-                                class="form-control phone-number-mask"
-                                readonly
-                            />
+                                <span class="input-group-text">PHP</span>
+                                <input
+                                    type="text"
+                                    id="modalEditUserPhone"
+                                    name="modalEditUserPhone"
+                                    class="form-control phone-number-mask"
+                                    readonly
+                                />
                             </div>
                         </div>
                         <div class="col-12 col-md-12">
