@@ -70,7 +70,8 @@ let {
         <div class="card-header">
             <div class="card-action-title align-items-center">
                 <h4 class="fw-bold mb-4 card-title pt-0">
-                    Company Vehicle
+                    <span class="text-muted fw-light">Vehicles/ </span>
+                    Vehicle List
                 </h4>
             </div>
             <div class="card-action-element">
@@ -435,6 +436,22 @@ let {
                         <div class="w-auto">entries</div>
                     </div>
                 </div>
+
+                <div class="col-5">
+                    <div class="d-flex gap-2 align-items-center">
+                        <div class="w-auto">Filter by Type:</div>
+                        <div class="form-group" style="width: 70%">
+                            <select class="form-select" id="basic-default-country" :value="serverQuery.role" @input="handleServerQuery(
+                                    'role',
+                                    $event.target.value
+                                )" >
+                                <option value="All">All</option>
+                                <option value="Private Vehicle">Private Vehicle</option>
+                                <option value="Company Vehicle">Company Vehicle</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-auto">
                     <div class="d-flex gap-2 align-items-center">
                         <div class="w-auto">Search:</div>
@@ -471,9 +488,8 @@ let {
                         <h6 class="mb-0 card-text small-text">{{ vehicle.color }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.year }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.plate_number }}</h6>
-                        <h6 class="pb-0 mb-0 card-text small-text">Last Driven By: {{ vehicle.is_driving }}</h6>
-                        <h6 class="pb-0 mb-0 card-text small-text">Current Odometer: {{ vehicle.odometer }}</h6>
-                        <h6 class="pb-0 mb-0 card-text small-text">Blowbadgets: {{ vehicle.blowbagets_id }}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text">Last Driven By: {{ vehicle.assigned_to }}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text" v-if="vehicle.odometer">Current Odometer: {{ vehicle.odometer }}</h6>
                         <div class="d-flex align-items-center justify-content-center mt-3">
                             <a 
                                 href="javascript:;" 
