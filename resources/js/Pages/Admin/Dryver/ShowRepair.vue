@@ -9,7 +9,7 @@
     </div>
     <div class="card mb-4" v-if="data.repairs == ''">
         <div class="card-body d-flex align-items-center justify-content-center">
-            <h5 class="pb-0 mb-0 d-flex ">No driver's activity</h5>
+            <h5 class="pb-0 mb-0 d-flex ">No repairs activity</h5>
         </div>
     </div>
     <div class="card mb-4" v-else>

@@ -79,6 +79,7 @@ const gender = [
         value: 'prefer_not_to_say'
     }
 ]
+const blood = ['A+','A-','B+','B-','O+','O-','AB+','AB-']
 const roles = [
     {
         name: 'Private Driver',
@@ -120,7 +121,9 @@ const filteredCities = computed(() => {
     <div class="card card-action custom-container-card">
         <div class="card-header">
             <div class="card-action-title align-items-center">
-                <h5 class="card-title">Driver</h5>
+                <h4 class="fw-bold mb-4 card-title pt-0">
+                    Driver
+                </h4>
             </div>
             <div class="card-action-element">
                 <button class="btn btn-primary" type="button" @click="handleCreate" data-bs-toggle="offcanvas"
@@ -306,7 +309,11 @@ const filteredCities = computed(() => {
 
                         <div class="form-group mb-3">
                             <label for="">Mobile Number <span class="required">*</span></label>
-                            <input type="text" class="form-control" v-model="form.mobile_number" @input="
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                v-model="form.mobile_number" 
+                                @input="
                                 ($event) => {
                                     form.clearErrors('mobile_number');
                                     validateForm(
@@ -315,10 +322,10 @@ const filteredCities = computed(() => {
                                         $event.target.value,
                                         'mobile_number'
                                     );
-                                }
-                            " 
-                            placeholder="Enter Mobile Number" 
-                            :class="{'is-invalid': form.errors.mobile_number,}" 
+                                }" 
+                                placeholder="Enter Mobile Number" 
+                                :class="{'is-invalid': form.errors.mobile_number,}" 
+                                autocomplete="off"
                             />
                             <div class="invalid-feedback">
                                 {{ form.errors.mobile_number }}
@@ -327,7 +334,12 @@ const filteredCities = computed(() => {
 
                         <div class="form-group mb-3">
                             <label for="">Password <span class="required">*</span></label>
-                            <input type="password" class="form-control" v-model="form.password" @input="
+                             <input type="text" style="display:none" />
+                            <input 
+                                type="password" 
+                                class="form-control" 
+                                v-model="form.password" 
+                                @input="
                                 ($event) => {
                                     form.clearErrors('password');
                                     validateForm(
@@ -336,10 +348,10 @@ const filteredCities = computed(() => {
                                         $event.target.value,
                                         'password'
                                     );
-                                }
-                            " 
-                            placeholder="Enter Password" 
-                            :class="{ 'is-invalid': form.errors.password, }" 
+                                }" 
+                                placeholder="Enter Password" 
+                                :class="{ 'is-invalid': form.errors.password, }" 
+                                autocomplete="new-password"
                             />
                             <div class="invalid-feedback">
                                 {{ form.errors.password }}
@@ -390,26 +402,6 @@ const filteredCities = computed(() => {
                             </v-select> 
                             <div class="invalid-feedback">
                                 {{ form.errors.role }}
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Status</label>
-                            <input type="text" class="form-control" v-model="form.status" @input="($event) => {
-                                    form.clearErrors('status');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'status'
-                                    );
-                                }
-                                " 
-                            placeholder="Enter Status" 
-                            :class="{ 'is-invalid': form.errors.status, }" 
-                            />
-                            <div class="invalid-feedback">
-                                {{ form.errors.status }}
                             </div>
                         </div>
 
@@ -473,19 +465,26 @@ const filteredCities = computed(() => {
 
                         <div class="form-group mb-3">
                             <label for="">Blood Type</label>
-                            <input type="text" class="form-control" v-model="form.blood_type" @input="($event) => {
-                                    form.clearErrors('blood_type');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'blood_type'
-                                    );
-                                }
-                                " 
-                            placeholder="Enter Blood Type" 
-                            :class="{ 'is-invalid': form.errors.blood_type, }" 
-                            />
+                            <v-select 
+                                v-select 
+                                :options="blood" 
+                                v-model="form.blood_type"
+                                label="name" 
+                                @input="($event) => {
+                                        form.clearErrors('blood_type');
+                                        validateForm(
+                                            ['required'],
+                                            form,
+                                            $event.target.value,
+                                            'blood_type'
+                                        );
+                                    }"
+                                class="custom-select"
+                                :class="{
+                                        'is-invalid': form.errors.blood_type,
+                                    }"
+                                placeholder="Select Blood Type">
+                            </v-select>  
                             <div class="invalid-feedback">
                                 {{ form.errors.blood_type }}
                             </div>
@@ -614,13 +613,15 @@ const filteredCities = computed(() => {
                             <select class="form-select" id="basic-default-country" :value="serverQuery.role" @input="handleServerQuery(
                                     'role',
                                     $event.target.value
-                                )">
+                                )" >
+                                <option value="All">All</option>
                                 <option value="Private Driver">Private Driver</option>
                                 <option value="Company Driver">Company Driver</option>
                             </select>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-auto">
                     <div class="d-flex gap-2 align-items-center">
                         <div class="w-auto">Search:</div>
@@ -707,12 +708,6 @@ const filteredCities = computed(() => {
                                 >
                                 <i class="ti-xs me-1 ti ti-truck me-1"></i>Manage Driver
                             </a>
-                            <a 
-                                href="javascript:;" 
-                                class="btn btn-label-secondary btn-icon"
-                            >
-                                <i class="ti ti-mail ti-sm"></i>
-                            </a>
                         </div>
                         </div>
                     </div>
@@ -740,122 +735,6 @@ const filteredCities = computed(() => {
                             </li>
                         </ul>
                     </nav>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-simple modal-edit-user">
-                <div class="modal-content p-1 p-md-2">
-                    <div class="modal-body">
-                        <h5 class="card-header">Driver's Activity Timeline</h5>
-                        <div class="card-body pb-0">
-                          <ul class="timeline mb-0">
-                            <li class="timeline-item timeline-item-transparent">
-                              <span class="timeline-point timeline-point-primary"></span>
-                              <div class="timeline-event">
-                                <div class="timeline-header mb-1">
-                                  <h6 class="mb-0">12 Invoices have been paid</h6>
-                                  <small class="text-muted">12 min ago</small>
-                                </div>
-                                <p class="mb-2">Invoices have been paid to the company</p>
-                                <div class="d-flex">
-                                  <a href="javascript:void(0)" class="me-3">
-                                    <!-- <img
-                                      src="../../assets/img/icons/misc/pdf.png"
-                                      alt="PDF image"
-                                      width="15"
-                                      class="me-2"
-                                    /> -->
-                                    <span class="fw-semibold text-heading">invoices.pdf</span>
-                                  </a>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="timeline-item timeline-item-transparent">
-                              <span class="timeline-point timeline-point-warning"></span>
-                              <div class="timeline-event">
-                                <div class="timeline-header mb-1">
-                                  <h6 class="mb-0">Client Meeting</h6>
-                                  <small class="text-muted">45 min ago</small>
-                                </div>
-                                <p class="mb-2">Project meeting with john @10:15am</p>
-                                <div class="d-flex flex-wrap">
-                                  <div class="avatar me-3">
-                                    <!-- <img src="../../assets/img/avatars/3.png" alt="Avatar" class="rounded-circle" /> -->
-                                  </div>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="timeline-item timeline-item-transparent">
-                              <span class="timeline-point timeline-point-info"></span>
-                              <div class="timeline-event">
-                                <div class="timeline-header mb-1">
-                                  <h6 class="mb-0">Create a new project for client</h6>
-                                  <small class="text-muted">2 Day Ago</small>
-                                </div>
-                                <p class="mb-2">5 team members in a project</p>
-                                <div class="d-flex align-items-center avatar-group">
-                                  <div
-                                    class="avatar pull-up"
-                                    data-bs-toggle="tooltip"
-                                    data-popup="tooltip-custom"
-                                    data-bs-placement="top"
-                                    title="Vinnie Mostowy"
-                                  >
-                                    <!-- <img src="../../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" /> -->
-                                  </div>
-                                  <div
-                                    class="avatar pull-up"
-                                    data-bs-toggle="tooltip"
-                                    data-popup="tooltip-custom"
-                                    data-bs-placement="top"
-                                    title="Marrie Patty"
-                                  >
-                                    <!-- <img src="../../assets/img/avatars/12.png" alt="Avatar" class="rounded-circle" /> -->
-                                  </div>
-                                  <div
-                                    class="avatar pull-up"
-                                    data-bs-toggle="tooltip"
-                                    data-popup="tooltip-custom"
-                                    data-bs-placement="top"
-                                    title="Jimmy Jackson"
-                                  >
-                                    <!-- <img src="../../assets/img/avatars/9.png" alt="Avatar" class="rounded-circle" /> -->
-                                  </div>
-                                  <div
-                                    class="avatar pull-up"
-                                    data-bs-toggle="tooltip"
-                                    data-popup="tooltip-custom"
-                                    data-bs-placement="top"
-                                    title="Kristine Gill"
-                                  >
-                                    <!-- <img src="../../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" /> -->
-                                  </div>
-                                  <div
-                                    class="avatar pull-up"
-                                    data-bs-toggle="tooltip"
-                                    data-popup="tooltip-custom"
-                                    data-bs-placement="top"
-                                    title="Nelson Wilson"
-                                  >
-                                    <!-- <img src="../../assets/img/avatars/4.png" alt="Avatar" class="rounded-circle" /> -->
-                                  </div>
-                                </div>
-                              </div>
-                            </li>
-                            <li class="timeline-item timeline-item-transparent border-0">
-                              <span class="timeline-point timeline-point-success"></span>
-                              <div class="timeline-event">
-                                <div class="timeline-header mb-1">
-                                  <h6 class="mb-0">Design Review</h6>
-                                  <small class="text-muted">5 days Ago</small>
-                                </div>
-                                <p class="mb-0">Weekly review of freshly prepared design for our new app.</p>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

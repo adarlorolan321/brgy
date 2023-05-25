@@ -69,8 +69,7 @@ let {
     <div class="card card-action custom-container-card">
         <div class="card-header">
             <div class="card-action-title align-items-center">
-                <h4 class="fw-bold py-3 mb-4 card-title">
-                    <span class="text-muted fw-light">Vehicles /</span>
+                <h4 class="fw-bold mb-4 card-title pt-0">
                     Company Vehicle
                 </h4>
             </div>
@@ -603,14 +602,14 @@ let {
                         <div class="col-12 col-md-6">
                             <label class="form-label" for="modalEditUserPhone">Amount</label>
                             <div class="input-group">
-                            <span class="input-group-text">PHP</span>
-                            <input
-                                type="text"
-                                id="modalEditUserPhone"
-                                name="modalEditUserPhone"
-                                class="form-control phone-number-mask"
-                                readonly
-                            />
+                                <span class="input-group-text">PHP</span>
+                                <input
+                                    type="text"
+                                    id="modalEditUserPhone"
+                                    name="modalEditUserPhone"
+                                    class="form-control phone-number-mask"
+                                    readonly
+                                />
                             </div>
                         </div>
                         <div class="col-12 col-md-12">
