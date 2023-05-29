@@ -48,7 +48,7 @@ class DriverController extends Controller
                 }
             })
             ->where(function ($query) use ($type) {
-                if ($type && $type != '') {
+                if ($type != '')  {
                     $query->whereHas('roles', function ($query) use ($type) {
                         if ($type === 'All') {
                             $query->whereIn('name', ['Private Vehicle', 'Company Vehicle']);
