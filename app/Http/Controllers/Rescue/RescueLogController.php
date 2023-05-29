@@ -135,8 +135,9 @@ class RescueLogController extends Controller
         $data = RescueLog::with([
             "user",
             "vehicle.type",
+            "vehicle.brand",
             "rescuer",
-            "rescue_service"
+            "rescue_service",
         ])->findOrFail($id);
         if ($request->wantsJson()) {
             return new RescueLogListResource($data);

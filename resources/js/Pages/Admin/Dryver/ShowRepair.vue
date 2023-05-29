@@ -24,7 +24,7 @@
                     <span :class="getRandomTimelinePointClass(index)"></span>
                     <div class="timeline-event">
                         <div class="timeline-header border-bottom mb-3">
-                            <h6 class="mb-0">{{log.vehicle.model}} {{log.vehicle.vehicle_brand_id}} {{log.vehicle.vehicle_type_id}}</h6>
+                            <h6 class="mb-0">{{log.vehicle.model}}, {{log.vehicle.brand.name}}, {{log.vehicle.type.name}}</h6>
                             <small class="text-muted">PHP {{log.total_amount}}</small>
                         </div>
                         <p class="mb-0">Plate Number: {{log.vehicle.plate_number}}</p> 
