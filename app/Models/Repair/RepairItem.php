@@ -37,6 +37,6 @@ class RepairItem extends Model implements HasMedia
     public function getImageUrlAttribute()
     {
         $media = $this->getMedia('image')->first();
-        return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->name . '&color=8176f2&background=F8F7FA';
+        return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=RI&color=8176f2&background=F8F7FA';
     }
 }

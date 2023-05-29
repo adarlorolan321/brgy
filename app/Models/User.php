@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Repair\Repair;
+use App\Models\Rescue\RescueLog;
 use App\Models\User\UserScope;
+use App\Models\Vehicle\VehicleDriveLog;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -150,6 +153,20 @@ class User extends Authenticatable implements HasMedia
     {
         $media = $this->getMedia('license_back')->first();
         return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->name . '&color=8176f2&background=F8F7FA';
+    }
+
+
+    public function repairs(){
+        return $this->hasMany(Repair::class);
+    }
+
+    public function driveLogs(){
+        return $this->hasMany(VehicleDriveLog::class);
+    }
+
+    
+    public function rescueLogs(){
+        return $this->hasMany(RescueLog::class);
     }
 
 }

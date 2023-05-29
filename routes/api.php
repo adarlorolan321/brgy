@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlowbagetsController;
 use App\Http\Controllers\DriveController;
 use App\Http\Controllers\Dryver\DryverController;
+use App\Http\Controllers\Insurance\InsuranceClaimController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\Repair\RepairController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Repair\RepairItemController;
 use App\Http\Controllers\Rescue\RescueLogController;
 use App\Http\Controllers\Rescue\RescuerController;
 use App\Http\Controllers\Rescue\RescueServiceController;
+use App\Http\Controllers\User\DriverController;
 use App\Http\Controllers\Vehicle\VehicleBrandController;
 use App\Http\Controllers\Vehicle\VehicleController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
@@ -44,6 +46,7 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
     Route::get('/my-rescue-request', [AuthController::class, 'myRescueRequest'])->name('myRescueRequest');
     Route::get('/my-active-vehicle', [AuthController::class, 'myActiveVehicle'])->name('myActiveVehicle');
     Route::get('/my-information', [AuthController::class, 'myInformation'])->name('myInformation');
+    Route::patch('/license', [AuthController::class, 'updateLicense'])->name('user.license.update');
     
     
     Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
@@ -53,11 +56,12 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
         'vehicle_types' => VehicleTypeController::class,
         'rescuers' => RescuerController::class,
         'vehicles' => VehicleController::class,
-        'dryver' => DryverController::class,
+        'drivers' => DriverController::class,
         'repairs' => RepairController::class,
         'repair_items' => RepairItemController::class,
         'rescue_services' => RescueServiceController::class,
         'rescue_logs' => RescueLogController::class,
+        'insurance_claims' => InsuranceClaimController::class,
     ]);
 
     Route::post('/drive/start/{id}', [DriveController::class, 'startDrive'])->name('drive.start');

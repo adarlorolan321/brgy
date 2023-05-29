@@ -30,6 +30,7 @@ class RescueLogController extends Controller
             ->with([
                     "user",
                     "vehicle.type",
+                    "vehicle.brand",
                     "rescuer",
                     "rescue_service"
             ])
@@ -44,6 +45,9 @@ class RescueLogController extends Controller
                          ->orWhere('year', 'like', '%' . $queryString . '%');
                     })
                     ->orWhereHas('vehicle.type', function($query) use ($queryString){
+                        $query->where('name', 'like', '%' . $queryString . '%');
+                    })
+                    ->orWhereHas('vehicle.brand', function($query) use ($queryString){
                         $query->where('name', 'like', '%' . $queryString . '%');
                     })
                     ->orWhereHas('rescuer', function($query) use ($queryString){
@@ -131,13 +135,14 @@ class RescueLogController extends Controller
         $data = RescueLog::with([
             "user",
             "vehicle.type",
+            "vehicle.brand",
             "rescuer",
-            "rescue_service"
+            "rescue_service",
         ])->findOrFail($id);
         if ($request->wantsJson()) {
             return new RescueLogListResource($data);
         }
-        return Inertia::render('Admin/RescueLog/Show', [
+        return Inertia::render('Admin/Dryver/ShowRescue', [
             'data' => $data
         ]);
     }

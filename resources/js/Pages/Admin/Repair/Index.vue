@@ -249,7 +249,7 @@ const status = ['Pending', 'Confirmed'];
                             </div>
                         </div> -->
 
-                        <div class="form-group mb-5">
+                        <div class="form-group mb-3">
                             <label for="">Status</label>
                             <v-select 
                                 :options="status" 
@@ -266,6 +266,39 @@ const status = ['Pending', 'Confirmed'];
                                 {{ form.errors.status }}
                             </div>
                         </div>
+
+                        <div class="form-group" v-if="form.status === 'Confirmed'">
+                            <label for=""
+                                >Amount</label
+                            >
+                            <div class="input-group">
+                                <span class="input-group-text">PHP</span>
+                                <input
+                                    id="modalEditUserPhone"
+                                    name="modalEditUserPhone"
+                                    class="form-control phone-number-mask"
+                                    v-model="form.total_amount"
+                                    @input="($event) => {
+                                            form.clearErrors('total_amount');
+                                            validateForm(
+                                                ['required'],
+                                                form,
+                                                $event.target.value,
+                                                'total_amount'
+                                            );
+                                        }
+                                        "
+                                    placeholder="Enter Amount"
+                                    :class="{
+                                            'is-invalid': form.errors.total_amount,
+                                        }"
+                                />
+                            </div>
+                            <div class="invalid-feedback">
+                                {{ form.errors.total_amount }}
+                            </div>
+                        </div>
+
 
                         <!-- <div class="form-group mb-4 dropzone-profile-photo">
                             <label for="name">Upload Photo</label>
@@ -330,7 +363,7 @@ const status = ['Pending', 'Confirmed'];
                             @click="updatePromise"
                             :disabled="form.processing || form.hasErrors"
                             v-if="formState == 'update'"
-                            style="margin-top: -35px"
+                            style="margin-top: 20px"
                         >
                             <span
                                 v-if="form.processing"
@@ -406,22 +439,22 @@ const status = ['Pending', 'Confirmed'];
                         >
                             Dryver Name
                         </table-header>
-                        <table-header
+                        <!-- <table-header
                             style="width: 35%"
                             @click="handleServerQuery('sort', 'mechanic_name')"
                             :serverQuery="serverQuery"
                             serverQueryKey="mechanic_name"
                         >
                             Vehicle
-                        </table-header>
-                        <table-header
+                        </table-header> -->
+                        <!-- <table-header
                             style="width: 35%"
                             @click="handleServerQuery('sort', 'mechanic_name')"
                             :serverQuery="serverQuery"
                             serverQueryKey="mechanic_name"
                         >
                             Service
-                        </table-header>
+                        </table-header> -->
                         <table-header
                             style="width: 35%"
                             @click="handleServerQuery('sort', 'mechanic_name')"
@@ -479,15 +512,15 @@ const status = ['Pending', 'Confirmed'];
                             <div class="avatar avatar-lg">
                                 <img
                                     style="object-fit: cover"
-                                    src=""
+                                    :src="tableData.user.profile_photo_url"
                                     alt="Avatar"
                                     class="rounded-circle"
                                 />
                             </div>
                         </td>
                         <td>{{tableData.user.name}}</td>
-                        <td> {{ tableData}}</td>
-                        <td>{{ tableData.item }}</td>
+                        <!-- <td> {{ tableData}}</td> -->
+                        <!-- <td>{{ tableData.item }}</td> -->
                         <td>{{ tableData.total_amount }}</td>
                         <td>{{ tableData.status }}</td>
                         <td style="width: 35%">{{ tableData.mechanic_name }}</td>
@@ -500,12 +533,6 @@ const status = ['Pending', 'Confirmed'];
                                     @click="handleEdit(tableData)"
                                     href="javascript:void(0);"
                                     ><i class="ti ti-pencil"></i>
-                                </a>
-                                <a
-                                    class="btn btn-icon btn-label-danger waves-effect"
-                                    href="javascript:void(0);"
-                                    @click="deletePromise(tableData.id)"
-                                    ><i class="ti ti-trash"></i>
                                 </a>
                             </div>
                         </td>

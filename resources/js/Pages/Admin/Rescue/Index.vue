@@ -112,7 +112,9 @@ const status = [
     <div class="card card-action custom-container-card">
         <div class="card-header">
             <div class="card-action-title align-items-center">
-                <h5 class="card-title">Rescuer</h5>
+                <h4 class="fw-bold mb-4 card-title pt-0">
+                    Rescuer
+                </h4>
             </div>
             <div class="card-action-element">
                 <button class="btn btn-primary" type="button" @click="handleCreate" data-bs-toggle="offcanvas"
@@ -428,56 +430,57 @@ const status = [
 
                         
                         <div class="form-group mb-3">
-                            <label for="">Select Province <span class="required">*</span></label>
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                v-model="form.province"         
-                                @input="($event) => {
-                                        form.clearErrors('province');
-                                        validateForm(
-                                            ['required'],
-                                            form,
-                                            $event.target.value,
-                                            'province'
-                                        );
-                                    }
-                                    " 
-                                placeholder="Enter Province" 
-                                :class="{
-                                        'is-invalid': form.errors.province,
-                                    }" 
-                            />
-                            <div class="invalid-feedback">
-                                {{ form.errors.province }}
+                                <label for="">Select Province <span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    v-model="form.province"         
+                                    @input="($event) => {
+                                            form.clearErrors('province');
+                                            validateForm(
+                                                ['required'],
+                                                form,
+                                                $event.target.value,
+                                                'province'
+                                            );
+                                        }
+                                        " 
+                                    placeholder="Enter Province" 
+                                    :class="{
+                                            'is-invalid': form.errors.province,
+                                        }" 
+                                />
+                                <div class="invalid-feedback">
+                                    {{ form.errors.province }}
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group mb-3">
-                            <label for="">Select City <span class="required">*</span></label>
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                v-model="form.city"         
-                                @input="($event) => {
-                                        form.clearErrors('city');
-                                        validateForm(
-                                            ['required'],
-                                            form,
-                                            $event.target.value,
-                                            'city'
-                                        );
-                                    }
-                                    " 
-                                placeholder="Enter City" 
-                                :class="{
-                                    'is-invalid': form.errors.city,
-                                }" 
-                            />
-                            <div class="invalid-feedback">
-                                {{ form.errors.city }}
+                            <div class="form-group mb-3">
+                                <label for="">Select City <span class="required">*</span></label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    v-model="form.city"         
+                                    @input="($event) => {
+                                            form.clearErrors('city');
+                                            validateForm(
+                                                ['required'],
+                                                form,
+                                                $event.target.value,
+                                                'city'
+                                            );
+                                        }
+                                        " 
+                                    placeholder="Enter City" 
+                                    :class="{
+                                            'is-invalid': form.errors.city,
+                                        }" 
+                                />
+                                <div class="invalid-feedback">
+                                    {{ form.errors.city }}
+                                </div>
                             </div>
-                        </div>
+
 
                         <button class="btn btn-primary" @click="createPromise" :disabled="form.processing"
                             v-if="formState == 'create'">

@@ -74,6 +74,15 @@ class RolePermissionSeeder extends Seeder
             'update rescue_log',
             'destroy rescue_log',
             'show rescue_log',
+
+            
+            'access insurance_claim',
+            'create insurance_claim',
+            'store insurance_claim',
+            'edit insurance_claim',
+            'update insurance_claim',
+            'destroy insurance_claim',
+            'show insurance_claim',
             
         ];
         $roles = [

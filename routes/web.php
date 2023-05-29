@@ -8,6 +8,7 @@ use App\Http\Controllers\Vehicle\VehicleTypeController;
 use App\Http\Controllers\Vehicle\VehicleController;
 use App\Http\Controllers\Rescue\RescueController;
 use App\Http\Controllers\Dryver\DryverController;
+use App\Http\Controllers\Insurance\InsuranceClaimController;
 use App\Http\Controllers\Rescue\RescuerController;
 use App\Http\Controllers\Repair\RepairController;
 use App\Http\Controllers\User\DriverController;
@@ -32,9 +33,9 @@ use App\Http\Controllers\Rescue\RescueLogController;
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['role:Admin'])->group(function () {
 
-        // Route::get('/', function () {
-        //     return Inertia::render('Welcome', []);
-        // })->name('welcome');
+        Route::get('/', function () {
+            return Inertia::render('Welcome', []);
+        })->name('welcome');
 
         // Route::get('/vehicle-index', function () {
         //     return Inertia::render('Admin/Vehicle/Index', []);
@@ -47,7 +48,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
             return Inertia::render('Vehicle', []);
         })->name('vehicle');
 
-    //    Route::get('/dryver', [\App\Http\Controllers\User\DriverController::class, 'store'])->name('dryver/create');
+        Route::get('/drivers/{id}', [App\Http\Controllers\User\DriverController::class, 'show'])->name('driver.show');
+
+        Route::get('/repairs-log/{id}', [App\Http\Controllers\Repair\RepairController::class, 'showLog'])->name('repairs.log');
+
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,
             'vehicle_types' => VehicleTypeController::class,
@@ -58,6 +62,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'repair' => RepairController::class,
             'rescue_services' => RescueServiceController::class,
             'rescue_logs' => RescueLogController::class,
+            'insurance_claims' => InsuranceClaimController::class,
         ]);
     });
 });

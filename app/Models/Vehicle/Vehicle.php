@@ -3,6 +3,7 @@
 namespace App\Models\Vehicle;
 
 use App\Models\Blowbagets;
+use App\Models\Insurance\InsuranceClaim;
 use App\Models\Repair\Repair;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -70,7 +71,7 @@ class Vehicle extends Model implements HasMedia
     public function getImageUrlAttribute()
     {
         $media = $this->getMedia('image')->first();
-        return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->name . '&color=8176f2&background=F8F7FA';
+        return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->model . '&color=8176f2&background=F8F7FA';
     }
 
     public function getInsurancePhotoAttribute()
@@ -87,7 +88,7 @@ class Vehicle extends Model implements HasMedia
     public function getInsurancePhotoUrlAttribute()
     {
         $media = $this->getMedia('insurance_photo')->first();
-        return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->name . '&color=8176f2&background=F8F7FA';
+        return $media ? $media->getUrl() : 'https://ui-avatars.com/api/?name=' . $this->model . '&color=8176f2&background=F8F7FA';
     }
 
     public function user()
@@ -113,5 +114,9 @@ class Vehicle extends Model implements HasMedia
 
     public function repairs(){
         return $this->hasMany(Repair::class, 'vehicle_id', 'id');
+    }
+
+    public function insurance_claims(){
+        return $this->hasMany(InsuranceClaim::class);
     }
 }

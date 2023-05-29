@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use App\Models\Province;
 use App\Models\City;
+use App\Models\Vehicle\VehicleBrand;
+use App\Models\Vehicle\VehicleType;
 
 class DriverController extends Controller
 {
@@ -45,14 +47,14 @@ class DriverController extends Controller
                         ->orWhere('mobile_number', 'like', '%' . $queryString . '%');
                 }
             })
-            ->whereHas('roles', function($query){
-                $query->whereIn('name', ["Private Driver", "Company Driver"]);
-            })
-            ->where(function($query) use ($type){
-                if($type && $type != '')
-                {
-                    $query->whereHas('roles', function($query) use ($type){
-                        $query->where('name', $type);
+            ->where(function ($query) use ($type) {
+                if ($type != '')  {
+                    $query->whereHas('roles', function ($query) use ($type) {
+                        if ($type === 'All') {
+                            $query->whereIn('name', ['Private Vehicle', 'Company Vehicle']);
+                        } else {
+                            $query->where('name', $type);
+                        }
                     });
                 }
             })
@@ -134,12 +136,21 @@ class DriverController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        $data = User::findOrFail($id);
+        $data = User::with([
+            'repairs' => ['vehicle' => ['brand', 'type']],
+            'driveLogs' => ['vehicle' => ['brand', 'type']],
+            'rescueLogs' => ['vehicle' => ['brand', 'type'], 'rescuer'],
+        ])->findOrFail($id);
         if ($request->wantsJson()) {
             return new DriverResource($data);
         }
-        return Inertia::render('Admin/Driver/Show', [
-            'data' => $data
+
+        $brands = VehicleBrand::all();
+        $types = VehicleType::all();
+        return Inertia::render('Admin/Dryver/Show', [
+            'data' => $data,
+            'brands' => $brands,
+            'types' => $types,
         ]);
     }
 
