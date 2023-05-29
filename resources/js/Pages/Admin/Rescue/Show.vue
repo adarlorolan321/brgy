@@ -16,10 +16,10 @@
         <h4 class="card-header mb-2">Driver Activity Timeline</h4>
         <div class="card-body pb-0">
             <ul class="timeline mb-0">
-            <li class="timeline-item timeline-item-transparent" v-for="(log, index) in data" :key="index.id">
+            <li v-for="(log, index) in data" :key="index.id" :class="getRandomTimelineItemClass(index)">
                 <span :class="getRandomTimelinePointClass(index)"></span>
                 <div class="timeline-event">
-                    <div class="timeline-header mb-1">
+                    <div class="timeline-header border-bottom mb-3">
                         <h6 class="mb-0">{{data.vehicle.model}}, {{data.vehicle.brand.name}}, {{data.vehicle.type.name}}</h6>
                         <small class="text-muted">{{data.vehicle.year}}</small>
                     </div>
@@ -97,6 +97,30 @@ export default {
                 .catch((error) => {
                     console.error('Failed to copy contact number:', error);
                 });
+        },
+        getRandomTimelineItemClass(index) {
+            const classes = [
+                'timeline-item timeline-item-primary pb-4 border-left-dashed',
+                'timeline-item timeline-item-success pb-4 border-left-dashed',
+                'timeline-item timeline-item-danger pb-4 border-left-dashed',
+                'timeline-item timeline-item-info pb-4 border-left-dashed',
+                'timeline-item timeline-item-secondary pb-4 border-left-dashed'
+            ];
+
+            // Generate a random index within the range of the classes array
+            const randomIndex = Math.floor(Math.random() * classes.length);
+
+            // Return the class at the randomly generated index
+            return classes[randomIndex];
+        },
+        getRandomTimelinePointClass(index) {
+            const classes = [
+                'timeline-point-info',
+                'timeline-point-warning',
+                'timeline-point-success'
+            ];
+            const classIndex = index % classes.length;
+            return `timeline-point ${classes[classIndex]}`;
         },
     }
 };
