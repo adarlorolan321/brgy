@@ -20,7 +20,7 @@
                 <span :class="getRandomTimelinePointClass(index)"></span>
                 <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                        <h6 class="mb-0">{{data.vehicle.model}}, {{data.vehicle.vehicle_brand_id}}, {{data.vehicle.vehicle_type_id}}</h6>
+                        <h6 class="mb-0">{{data.vehicle.model}}, {{data.vehicle.brand.name}}, {{data.vehicle.type.name}}</h6>
                         <small class="text-muted">{{data.vehicle.year}}</small>
                     </div>
                     <p class="mb-0"><b>Latitude: </b>{{data.lat}}</p> 

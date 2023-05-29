@@ -20,8 +20,8 @@
                 <span :class="getRandomTimelinePointClass(index)"></span>
                 <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                        <h6 class="mb-0">{{log.vehicle.model}}, {{log.vehicle.vehicle_brand_id}}, {{log.vehicle.vehicle_type_id}}</h6>
-                        <small class="text-muted">{{log.vehicle.year}}</small>
+                        <h6 class="mb-0" style=" font-weight:700">{{log.vehicle.model}}, {{log.vehicle.brand.name}}, {{log.vehicle.type.name}}, {{log.vehicle.year}}</h6>
+                        <small class="text-muted">{{log.average_speed}}</small>
                     </div>
                     <p class="mb-0"><b>Start time: </b>{{ getFormattedTime(log.start_date, log.start_time) }}</p> 
                     <p class="mb-0"><b>End time: </b> {{ getFormattedTime(log.end_date, log.end_time) }}</p>
