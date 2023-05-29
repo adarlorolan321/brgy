@@ -614,7 +614,7 @@ const filteredCities = computed(() => {
                                     'role',
                                     $event.target.value
                                 )" >
-                                <option value="All">All</option>
+                                <option value="">All</option>
                                 <option value="Private Driver">Private Driver</option>
                                 <option value="Company Driver">Company Driver</option>
                             </select>
