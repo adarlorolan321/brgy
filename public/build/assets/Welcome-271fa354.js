@@ -1,1 +1,0 @@
-import{A as o}from"./AdminLayout-b9515d98.js";import{_ as e,o as t,a as n}from"./app-859a8f6a.js";const a={layout:o,mounted:function(){}};function c(r,s){return t(),n("h1",null,"Dashboard")}const f=e(a,[["render",c]]);export{f as default};
