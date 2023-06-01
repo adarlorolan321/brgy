@@ -20,8 +20,8 @@
                 <span :class="getRandomTimelinePointClass(index)"></span>
                 <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                        <h6 class="mb-0">{{data.vehicle.model}}, {{data.vehicle.brand.name}}, {{data.vehicle.type.name}}</h6>
-                        <small class="text-muted">{{data.vehicle.year}}</small>
+                        <!-- <h6 class="mb-0">{{data.vehicle.model}}, {{data.vehicle.brand.name}}, {{data.vehicle.type.name}}</h6> -->
+                        <!-- <small class="text-muted">{{data.vehicle.year}}</small> -->
                     </div>
                     <p class="mb-0"><b>Latitude: </b>{{data.lat}}</p> 
                     <p class="mb-3"><b>Longtitude: </b>{{data.lng}} </p>
@@ -35,16 +35,16 @@
                             class="me-2"
                             style="width: 20px; height: 20px;"
                         />
-                        <span class="fw-semibold text-heading">{{ data.rescuer.name}}</span>
+                        <!-- <span class="fw-semibold text-heading">{{ data.rescuer.name}}</span> -->
                         </a>
-                        <a :href="data.rescuer.messenger_link" target="_blank" class="btn btn-label-secondary btn-icon" style="height: 25px; width: 25px; margin-right: 10px" >
+                        <!-- <a :href="data.rescuer.messenger_link" target="_blank" class="btn btn-label-secondary btn-icon" style="height: 25px; width: 25px; margin-right: 10px" >
                             <i class="ti ti-mail ti-sm" style="font-size: 15px !important"></i>
-                        </a>
+                        </a> -->
                         <a @click="copyContactNumber" class="btn btn-label-secondary btn-icon"
                         style="height: 25px; width: 25px;" ><i class="ti ti-phone ti-sm" style="font-size: 15px !important"></i
                         ></a>
                     </div>
-                    <p class="mb-2">{{data.rescuer.type}}</p>
+                    <!-- <p class="mb-2">{{data.rescuer.type}}</p> -->
                 </div>
             </li>
             </ul>
