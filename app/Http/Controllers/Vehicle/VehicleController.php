@@ -30,7 +30,7 @@ class VehicleController extends Controller
         $order = $request->input('order', 'asc');
 
         $data = Vehicle::query()
-            ->with(['type', 'brand'])
+            ->with(['type', 'brand', 'last_driver'])
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {
                     // filter result
@@ -41,6 +41,12 @@ class VehicleController extends Controller
                         ->orWhere('assigned_to', 'like', '%' . $queryString . '%')
                         ->orWhere('plate_number', 'like', '%' . $queryString . '%')
                         ->orWhere('color', 'like', '%' . $queryString . '%');
+                }
+            })
+            ->where(function($query) use ($request){
+                if($request->has('type') && $request->input('type') != "")
+                {
+                    $query->where('type', $request->input('type'));
                 }
             })
             ->when(count($sort) == 1, function ($query) use ($sort, $order) {
@@ -84,7 +90,17 @@ class VehicleController extends Controller
      */
     public function store(StoreVehicleRequest $request)
     {
-        $data = Vehicle::create($request->validated());
+        $params = $request->validated();
+
+        
+        if(auth()->user()->hasRole('Admin'))
+        {
+            $params = array_merge($params, ['assigned_to' => null, 'type' => 'Company Vehicle']);
+        }else {
+            $params = array_merge($params, ['assigned_to' => auth()->user()->id, 'type' => 'Private Vehicle']);
+        }
+
+        $data = Vehicle::create($params);
         
         if (isset($request->input('image', [])['id'])) {
             Media::where('id', $request->input('image', [])['id'])

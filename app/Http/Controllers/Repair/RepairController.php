@@ -15,6 +15,7 @@ use App\Models\Vehicle\Vehicle;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Http\Resources\User\DriverResource;
+use Carbon\Carbon;
 
 class RepairController extends Controller
 {
@@ -30,6 +31,8 @@ class RepairController extends Controller
         $sort = explode('.', $request->input('sort', 'id'));
         $order = $request->input('order', 'asc');
 
+
+
         $data = Repair::query()
             ->with(['user', 'vehicle' => ['type', 'brand']])
             ->where(function($query) use ($request){
@@ -37,6 +40,15 @@ class RepairController extends Controller
                 {
                     $query->where('user_id', auth()->user()->id);
                 }
+            })
+            ->where(function ($query) use ($request) {
+                $query->when($request->has('daterange'), function ($query) use ($request) {
+                    $dtRange = $request->input('daterange', []);
+                    if (count($dtRange) == 2) {
+                        $query->whereDate('created_at', '>=', Carbon::parse($dtRange[0])->format('Y-m-d'))
+                            ->whereDate('created_at', '<=', Carbon::parse($dtRange[1])->addDays(1)->format('Y-m-d'));
+                    }
+                });
             })
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {

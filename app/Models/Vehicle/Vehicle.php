@@ -36,6 +36,8 @@ class Vehicle extends Model implements HasMedia
         "expiration_date",
         "insurance_company",
         "insurance_policy_number",
+        "last_driven_by",
+        "type",
     ];
 
     protected $casts = [
@@ -95,6 +97,13 @@ class Vehicle extends Model implements HasMedia
     {
         return $this->belongsTo(User::class, 'assigned_to', 'id');
     }
+    
+    public function last_driver()
+    {
+        return $this->belongsTo(User::class, 'last_driven_by', 'id');
+    }
+
+    
     public function brand()
     {
         return $this->belongsTo(VehicleBrand::class, 'vehicle_brand_id', 'id');
