@@ -22,7 +22,7 @@ class UpdateRescueLogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "vehicle_id" => ["required"],
+            "vehicle_id" => ["nullable"],
             "lat" => ["required"],
             "lng" => ["required"],
             "rescuer_id" => ["required"],
