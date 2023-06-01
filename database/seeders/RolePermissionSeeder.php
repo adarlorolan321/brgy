@@ -83,6 +83,14 @@ class RolePermissionSeeder extends Seeder
             'update insurance_claim',
             'destroy insurance_claim',
             'show insurance_claim',
+
+            'access tip',
+            'create tip',
+            'store tip',
+            'edit tip',
+            'update tip',
+            'destroy tip',
+            'show tip',
             
         ];
         $roles = [
