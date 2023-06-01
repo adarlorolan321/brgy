@@ -20,7 +20,7 @@ export function useMenu() {
             icon: "ti ti-car",
             sub_menu: [
                 {
-                    label: "Company Vehicles",
+                    label: "Vehicle List",
                     route: "vehicles.index",
                     icon: "ti ti-car",
                     only: ["data", "params"],

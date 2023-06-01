@@ -71,7 +71,7 @@ let {
             <div class="card-action-title align-items-center">
                 <h4 class="fw-bold mb-4 card-title pt-0">
                     <span class="text-muted fw-light">Vehicles/ </span>
-                    Vehicle List
+                    Company Vehicle
                 </h4>
             </div>
             <div class="card-action-element">
@@ -445,7 +445,7 @@ let {
                                     'type',
                                     $event.target.value
                                 )" >
-                                <option value="All">All</option>
+                                <option value="">All</option>
                                 <option value="Private Vehicle">Private Vehicle</option>
                                 <option value="Company Vehicle">Company Vehicle</option>
                             </select>
@@ -488,8 +488,9 @@ let {
                         <h6 class="mb-0 card-text small-text">{{ vehicle.color }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.year }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.plate_number }}</h6>
-                        <h6 class="pb-0 mb-0 card-text small-text">Last Driven By: {{ vehicle?.last_driver?.name }}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text" v-if="vehicle.last_driver?.name">Last Driven By: {{ vehicle.last_driver?.name }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text" v-if="vehicle.odometer">Current Odometer: {{ vehicle.odometer }}</h6>
+                        <!-- <span class="badge bg-label-secondary mt-1 mb-2">{{ vehicle.last_driver }}</span> -->
                         <div class="d-flex align-items-center justify-content-center mt-3">
                             <a 
                                 href="javascript:;" 
