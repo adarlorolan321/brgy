@@ -154,6 +154,24 @@ class DriverController extends Controller
         ]);
     }
 
+    public function showRescuers(Request $request, string $id)
+    {
+        $data = User::with([
+            'rescueLogs' => ['vehicle' => ['brand', 'type'], 'rescuer'],
+        ])->findOrFail($id);
+        if ($request->wantsJson()) {
+            return new DriverResource($data);
+        }
+
+        $brands = VehicleBrand::all();
+        $types = VehicleType::all();
+        return Inertia::render('Admin/Dryver/ShowRescue', [
+            'data' => $data,
+            'brands' => $brands,
+            'types' => $types,
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

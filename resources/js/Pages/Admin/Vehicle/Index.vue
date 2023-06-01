@@ -20,7 +20,10 @@ export default {
         getTypeName(typeId) {
             const type = this.types.find(t => t.id === typeId)
             return type ? type.name : 'Unknown brand'
-        }
+        },
+        openDrive(id) {
+            window.location.href = `/vehicles/${id}`;
+        },
     }
 };
 </script>
@@ -479,6 +482,10 @@ let {
                                 <i class="ti ti-dots-vertical text-muted"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" @click="openDrive(index)">Drive Logs</a></li>
+                                <li>
+                                    <hr class="dropdown-divider" />
+                                </li>
                                 <li><a class="dropdown-item text-danger" href="javascript:void(0);" @click="deletePromise(vehicle.id)">Delete</a></li>
                             </ul>
                         </div>
