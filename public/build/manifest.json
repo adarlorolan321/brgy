@@ -1,20 +1,20 @@
 {
-  "_AdminLayout-1df02eab.js": {
-    "file": "assets/AdminLayout-1df02eab.js",
+  "_AdminLayout-a08ff295.js": {
+    "file": "assets/AdminLayout-a08ff295.js",
     "imports": [
       "resources/js/app.js"
     ]
   },
-  "_Crud-30410a40.js": {
-    "file": "assets/Crud-30410a40.js",
+  "_Crud-3523bb57.js": {
+    "file": "assets/Crud-3523bb57.js",
     "imports": [
       "resources/js/app.js",
-      "_Validate-9fd26832.js",
-      "_toastr-3161c258.js"
+      "_Validate-d3168486.js",
+      "_toastr-01dfa26b.js"
     ]
   },
-  "_Validate-9fd26832.js": {
-    "file": "assets/Validate-9fd26832.js",
+  "_Validate-d3168486.js": {
+    "file": "assets/Validate-d3168486.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -25,8 +25,8 @@
     ],
     "file": "assets/icons8-user-60-b72dacec.js"
   },
-  "_toastr-3161c258.js": {
-    "file": "assets/toastr-3161c258.js",
+  "_toastr-01dfa26b.js": {
+    "file": "assets/toastr-01dfa26b.js",
     "imports": [
       "resources/js/app.js"
     ]
@@ -62,13 +62,13 @@
     "css": [
       "assets/Index-52a79710.css"
     ],
-    "file": "assets/Index-00454189.js",
+    "file": "assets/Index-d6efcfa6.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-30410a40.js",
-      "_Validate-9fd26832.js",
-      "_AdminLayout-1df02eab.js",
-      "_toastr-3161c258.js"
+      "_Crud-3523bb57.js",
+      "_Validate-d3168486.js",
+      "_AdminLayout-a08ff295.js",
+      "_toastr-01dfa26b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Dryver/Index.vue"
@@ -77,19 +77,19 @@
     "assets": [
       "assets/icons8-licence-plate-50-1078ce13.png"
     ],
-    "file": "assets/Show-759384e0.js",
+    "file": "assets/Show-4047c655.js",
     "imports": [
-      "_AdminLayout-1df02eab.js",
+      "_AdminLayout-a08ff295.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Dryver/Show.vue"
   },
   "resources/js/Pages/Admin/Dryver/ShowRepair.vue": {
-    "file": "assets/ShowRepair-7d7b5007.js",
+    "file": "assets/ShowRepair-59b2b72d.js",
     "imports": [
-      "_AdminLayout-1df02eab.js",
-      "_toastr-3161c258.js",
+      "_AdminLayout-a08ff295.js",
+      "_toastr-01dfa26b.js",
       "_icons8-user-60-b72dacec.js",
       "resources/js/app.js"
     ],
@@ -97,10 +97,10 @@
     "src": "resources/js/Pages/Admin/Dryver/ShowRepair.vue"
   },
   "resources/js/Pages/Admin/Dryver/ShowRescue.vue": {
-    "file": "assets/ShowRescue-5538b917.js",
+    "file": "assets/ShowRescue-094dae4d.js",
     "imports": [
-      "_AdminLayout-1df02eab.js",
-      "_toastr-3161c258.js",
+      "_AdminLayout-a08ff295.js",
+      "_toastr-01dfa26b.js",
       "_icons8-user-60-b72dacec.js",
       "resources/js/app.js"
     ],
@@ -108,13 +108,13 @@
     "src": "resources/js/Pages/Admin/Dryver/ShowRescue.vue"
   },
   "resources/js/Pages/Admin/Repair/Index.vue": {
-    "file": "assets/Index-fc47745b.js",
+    "file": "assets/Index-966b4afc.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-30410a40.js",
-      "_Validate-9fd26832.js",
-      "_AdminLayout-1df02eab.js",
-      "_toastr-3161c258.js"
+      "_Crud-3523bb57.js",
+      "_Validate-d3168486.js",
+      "_AdminLayout-a08ff295.js",
+      "_toastr-01dfa26b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Repair/Index.vue"
@@ -127,34 +127,34 @@
     "css": [
       "assets/Index-192f044f.css"
     ],
-    "file": "assets/Index-00d1c906.js",
+    "file": "assets/Index-7dc54ee9.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-30410a40.js",
-      "_Validate-9fd26832.js",
-      "_AdminLayout-1df02eab.js",
-      "_toastr-3161c258.js"
+      "_Crud-3523bb57.js",
+      "_Validate-d3168486.js",
+      "_AdminLayout-a08ff295.js",
+      "_toastr-01dfa26b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Rescue/Index.vue"
   },
   "resources/js/Pages/Admin/Rescue/Service/Index.vue": {
-    "file": "assets/Index-5ed08098.js",
+    "file": "assets/Index-dcea692f.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-30410a40.js",
-      "_Validate-9fd26832.js",
-      "_AdminLayout-1df02eab.js",
-      "_toastr-3161c258.js"
+      "_Crud-3523bb57.js",
+      "_Validate-d3168486.js",
+      "_AdminLayout-a08ff295.js",
+      "_toastr-01dfa26b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Rescue/Service/Index.vue"
   },
   "resources/js/Pages/Admin/Rescue/Show.vue": {
-    "file": "assets/Show-51a99ec5.js",
+    "file": "assets/Show-f332b176.js",
     "imports": [
-      "_AdminLayout-1df02eab.js",
-      "_toastr-3161c258.js",
+      "_AdminLayout-a08ff295.js",
+      "_toastr-01dfa26b.js",
       "_icons8-user-60-b72dacec.js",
       "resources/js/app.js"
     ],
@@ -162,19 +162,19 @@
     "src": "resources/js/Pages/Admin/Rescue/Show.vue"
   },
   "resources/js/Pages/Admin/Vehicle/Brand/Index.vue": {
-    "file": "assets/Index-0e8d9a4d.js",
+    "file": "assets/Index-e6c5e28b.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-30410a40.js",
-      "_Validate-9fd26832.js",
-      "_AdminLayout-1df02eab.js",
-      "_toastr-3161c258.js"
+      "_Crud-3523bb57.js",
+      "_Validate-d3168486.js",
+      "_AdminLayout-a08ff295.js",
+      "_toastr-01dfa26b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Vehicle/Brand/Index.vue"
   },
   "resources/js/Pages/Admin/Vehicle/Company/Index.vue": {
-    "file": "assets/Index-1f40d608.js",
+    "file": "assets/Index-bc502672.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -189,34 +189,34 @@
     "css": [
       "assets/Index-eb3071ca.css"
     ],
-    "file": "assets/Index-81ecc080.js",
+    "file": "assets/Index-fa1912e8.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-30410a40.js",
-      "_Validate-9fd26832.js",
-      "_AdminLayout-1df02eab.js",
-      "_toastr-3161c258.js"
+      "_Crud-3523bb57.js",
+      "_Validate-d3168486.js",
+      "_AdminLayout-a08ff295.js",
+      "_toastr-01dfa26b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Vehicle/Index.vue"
   },
   "resources/js/Pages/Admin/Vehicle/Type/Index.vue": {
-    "file": "assets/Index-74ad0295.js",
+    "file": "assets/Index-82512b7f.js",
     "imports": [
       "resources/js/app.js",
-      "_Crud-30410a40.js",
-      "_Validate-9fd26832.js",
-      "_AdminLayout-1df02eab.js",
-      "_toastr-3161c258.js"
+      "_Crud-3523bb57.js",
+      "_Validate-d3168486.js",
+      "_AdminLayout-a08ff295.js",
+      "_toastr-01dfa26b.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Admin/Vehicle/Type/Index.vue"
   },
   "resources/js/Pages/Auth/ForgotPassword.vue": {
-    "file": "assets/ForgotPassword-7cda8eee.js",
+    "file": "assets/ForgotPassword-160d3c2d.js",
     "imports": [
       "resources/js/app.js",
-      "_Validate-9fd26832.js"
+      "_Validate-d3168486.js"
     ],
     "isDynamicEntry": true,
     "src": "resources/js/Pages/Auth/ForgotPassword.vue"
@@ -226,7 +226,7 @@
       "assets/auth-car4-login-illustration-black-aa8d6f96.png",
       "assets/misc-mask-light-d25607d4.png"
     ],
-    "file": "assets/Login-cd5a8147.js",
+    "file": "assets/Login-80fb55e1.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -234,7 +234,7 @@
     "src": "resources/js/Pages/Auth/Login.vue"
   },
   "resources/js/Pages/Auth/ResetPassword.vue": {
-    "file": "assets/ResetPassword-8fcaaed4.js",
+    "file": "assets/ResetPassword-d449df8a.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -242,9 +242,9 @@
     "src": "resources/js/Pages/Auth/ResetPassword.vue"
   },
   "resources/js/Pages/Welcome.vue": {
-    "file": "assets/Welcome-35c28d7c.js",
+    "file": "assets/Welcome-89eb1d87.js",
     "imports": [
-      "_AdminLayout-1df02eab.js",
+      "_AdminLayout-a08ff295.js",
       "resources/js/app.js"
     ],
     "isDynamicEntry": true,
@@ -276,7 +276,7 @@
       "resources/js/Pages/Auth/ResetPassword.vue",
       "resources/js/Pages/Welcome.vue"
     ],
-    "file": "assets/app-448738a6.js",
+    "file": "assets/app-60b41812.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
