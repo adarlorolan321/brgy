@@ -27,6 +27,10 @@ class DriveController extends Controller
             'is_driving' => true
         ]);
 
+        $auth->update([
+            'status' => 'Driving'
+        ]);
+
         $vehicle->refresh();
         VehicleLog::create([
             'uuid' => Str::uuid(),
@@ -52,11 +56,16 @@ class DriveController extends Controller
                 'assigned_to' => null,
             ]);
         }
+        
+        $auth->update([
+            'status' => 'Not Driving'
+        ]);
 
         $vehicle->update([
             'is_driving' => false,
             'blowbagets_id' => null,
-            'odometer' => $request->input('odometer')
+            'odometer' => $request->input('odometer'),
+            'last_driven_by' => auth()->user()->id,
         ]);
 
         $vehicle->refresh();

@@ -29,6 +29,10 @@ export default {
             const selectedProvince = this.provinces.find(p => p.id === selectedProvinceId);
             this.filteredCities = selectedProvince.cities;
         },
+        openRescue(id) {
+            // $('#editUser').modal('show');
+            window.location.href = `/rescuers-logs/${id}`;
+        },
     }
 };
 </script>
@@ -105,6 +109,7 @@ const status = [
         value: 'unverified'
     },
 ]
+
 </script>
 
 <template>
@@ -551,6 +556,7 @@ const status = [
                             <i class="ti ti-dots-vertical text-muted"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" @click="openRescue(rescuer.id)">Rescue logs</a></li>
                             <li><a class="dropdown-item" href="javascript:void(0);">Share connection</a></li>
                             <li><a class="dropdown-item" href="javascript:void(0);">Block connection</a></li>
                             <li>

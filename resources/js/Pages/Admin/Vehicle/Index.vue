@@ -441,8 +441,8 @@ let {
                     <div class="d-flex gap-2 align-items-center">
                         <div class="w-auto">Filter by Type:</div>
                         <div class="form-group" style="width: 70%">
-                            <select class="form-select" id="basic-default-country" :value="serverQuery.role" @input="handleServerQuery(
-                                    'role',
+                            <select class="form-select" id="basic-default-country" :value="serverQuery.type" @input="handleServerQuery(
+                                    'type',
                                     $event.target.value
                                 )" >
                                 <option value="All">All</option>
@@ -488,7 +488,7 @@ let {
                         <h6 class="mb-0 card-text small-text">{{ vehicle.color }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.year }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text">{{ vehicle.plate_number }}</h6>
-                        <h6 class="pb-0 mb-0 card-text small-text">Last Driven By: {{ vehicle.assigned_to }}</h6>
+                        <h6 class="pb-0 mb-0 card-text small-text">Last Driven By: {{ vehicle?.last_driver?.name }}</h6>
                         <h6 class="pb-0 mb-0 card-text small-text" v-if="vehicle.odometer">Current Odometer: {{ vehicle.odometer }}</h6>
                         <div class="d-flex align-items-center justify-content-center mt-3">
                             <a 

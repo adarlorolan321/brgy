@@ -148,6 +148,26 @@ class RescueLogController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function showRescue(Request $request, string $id)
+    {
+        $data = RescueLog::with([
+            "user",
+            "vehicle.type",
+            "vehicle.brand",
+            "rescuer",
+            "rescue_service",
+        ])->findOrFail($id);
+        if ($request->wantsJson()) {
+            return new RescueLogListResource($data);
+        }
+        return Inertia::render('Admin/Rescue/Show', [
+            'data' => $data
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Request $request, string $id)
