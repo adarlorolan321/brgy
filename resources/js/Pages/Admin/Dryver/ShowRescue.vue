@@ -7,7 +7,7 @@
             </button>
         </inertia-link>
     </div>
-    <div class="card mb-4" v-if="data == ''">
+    <div class="card mb-4" v-if="data.rescue_logs == ''">
         <div class="card-body d-flex align-items-center justify-content-center">
             <h5 class="pb-0 mb-0 d-flex ">No rescue activity</h5>
         </div>
