@@ -151,7 +151,7 @@ class VehicleController extends Controller
         if ($request->wantsJson()) {
             return new VehicleListResource($data);
         }
-        return Inertia::render('Admin/Vehicle/Index', [
+        return Inertia::render('Admin/Vehicle/Show', [
             'data' => $data
         ]);
     }

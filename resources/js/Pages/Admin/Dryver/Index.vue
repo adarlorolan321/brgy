@@ -13,7 +13,7 @@ export default {
         },
         openRescue(id) {
             // $('#editUser').modal('show');
-            window.location.href = `/rescue_logs/${id}`;
+            window.location.href = `/rescuers-logs/${id}`;
         },
         openRepair(id) {
             // $('#editUser').modal('show');
