@@ -18,7 +18,7 @@ class VehicleModelFeatureController extends Controller
      */
     public function index(Request $request)
     {
-        
+
         $page = $request->input('page', 1); // default 1
         $perPage = $request->input('perPage', 50); // default 50
         $queryString = $request->input('query', null);
@@ -30,8 +30,18 @@ class VehicleModelFeatureController extends Controller
             ->where(function ($query) use ($queryString) {
                 if ($queryString && $queryString != '') {
                     // filter result
-                    $query->where('full_name', 'like', '%' . $queryString . '%');
-                        // ->orWhere('column', 'like', '%' . $queryString . '%');
+                    $query->where('full_name', 'like', '%' . $queryString . '%')
+                        ->orWhere('car_brand_id', 'like', '%' . $queryString . '%')
+                        ->orWhere('car_type_id', 'like', '%' . $queryString . '%')
+                        ->orWhere('model', 'like', '%' . $queryString . '%')
+                        ->orWhere('year', 'like', '%' . $queryString . '%')
+                        ->orWhere('color', 'like', '%' . $queryString . '%')
+                        ->orWhereHas('vehicle_brand', function ($query) use ($queryString) {
+                            $query->where('name', 'like', '%' . $queryString . '%');
+                        })
+                        ->orWhereHas('vehicle_type', function ($query) use ($queryString) {
+                            $query->where('name', 'like', '%' . $queryString . '%');
+                        });
                 }
             })
             ->when(count($sort) == 1, function ($query) use ($sort, $order) {
@@ -49,8 +59,7 @@ class VehicleModelFeatureController extends Controller
             return json_encode($props);
         }
 
-        if(count($data) <= 0 && $page > 1)
-        {
+        if (count($data) <= 0 && $page > 1) {
             return redirect()->route('vehicle_model_features.index', ['page' => 1]);
         }
 
