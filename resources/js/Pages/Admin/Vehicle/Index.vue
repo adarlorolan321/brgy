@@ -482,7 +482,7 @@ let {
                                 <i class="ti ti-dots-vertical text-muted"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" @click="openDrive(index)">Drive Logs</a></li>
+                                <li><a class="dropdown-item" @click="openDrive(vehicle.id)">Drive Logs</a></li>
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>

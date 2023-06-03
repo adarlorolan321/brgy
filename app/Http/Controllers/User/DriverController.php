@@ -147,10 +147,11 @@ class DriverController extends Controller
 
         $brands = VehicleBrand::all();
         $types = VehicleType::all();
-        return Inertia::render('Admin/Dryver/Show', [
+        return Inertia::render('Admin/Dryver/TestShow', [
             'data' => $data,
             'brands' => $brands,
             'types' => $types,
+            'params' => $request->all(),
         ]);
     }
 
