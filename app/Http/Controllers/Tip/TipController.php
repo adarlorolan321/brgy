@@ -54,7 +54,7 @@ class TipController extends Controller
             return redirect()->route('tips.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/Tip', $props);
+        return Inertia::render('Admin/Tip/Index', $props);
     }
 
     /**

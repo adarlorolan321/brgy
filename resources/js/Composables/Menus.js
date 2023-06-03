@@ -65,12 +65,12 @@ export function useMenu() {
             icon: "ti ti-tool",
             only: ["data", "params"],
         },
-        // {
-        //     label: "All Activity Logs",
-        //     route: "dryver.index",
-        //     icon: "ti ti-list",
-        //     only: ["data", "params"],
-        // },
+        {
+            label: "Tip",
+            route: "tips.index",
+            icon: "ti ti-help",
+            only: ["data", "params"],
+        },
     ];
 
     return {
