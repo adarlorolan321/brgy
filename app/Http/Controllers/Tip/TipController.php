@@ -31,6 +31,7 @@ class TipController extends Controller
                 if ($queryString && $queryString != '') {
                     // filter result
                     $query->where('name', 'like', '%' . $queryString . '%')
+                    ->orWhere('id', 'like', '%' . $queryString . '%')
                         ->orWhere('content', 'like', '%' . $queryString . '%');
                 }
             })
