@@ -17,6 +17,8 @@ use App\Http\Controllers\User\DriverController;
 use App\Http\Controllers\Vehicle\VehicleBrandController;
 use App\Http\Controllers\Vehicle\VehicleController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
+use App\Http\Controllers\Vehiclemodelfeature\VehicleModelFeatureController;
+use App\Models\Vehiclemodelfeature\VehicleModelFeature;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +66,7 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
         'rescue_logs' => RescueLogController::class,
         'insurance_claims' => InsuranceClaimController::class,
         'tips' => TipController::class,
+        'vehicle_model_feature' => VehicleModelFeatureController::class,
     ]);
 
     Route::post('/drive/start/{id}', [DriveController::class, 'startDrive'])->name('drive.start');

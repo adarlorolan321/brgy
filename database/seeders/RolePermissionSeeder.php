@@ -91,6 +91,16 @@ class RolePermissionSeeder extends Seeder
             'update tip',
             'destroy tip',
             'show tip',
+
+            'access vehicle_model_feature',
+            'create vehicle_model_feature',
+            'store vehicle_model_feature',
+            'edit vehicle_model_feature',
+            'update vehicle_model_feature',
+            'destroy vehicle_model_feature',
+            'show vehicle_model_feature',
+
+            
             
         ];
         $roles = [
