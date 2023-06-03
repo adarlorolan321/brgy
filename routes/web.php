@@ -7,6 +7,7 @@ use App\Http\Controllers\Vehicle\VehicleBrandController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
 use App\Http\Controllers\Vehicle\VehicleController;
 use App\Http\Controllers\Rescue\RescueController;
+use App\Http\Controllers\Tip\TipController;
 use App\Http\Controllers\Dryver\DryverController;
 use App\Http\Controllers\Insurance\InsuranceClaimController;
 use App\Http\Controllers\Rescue\RescuerController;
@@ -51,7 +52,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/drivers/{id}', [App\Http\Controllers\User\DriverController::class, 'show'])->name('driver.show');
 
         Route::get('/repairs-log/{id}', [App\Http\Controllers\Repair\RepairController::class, 'showLog'])->name('repairs.log');
-        Route::get('/rescuers-logs/{id}', [App\Http\Controllers\Rescue\RescueLogController::class, 'showRescue'])->name('rescuers.log');
+        Route::get('/rescuers-logs/{id}', [App\Http\Controllers\User\DriverController::class, 'showRescuers'])->name('rescuer.log');
+
+        Route::get('/vehicle-repair-logs/{id}', [App\Http\Controllers\Vehicle\VehicleController::class, 'showRepair'])->name('vehicle-repair.log');
+        Route::get('/vehicle-rescue-logs/{id}', [App\Http\Controllers\Vehicle\VehicleController::class, 'showRescue'])->name('vehicle-rescue.log');
 
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,
@@ -64,6 +68,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'rescue_services' => RescueServiceController::class,
             'rescue_logs' => RescueLogController::class,
             'insurance_claims' => InsuranceClaimController::class,
+            'tips' => TipController::class,
         ]);
     });
 });

@@ -133,8 +133,13 @@ class VehicleController extends Controller
             'brand', 
             'type', 
             'user', 
-            'repairs',
-            'logs' => [
+            'repairs', // repair logs
+            'rescues' => [ // rescue logs
+                'user',
+                'rescuer',
+                'rescue_service',
+            ],
+            'logs' => [ // drive logs
                 'user',
                 'logs'
             ],
@@ -146,7 +151,47 @@ class VehicleController extends Controller
         if ($request->wantsJson()) {
             return new VehicleListResource($data);
         }
-        return Inertia::render('Admin/Vehicle/Index', [
+        return Inertia::render('Admin/Vehicle/Show', [
+            'data' => $data
+        ]);
+    }
+
+    public function showRepair(Request $request, string $id)
+    {
+        $data = Vehicle::findOrFail($id);
+        $data->load([
+            'brand', 
+            'type', 
+            'user', 
+            'repairs', // repair logs
+        ]);
+
+        if ($request->wantsJson()) {
+            return new VehicleListResource($data);
+        }
+        return Inertia::render('Admin/Vehicle/ShowRepair', [
+            'data' => $data
+        ]);
+    }
+    
+    public function showRescue(Request $request, string $id)
+    {
+        $data = Vehicle::findOrFail($id);
+        $data->load([
+            'brand', 
+            'type', 
+            'user', 
+            'rescues' => [ // rescue logs
+                'user',
+                'rescuer',
+                'rescue_service',
+            ],
+        ]);
+
+        if ($request->wantsJson()) {
+            return new VehicleListResource($data);
+        }
+        return Inertia::render('Admin/Vehicle/ShowRescue', [
             'data' => $data
         ]);
     }

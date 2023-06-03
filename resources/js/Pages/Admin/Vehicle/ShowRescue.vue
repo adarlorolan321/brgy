@@ -1,13 +1,13 @@
 <template lang="">
     <div class="col-4 mb-4">
-        <inertia-link href="/drivers">
+        <inertia-link href="/vehicles">
             <button class="btn btn-outline-primary waves-effect" type="button">
                 <i class="ti ti-arrow-left ti-xs me-1"></i>
                 Back to All Drivers
             </button>
         </inertia-link>
     </div>
-    <div class="card mb-4" v-if="data.rescue_logs == ''">
+        <div class="card mb-4" v-if="data.rescues == ''">
         <div class="card-body d-flex align-items-center justify-content-center">
             <h5 class="pb-0 mb-0 d-flex ">No rescue activity</h5>
         </div>
@@ -16,12 +16,12 @@
         <h4 class="card-header mb-2">Driver Activity Timeline</h4>
         <div class="card-body pb-0">
             <ul class="timeline mb-0">
-            <li class="timeline-item timeline-item-transparent" v-for="(log, index) in data.rescue_logs" :key="index.id">
+            <li class="timeline-item timeline-item-transparent" v-for="(log, index) in data.rescues" :key="index.id">
                 <span :class="getRandomTimelinePointClass(index)"></span>
                 <div class="timeline-event">
                     <div class="timeline-header mb-1">
-                        <h6 class="mb-0">{{log.vehicle.model}}, {{log.vehicle.brand.name}}, {{log.vehicle.type.name}}</h6>
-                        <small class="text-muted">{{log.vehicle.year}}</small>
+                        <h6 class="mb-0">{{log.rescue_service.name}}</h6>
+                        <!-- <small class="text-muted">{{log.vehicle.year}}</small> -->
                     </div>
                     <p class="mb-0"><b>Latitude: </b>{{log.rescuer.latitude}}</p> 
                     <p class="mb-3"><b>Longtitude: </b>{{log.rescuer.longitude}} </p>

@@ -405,6 +405,24 @@ const status = ['Pending', 'Confirmed'];
                         <div class="w-auto">entries</div>
                     </div>
                 </div>
+                <div class="col-6">
+                    <div class="d-flex align-items-center">
+                            <label for="dateRangePicker" class="form-label" style="width: 100px">Date Range</label>
+                            <div class="input-group input-daterange" id="bs-datepicker-daterange">
+                                <input type="date" id="dateRangePicker" placeholder="MM/DD/YYYY" class="form-control" :value="serverQuery.query" @input="handleServerQuery(
+                                    'created_at',
+                                    $event.target.value
+                                )
+                                "/>
+                                <span class="input-group-text">to</span>
+                                <input type="date" placeholder="MM/DD/YYYY" class="form-control" :value="serverQuery.query" @input="handleServerQuery(
+                                    'created_at',
+                                    $event.target.value
+                                )
+                                "/>
+                            </div>
+                    </div>
+                </div>
                 <div class="col-auto">
                     <div class="d-flex gap-2 align-items-center">
                         <div class="w-auto">Search:</div>
