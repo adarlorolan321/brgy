@@ -55,6 +55,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/rescuers-logs/{id}', [App\Http\Controllers\User\DriverController::class, 'showRescuers'])->name('rescuer.log');
 
         Route::get('/vehicle-repair-logs/{id}', [App\Http\Controllers\Vehicle\VehicleController::class, 'showRepair'])->name('vehicle-repair.log');
+        Route::get('/vehicle-rescue-logs/{id}', [App\Http\Controllers\Vehicle\VehicleController::class, 'showRescue'])->name('vehicle-rescue.log');
 
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,

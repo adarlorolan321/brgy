@@ -27,6 +27,9 @@ export default {
         openRepair(id) {
             window.location.href = `/vehicle-repair-logs/${id}`;
         },
+        openRescue(id) {
+            window.location.href = `/vehicle-rescue-logs/${id}`;
+        },
     }
 };
 </script>
@@ -487,6 +490,7 @@ let {
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" @click="openDrive(vehicle.id)">Drive Logs</a></li>
                                 <li><a class="dropdown-item" @click="openRepair(vehicle.id)">Repair Logs</a></li>
+                                <li><a class="dropdown-item" @click="openRescue(vehicle.id)">Rescue Logs</a></li>
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>

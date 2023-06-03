@@ -17,19 +17,19 @@
         <div class="card-body pb-0">
             <ul class="timeline mb-0">
                 <li 
-                    :class="getRandomTimelineItemClass(index)"
-                    v-for="(log, index) in data.repairs" 
-                    :key="index.id"
+                :class="getRandomTimelineItemClass(index)"
+                v-for="(log, index) in data.repairs" 
+                :key="index.id"
                 >
-                    <span :class="getRandomTimelinePointClass(index)"></span>
+                <span :class="getRandomTimelinePointClass(index)"></span>
                     <div class="timeline-event">
                         <div class="timeline-header border-bottom mb-3">
-                            <h6 class="mb-0">{{log.vehicle.model}}, {{log.vehicle.brand.name}}, {{log.vehicle.type.name}}</h6>
+                            <!-- <h6 class="mb-0">{{log.vehicle.model}}, {{log.vehicle.brand.name}}, {{log.vehicle.type.name}}</h6> -->
                             <small class="text-muted">PHP {{log.total_amount}}</small>
                         </div>
-                        <p class="mb-0">Plate Number: {{log.vehicle.plate_number}}</p> 
-                        <p class="mb-0">Color: {{log.vehicle.color}} </p>
-                        <p class="mb-3">Year: {{log.vehicle.year}} </p>
+                        <!-- <p class="mb-0">Plate Number: {{log.vehicle.plate_number}}</p>  -->
+                        <!-- <p class="mb-0">Color: {{log.vehicle.color}} </p> -->
+                        <!-- <p class="mb-3">Year: {{log.vehicle.year}} </p> -->
                         <div class="d-flex mt-3" style="margin-bottom: -13px">
                             <a href="javascript:void(0)" class="me-3">
                                 <img
