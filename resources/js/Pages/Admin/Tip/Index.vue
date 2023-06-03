@@ -195,7 +195,7 @@ const status = ['Pending', 'Confirmed'];
                     </tr>
                     <tr v-for="tableData in paginatedData.data" :key="tableData">
                         <td>{{ tableData.name }}</td>
-                        <td>{{ tableData.content }}</td>
+                        <td style="width: 35%">{{ tableData.content }}</td>
                         <td>
                             <div class="d-flex gap-2">
                                 <a class="btn btn-icon btn-label-primary waves-effect" @click="handleEdit(tableData)"

@@ -156,6 +156,46 @@ class VehicleController extends Controller
         ]);
     }
 
+    public function showRepair(Request $request, string $id)
+    {
+        $data = Vehicle::findOrFail($id);
+        $data->load([
+            'brand', 
+            'type', 
+            'user', 
+            'repairs', // repair logs
+        ]);
+
+        if ($request->wantsJson()) {
+            return new VehicleListResource($data);
+        }
+        return Inertia::render('Admin/Vehicle/ShowRepair', [
+            'data' => $data
+        ]);
+    }
+    
+    public function showRescue(Request $request, string $id)
+    {
+        $data = Vehicle::findOrFail($id);
+        $data->load([
+            'brand', 
+            'type', 
+            'user', 
+            'rescues' => [ // rescue logs
+                'user',
+                'rescuer',
+                'rescue_service',
+            ],
+        ]);
+
+        if ($request->wantsJson()) {
+            return new VehicleListResource($data);
+        }
+        return Inertia::render('Admin/Vehicle/ShowRescue', [
+            'data' => $data
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
