@@ -7,6 +7,7 @@ use App\Http\Controllers\Vehicle\VehicleBrandController;
 use App\Http\Controllers\Vehicle\VehicleTypeController;
 use App\Http\Controllers\Vehicle\VehicleController;
 use App\Http\Controllers\Rescue\RescueController;
+use App\Http\Controllers\Tip\TipController;
 use App\Http\Controllers\Dryver\DryverController;
 use App\Http\Controllers\Insurance\InsuranceClaimController;
 use App\Http\Controllers\Rescue\RescuerController;
@@ -64,6 +65,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'rescue_services' => RescueServiceController::class,
             'rescue_logs' => RescueLogController::class,
             'insurance_claims' => InsuranceClaimController::class,
+            'tips' => TipController::class,
         ]);
     });
 });
