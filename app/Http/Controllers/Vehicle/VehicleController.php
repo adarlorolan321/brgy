@@ -134,6 +134,11 @@ class VehicleController extends Controller
             'type', 
             'user', 
             'repairs',
+            'rescues' => [
+                'user',
+                'rescuer',
+                'rescue_service',
+            ],
             'logs' => [
                 'user',
                 'logs'
