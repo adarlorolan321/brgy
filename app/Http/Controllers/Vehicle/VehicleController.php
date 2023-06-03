@@ -133,13 +133,13 @@ class VehicleController extends Controller
             'brand', 
             'type', 
             'user', 
-            'repairs',
-            'rescues' => [
+            'repairs', // repair logs
+            'rescues' => [ // rescue logs
                 'user',
                 'rescuer',
                 'rescue_service',
             ],
-            'logs' => [
+            'logs' => [ // drive logs
                 'user',
                 'logs'
             ],
