@@ -10,6 +10,7 @@ use App\Http\Controllers\Rescue\RescueController;
 use App\Http\Controllers\Tip\TipController;
 use App\Http\Controllers\Dryver\DryverController;
 use App\Http\Controllers\Insurance\InsuranceClaimController;
+use App\Http\Controllers\Promotion\PromotionController;
 use App\Http\Controllers\Rescue\RescuerController;
 use App\Http\Controllers\Repair\RepairController;
 use App\Http\Controllers\User\DriverController;
@@ -71,6 +72,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'insurance_claims' => InsuranceClaimController::class,
             'tips' => TipController::class,
             'vehicle_model_feature' => VehicleModelFeatureController::class,
+            'promotion' => PromotionController::class,
         ]);
     });
 });
