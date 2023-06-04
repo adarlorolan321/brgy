@@ -6,6 +6,7 @@ use App\Http\Controllers\DriveController;
 use App\Http\Controllers\Dryver\DryverController;
 use App\Http\Controllers\Insurance\InsuranceClaimController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\Promotion\PromotionController;
 use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\Repair\RepairController;
 use App\Http\Controllers\Repair\RepairItemController;
@@ -67,6 +68,7 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
         'insurance_claims' => InsuranceClaimController::class,
         'tips' => TipController::class,
         'vehicle_model_feature' => VehicleModelFeatureController::class,
+        'promotions' => PromotionController::class,
     ]);
 
     Route::post('/drive/start/{id}', [DriveController::class, 'startDrive'])->name('drive.start');

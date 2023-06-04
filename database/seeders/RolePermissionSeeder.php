@@ -100,7 +100,13 @@ class RolePermissionSeeder extends Seeder
             'destroy vehicle_model_feature',
             'show vehicle_model_feature',
 
-            
+            'access promotion',
+            'create promotion',
+            'store promotion',
+            'edit promotion',
+            'update promotion',
+            'destroy promotion',
+            'show promotion',
             
         ];
         $roles = [
