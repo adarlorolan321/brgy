@@ -1,7 +1,7 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue'
-import { defineOptions } from "vue";
+// import { defineOptions } from "vue";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 
 const props = usePage().props;
@@ -23,7 +23,7 @@ const repairLogs = computed(() => {
 }) 
 
 
-defineOptions({ layout: AdminLayout });
+// defineOptions({ layout: AdminLayout });
 
 </script>
 <template>

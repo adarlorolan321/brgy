@@ -9,9 +9,9 @@ class StoreVehicleModelFeatureRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize()
     {
-        return auth()->user()->can("store vehicle_model_feature");
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class StoreVehicleModelFeatureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "car_brand_id" => ["required"],"car_type_id" => ["required"],"model" => ["required"],"year" => ["required"],"color" => ["required"],"image" => ["required"],"full_name" => ["required"],
+            "car_brand_id" => ["required"],
+            "car_type_id" => ["required"],
+            "model" => ["required"],
+            "year" => ["required"],
+            "color" => ["required"],
+            "image" => ["nullable"],
+            "full_name" => ["required"],
         ];
     }
 }
