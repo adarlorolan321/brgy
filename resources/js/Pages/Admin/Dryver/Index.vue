@@ -9,7 +9,7 @@ export default {
     methods: {
         openModal(id) {
             // $('#editUser').modal('show');
-            window.location.href = `/drivers/${id}`;
+            window.location.href = `/drivers/${id}?type=drive_logs`;
         },
         openRescue(id) {
             // $('#editUser').modal('show');
