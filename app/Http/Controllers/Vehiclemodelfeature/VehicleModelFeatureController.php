@@ -7,6 +7,8 @@ use App\Http\Resources\Vehiclemodelfeature\VehicleModelFeatureListResource;
 use App\Models\Vehiclemodelfeature\VehicleModelFeature;
 use App\Http\Requests\Vehiclemodelfeature\StoreVehicleModelFeatureRequest;
 use App\Http\Requests\Vehiclemodelfeature\UpdateVehicleModelFeatureRequest;
+use App\Models\Vehicle\VehicleBrand;
+use App\Models\Vehicle\VehicleType;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -50,9 +52,13 @@ class VehicleModelFeatureController extends Controller
             ->paginate($perPage)
             ->withQueryString();
 
+        $brands = VehicleBrand::all();
+        $types = VehicleType::all();
         $props = [
             'data' => VehicleModelFeatureListResource::collection($data),
             'params' => $request->all(),
+            'brands' => $brands,
+            'types' => $types,
         ];
 
         if ($request->wantsJson()) {
@@ -60,10 +66,10 @@ class VehicleModelFeatureController extends Controller
         }
 
         if (count($data) <= 0 && $page > 1) {
-            return redirect()->route('vehicle_model_features.index', ['page' => 1]);
+            return redirect()->route('vehicle_model_feature.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/VehicleModelFeature', $props);
+        return Inertia::render('Admin/Vehicle/Model/Index', $props);
     }
 
     /**

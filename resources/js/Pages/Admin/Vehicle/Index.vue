@@ -10,6 +10,7 @@ export default {
         data: Object,
         brands: Array,
         types: Object,
+        vehicle_model: Object,
     },
     layout: AdminLayout,
     methods: {
@@ -100,15 +101,6 @@ let {
                             v-if="!form.processing"></button>
                     </div>
                     <div class="offcanvas-body mx-0 flex-grow-0 pt-0">
-                        <!-- <div class="form-group mb-3">
-                            <label>Car Brand <span class="required">*</span></label>
-                            <select2 :class="{ 'is-invalid': form.errors.vehicle_brand_id }" v-model="form.vehicle_brand_id"
-                                placeholder="Select Brand" @update:modelValue="form.clearErrors('vehicle_brand_id')" :options="brands" label="name" >
-                            </select2>
-                            <div class="invalid-feedback">
-                                {{ form.errors.vehicle_brand_id }}
-                            </div>
-                        </div> -->
                         <div class="form-group mb-3">
                             <label for="">Car Brand <span class="required">*</span></label>
                             <v-select 

@@ -37,6 +37,12 @@ export function useMenu() {
                     icon: "ti ti-tag",
                     only: ["data", "params"],
                 },
+                {
+                    label: "Vehicle Model",
+                    route: "vehicle_model_feature.index",
+                    icon: "ti ti-tag",
+                    only: ["data", "params"],
+                },
             ]
         },
         {

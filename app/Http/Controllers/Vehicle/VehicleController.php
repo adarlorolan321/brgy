@@ -9,6 +9,7 @@ use App\Http\Requests\Vehicle\StoreVehicleRequest;
 use App\Http\Requests\Vehicle\UpdateVehicleRequest;
 use App\Models\Media;
 use App\Models\Vehicle\VehicleBrand;
+use App\Models\Vehiclemodelfeature\VehicleModelFeature;
 use App\Models\Vehicle\VehicleType;
 use App\Models\Province;
 
@@ -58,12 +59,14 @@ class VehicleController extends Controller
         $brands = VehicleBrand::all();
         $types = VehicleType::all();
         $provinces = Province::all();
+        $vehicle_model = VehicleModelFeature::all();
         $props = [
             'data' => VehicleListResource::collection($data),
             'params' => $request->all(),
             'brands' => $brands,
             'types' => $types,
             'provinces' => $provinces,
+            'vehicle_model' => $vehicle_model,
         ];
 
         if ($request->wantsJson()) {
