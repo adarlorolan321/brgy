@@ -95,16 +95,20 @@ class VehicleController extends Controller
     {
         $params = $request->validated();
 
-        
-        if(auth()->user()->hasRole('Admin'))
-        {
+        if (auth()->user()->hasRole('Admin')) {
             $params = array_merge($params, ['assigned_to' => null, 'type' => 'Company Vehicle']);
-        }else {
+        } else {
             $params = array_merge($params, ['assigned_to' => auth()->user()->id, 'type' => 'Private Vehicle']);
         }
 
+        if ($params['assigned_to'] === null) {
+            $params['assigned_to'] = 1; // Set a default user ID or assign the appropriate value
+        }
+        // Update the "model" field to contain the string value
+        $params['model'] = $request->input('model.model');
+
         $data = Vehicle::create($params);
-        
+
         if (isset($request->input('image', [])['id'])) {
             Media::where('id', $request->input('image', [])['id'])
                 ->update([
@@ -118,13 +122,13 @@ class VehicleController extends Controller
                     'model_id' => $data->id
                 ]);
         }
-        
 
         if ($request->wantsJson()) {
             return new VehicleListResource($data);
         }
         return redirect()->back();
     }
+
 
     /**
      * Display the specified resource.

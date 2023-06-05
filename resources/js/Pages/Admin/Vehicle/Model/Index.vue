@@ -27,6 +27,7 @@ const formObject = {
 const { validateForm } = useValidateForm();
 const routeName = "vehicle_model_feature";
 let {
+    isLoadingComponents,
     paginatedData,
     form,
     createPromise,
@@ -57,7 +58,7 @@ let {
                     aria-controls="offCanvasForm"
                 >
                     <i class="ti ti-plus ti-xs me-1"></i>
-                    Add Vehicle Type
+                    Add Vehicle Model
                 </button>
                 <div
                     class="offcanvas offcanvas-end"
@@ -192,7 +193,7 @@ let {
                                 v-if="isLoadingComponents"
                                 :url="route('api.media.upload')"
                                 type="profile"
-                                model="Vehicle\Vehicle"
+                                model="Vehiclemodelfeature\VehicleModelFeature"
                                 :value="form.image"
                                 @input="($event) => {
                                         form.image = $event;
@@ -333,6 +334,7 @@ let {
             <table class="table">
                 <thead class="table-light">
                     <tr>
+                        <th></th>
                         <table-header
                             style="width: 60%"
                             @click="handleServerQuery('sort', 'full_name')"
@@ -341,6 +343,22 @@ let {
                         >
                             Model Full Name
                         </table-header>
+                        <!-- <table-header
+                            style="width: 60%"
+                            @click="handleServerQuery('sort', 'car_brand_id')"
+                            :serverQuery="serverQuery"
+                            serverQueryKey="car_brand_id"
+                        >
+                             Brand
+                        </table-header>
+                        <table-header
+                            style="width: 60%"
+                            @click="handleServerQuery('sort', 'car_type_id')"
+                            :serverQuery="serverQuery"
+                            serverQueryKey="car_type_id"
+                        >
+                                Type
+                        </table-header> -->
                         <table-header
                             style="width: 60%"
                             @click="handleServerQuery('sort', 'model')"
@@ -378,7 +396,20 @@ let {
                         v-for="tableData in paginatedData.data"
                         :key="tableData"
                     >
+                        <td>
+                            <div class="avatar avatar-lg">
+                                <img
+                                    style="object-fit: cover"
+                                    :src="tableData.image_url"
+                                    alt="Avatar"
+                                    class="rounded-circle"
+                                />
+                            </div>
+                        </td>
+                        {{ tableData.brands}}
                         <td style="width: 60%">{{ tableData.full_name }}</td>
+                        <!-- <td style="width: 60%">{{ tableData.brand }}</td> -->
+                        <!-- <td style="width: 60%">{{ tableData.car_type_id }}</td> -->
                         <td style="width: 60%">{{ tableData.model }}</td>
                         <td style="width: 60%">{{ tableData.year }}</td>
                         <td style="width: 60%">{{ tableData.color }}</td>

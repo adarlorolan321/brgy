@@ -9,6 +9,7 @@ use App\Http\Requests\Vehiclemodelfeature\StoreVehicleModelFeatureRequest;
 use App\Http\Requests\Vehiclemodelfeature\UpdateVehicleModelFeatureRequest;
 use App\Models\Vehicle\VehicleBrand;
 use App\Models\Vehicle\VehicleType;
+use App\Models\Media;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -85,8 +86,16 @@ class VehicleModelFeatureController extends Controller
      */
     public function store(StoreVehicleModelFeatureRequest $request)
     {
-        $data = VehicleModelFeature::create($request->validated());
+        $params = $request->validated();
+        $data = VehicleModelFeature::create($params);
         sleep(1);
+
+        if (isset($request->input('image', [])['id'])) {
+            Media::where('id', $request->input('image', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
 
         if ($request->wantsJson()) {
             return new VehicleModelFeatureListResource($data);

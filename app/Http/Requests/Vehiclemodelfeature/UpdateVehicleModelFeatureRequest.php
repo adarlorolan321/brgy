@@ -22,7 +22,12 @@ class UpdateVehicleModelFeatureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "car_brand_id" => ["required"],"car_type_id" => ["required"],"model" => ["required"],"year" => ["required"],"color" => ["required"],"image" => ["nullable"],"full_name" => ["required"],
+            "car_brand_id" => ["required"],
+            "car_type_id" => ["required"],
+            "model" => ["required"],
+            "year" => ["required"],
+            "color" => ["required"],
+            "full_name" => ["required"],
         ];
     }
 }
