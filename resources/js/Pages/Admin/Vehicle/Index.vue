@@ -39,6 +39,7 @@ export default {
 import { useCrud } from "@/Composables/Crud.js";
 import { useValidateForm } from "@/Composables/Validate.js";
 import { usePage, Head } from "@inertiajs/vue3";
+import { ref, computed, watchEffect } from 'vue';
 const { props } = usePage();
 const formObject = {
     vehicle_brand_id: null,
@@ -72,6 +73,18 @@ let {
     handleEdit,
     formState,
 } = useCrud(formObject, routeName);
+
+watchEffect(() => {
+    if (form.model) {
+        form.vehicle_brand_id = form.model.car_brand_id;
+        form.vehicle_type_id = form.model.car_type_id;
+        form.color = form.model.color;
+        form.year = form.model.year;
+    } else {
+        form.color = null;
+        form.year = null;
+    }
+});
 </script>
 
 <template>
@@ -91,16 +104,32 @@ let {
                     Add Vehicle
                 </button>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvasForm" data-bs-backdrop="static"
-                    aria-labelledby="offCanvasFormLabel">
-                    <div class="offcanvas-header">
-                        <h5 id="offCanvasFormLabel" class="offcanvas-title">
-                            {{ formState == "create" ? "Add" : "Update" }}
-                            Vehicle
-                        </h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
-                            v-if="!form.processing"></button>
-                    </div>
-                    <div class="offcanvas-body mx-0 flex-grow-0 pt-0">
+                aria-labelledby="offCanvasFormLabel">
+                <div class="offcanvas-header">
+                    <h5 id="offCanvasFormLabel" class="offcanvas-title">
+                        {{ formState == "create" ? "Add" : "Update" }}
+                        Vehicle
+                    </h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
+                    v-if="!form.processing"></button>
+                </div>
+                <div class="offcanvas-body mx-0 flex-grow-0 pt-0">
+                        <div class="form-group mb-3">
+                            <label for="">Car Model <span class="required">*</span></label>
+                            <v-select 
+                                :options="vehicle_model" 
+                                v-model="form.model"
+                                label="model" 
+                                @update:modelValue="form.clearErrors('model')"
+                                placeholder="Select Model" 
+                                :class="{ 'is-invalid': form.errors.model }"
+                            >
+                            </v-select> 
+                            <div class="invalid-feedback">
+                                {{ form.errors.model }}
+                            </div>
+                        </div>
+
                         <div class="form-group mb-3">
                             <label for="">Car Brand <span class="required">*</span></label>
                             <v-select 
@@ -111,6 +140,7 @@ let {
                                 @update:modelValue="form.clearErrors('vehicle_brand_id')"
                                 placeholder="Select Brand" 
                                 :class="{ 'is-invalid': form.errors.vehicle_brand_id }"
+                                disabled
                             >
                             </v-select> 
                             <div class="invalid-feedback">
@@ -128,76 +158,11 @@ let {
                                 @update:modelValue="form.clearErrors('vehicle_type_id')"
                                 placeholder="Select Type" 
                                 :class="{ 'is-invalid': form.errors.vehicle_type_id }"
+                                disabled
                             >
                             </v-select> 
                             <div class="invalid-feedback">
                                 {{ form.errors.vehicle_type_id }}
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-4 dropzone-profile-photo">
-                            <label for="name">Upload Photo</label>
-                            <dropzone
-                                collection="image"
-                                v-if="isLoadingComponents"
-                                :url="route('api.media.upload')"
-                                type="profile"
-                                model="Vehicle\Vehicle"
-                                :value="form.image"
-                                @input="
-                                    ($event) => {
-                                        form.image = $event;
-                                        form.clearErrors('image');
-                                    }
-                                "
-                                message="Drop files here or click to upload profile photo"
-                                acceptedFiles="image/jpeg,image/png"
-                                @error="
-                                    ($event) => {
-                                        if ($event && $event[0]) {
-                                            form.setError('image', $event[0]);
-                                        }
-                                    }
-                                "
-                            >
-                            </dropzone>
-                            <div v-else>
-                                <div class="dropzone" ref="dropzone">
-                                    <div class="dz-message needsclick">
-                                        Please Wait
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div
-                                class="v-invalid-feedback"
-                                v-if="form.errors.image"
-                            >
-                                {{ form.errors.image }}
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="">Car Model <span class="required">*</span></label>
-                            <input 
-                                type="text" 
-                                class="form-control" 
-                                v-model="form.model" 
-                                @input="
-                                ($event) => {
-                                    form.clearErrors('model');
-                                    validateForm(
-                                        ['required'],
-                                        form,
-                                        $event.target.value,
-                                        'model'
-                                    );
-                                }" 
-                                placeholder="Enter Car Model" 
-                                :class="{'is-invalid': form.errors.model,}" 
-                            />
-                            <div class="invalid-feedback">
-                                {{ form.errors.model }}
                             </div>
                         </div>
 
@@ -219,6 +184,7 @@ let {
                                 }" 
                                 placeholder="Enter Color" 
                                 :class="{'is-invalid': form.errors.color,}" 
+                                disabled
                             />
                             <div class="invalid-feedback">
                                 {{ form.errors.color }}
@@ -244,9 +210,50 @@ let {
                                 placeholder="Enter Year Model" 
                                 :class="{
                                 'is-invalid': form.errors.year,}" 
+                                disabled
                             />
                             <div class="invalid-feedback">
                                 {{ form.errors.year }}
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4 dropzone-profile-photo">
+                            <label for="name">Upload Photo</label>
+                            <dropzone
+                                collection="image"
+                                v-if="isLoadingComponents"
+                                :url="route('api.media.upload')"
+                                type="profile"
+                                model="Vehicle\Vehicle"
+                                :value="form.image"
+                                @input="($event) => {
+                                        form.image = $event;
+                                        form.clearErrors('image');
+                                    }
+                                    "
+                                message="Drop files here or click to upload profile photo"
+                                acceptedFiles="image/jpeg,image/png"
+                                @error="($event) => {
+                                        if ($event && $event[0]) {
+                                            form.setError('image', $event[0]);
+                                        }
+                                    }
+                                    "
+                            >
+                            </dropzone>
+                            <div v-else>
+                                <div class="dropzone" ref="dropzone">
+                                    <div class="dz-message needsclick">
+                                        Please Wait
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="v-invalid-feedback"
+                                v-if="form.errors.image"
+                            >
+                                {{ form.errors.image }}
                             </div>
                         </div>
 
