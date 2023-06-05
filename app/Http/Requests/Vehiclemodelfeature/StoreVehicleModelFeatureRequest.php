@@ -27,7 +27,6 @@ class StoreVehicleModelFeatureRequest extends FormRequest
             "model" => ["required"],
             "year" => ["required"],
             "color" => ["required"],
-            "image" => ["nullable"],
             "full_name" => ["required"],
         ];
     }
