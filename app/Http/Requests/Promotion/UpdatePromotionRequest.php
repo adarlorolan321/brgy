@@ -9,9 +9,9 @@ class UpdatePromotionRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize()
     {
-        return auth()->user()->can("update promotion");
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class UpdatePromotionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["required"],"promoter_name" => ["required"],"description" => ["required"],"lat" => ["required"],"lng" => ["required"],"expiration_date" => ["required"],"image" => ["required"],"distance" => ["required"],
+            "name" => ["required"],
+            "promoter_name" => ["required"],
+            "description" => ["required"],
+            "lat" => ["required"],
+            "lng" => ["required"],
+            "expiration_date" => ["required"],
+            "distance" => ["required"],
         ];
     }
 }
