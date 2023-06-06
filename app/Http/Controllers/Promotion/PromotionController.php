@@ -7,6 +7,7 @@ use App\Http\Resources\Promotion\PromotionListResource;
 use App\Models\Promotion\Promotion;
 use App\Http\Requests\Promotion\StorePromotionRequest;
 use App\Http\Requests\Promotion\UpdatePromotionRequest;
+use App\Models\Media;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -56,10 +57,10 @@ class PromotionController extends Controller
 
         if(count($data) <= 0 && $page > 1)
         {
-            return redirect()->route('promotions.index', ['page' => 1]);
+            return redirect()->route('promotion.index', ['page' => 1]);
         }
 
-        return Inertia::render('Admin/Promotion', $props);
+        return Inertia::render('Admin/Promotion/Index', $props);
     }
 
     /**
@@ -75,8 +76,17 @@ class PromotionController extends Controller
      */
     public function store(StorePromotionRequest $request)
     {
-        $data = Promotion::create($request->validated());
+
+        $params = $request->validated();
+        $data = Promotion::create($params);
         sleep(1);
+
+        if (isset($request->input('image', [])['id'])) {
+            Media::where('id', $request->input('image', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        }
 
         if ($request->wantsJson()) {
             return new PromotionListResource($data);
@@ -120,6 +130,19 @@ class PromotionController extends Controller
         $data = Promotion::findOrFail($id);
         $data->update($request->validated());
         sleep(1);
+
+        if (isset($request->input('image', [])['id'])) {
+            if ($request->input('image', [])['model_id'] != $data->id) {
+                $data->clearMediaCollection('image');
+            }
+            Media::where('id', $request->input('image', [])['id'])
+                ->update([
+                    'model_id' => $data->id
+                ]);
+        } else {
+            $data->clearMediaCollection('image');
+        }
+
 
         if ($request->wantsJson()) {
             return (new PromotionListResource($data))

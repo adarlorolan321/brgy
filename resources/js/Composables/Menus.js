@@ -77,6 +77,12 @@ export function useMenu() {
             icon: "ti ti-help",
             only: ["data", "params"],
         },
+        {
+            label: "Promotion",
+            route: "promotion.index",
+            icon: "ti ti-help",
+            only: ["data", "params"],
+        },
     ];
 
     return {
