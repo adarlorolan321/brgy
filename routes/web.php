@@ -58,6 +58,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::get('/vehicle-repair-logs/{id}', [App\Http\Controllers\Vehicle\VehicleController::class, 'showRepair'])->name('vehicle-repair.log');
         Route::get('/vehicle-rescue-logs/{id}', [App\Http\Controllers\Vehicle\VehicleController::class, 'showRescue'])->name('vehicle-rescue.log');
+        Route::get('/nearest-distance', [PromotionController::class, 'getNearest'])->name('nearest-distance');
+
 
         Route::resources([
             'vehicle_brands' => VehicleBrandController::class,

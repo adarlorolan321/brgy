@@ -54,7 +54,7 @@ Route::prefix('v1')->name('api.')->middleware('auth:sanctum')->group(function ()
     
     
     Route::post('/media/upload', [MediaController::class, 'upload'])->name('media.upload');
-
+    Route::get('/nearest-distance', [PromotionController::class, 'getNearest'])->name('nearest-distance');
     Route::resources([
         'vehicle_brands' => VehicleBrandController::class,
         'vehicle_types' => VehicleTypeController::class,

@@ -8,7 +8,7 @@ use App\Models\Promotion\Promotion;
 use App\Http\Requests\Promotion\StorePromotionRequest;
 use App\Http\Requests\Promotion\UpdatePromotionRequest;
 use App\Models\Media;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -19,13 +19,13 @@ class PromotionController extends Controller
      */
     public function index(Request $request)
     {
-        
+
         $page = $request->input('page', 1); // default 1
         $perPage = $request->input('perPage', 5); // default 50
         $queryString = $request->input('query', null);
         $sort = explode('.', $request->input('sort', 'distance'));
         $order = $request->input('order', 'asc');
-
+        $distance =  $request->input('distance', 5);
         $data = Promotion::query()
             ->with([])
             ->where(function ($query) use ($queryString) {
@@ -55,8 +55,7 @@ class PromotionController extends Controller
             return json_encode($props);
         }
 
-        if(count($data) <= 0 && $page > 1)
-        {
+        if (count($data) <= 0 && $page > 1) {
             return redirect()->route('promotion.index', ['page' => 1]);
         }
 
@@ -167,4 +166,46 @@ class PromotionController extends Controller
         }
         return redirect()->back();
     }
+
+    public function getNearest(Request $request)
+    {$page = $request->input('page', 1); // default 1
+        $perPage = $request->input('perPage', 5); // default 50
+        
+        $limit = $request->input('distance', 5); // Use the variable name $limit instead of $distance
+        
+        $latitude = '15.5958';
+        $longitude = '121.9772'; // Get the longitude value for the reference point
+        
+        $data = Promotion::query()
+            ->with([])
+            ->select('*', DB::raw('
+                (6371 * acos(
+                    cos(radians(' . $latitude . ')) *
+                    cos(radians(lat)) *
+                    cos(radians(lng) - radians(' . $longitude . ')) +
+                    sin(radians(' . $latitude . ')) *
+                    sin(radians(lat))
+                )) AS near_distance
+            '))
+            ->orderBy('near_distance') // Order the results by distance
+            ->limit($limit) // Limit the number of results to the specified limit
+            ->paginate($perPage)
+            ->withQueryString();
+        
+        $props = [
+            'data' => PromotionListResource::collection($data),
+            'params' => $request->all(),
+        ];
+        
+        if ($request->wantsJson()) {
+            return json_encode($props);
+        }
+        
+        if (count($data) <= 0 && $page > 1) {
+            return redirect()->route('promotion.index', ['page' => 1]);
+        }
+        
+        return Inertia::render('Admin/Promotion/Index', $props);
+        
+    }        
 }
